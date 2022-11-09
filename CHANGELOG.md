@@ -1,3 +1,10 @@
+## [1.0.0-alpha.2](https://github.com/flex-development/docast/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2022-11-09)
+
+
+### :sparkles: Features
+
+* **enums:** `Kind`, `Modifier` ([56636b5](https://github.com/flex-development/docast/commit/56636b539d95d0dbe2f439caf076dd99d63c707c))
+
 ## 1.0.0-alpha.1 (2022-11-09)
 
 
