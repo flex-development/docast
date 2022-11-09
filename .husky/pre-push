@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Pre-Push Workflow
+
+yarn check:types
+yarn build
