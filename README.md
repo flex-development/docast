@@ -173,7 +173,6 @@ interface Context {
   identifier: string
   kind: string
   members: [string]
-  modifiers: [string]
   parent: string?
   position: UnistPosition
 }

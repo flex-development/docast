@@ -28,11 +28,6 @@ interface Context {
   members: string[]
 
   /**
-   * Modifier keywords.
-   */
-  modifiers: string[]
-
-  /**
    * Segment parent.
    */
   parent: Nullable<string>
