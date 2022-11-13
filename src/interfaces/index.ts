@@ -4,4 +4,5 @@
  */
 
 export type { default as Context } from './context'
+export type { default as Point } from './point'
 export type { default as Position } from './position'
