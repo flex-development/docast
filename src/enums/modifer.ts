@@ -11,7 +11,7 @@
 enum Modifier {
   ABSTRACT = 'abstract',
   ASYNC = 'async',
-  DECLARE = 'delcare',
+  DECLARE = 'declare',
   DEFAULT = 'default',
   EXPORT = 'export',
   OVERRIDE = 'override',
