@@ -1,3 +1,15 @@
+## [1.0.0-alpha.4](https://github.com/flex-development/docast/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2022-11-13)
+
+
+### :bug: Fixes
+
+* **enums:** typo in `Modifier.DECLARE` value ([14c75c2](https://github.com/flex-development/docast/commit/14c75c2f3c3814e78b70a09c84333ae22807462b))
+
+
+### :zap: Refactors
+
+* remove `modifiers` from comment context ([5bbe9f3](https://github.com/flex-development/docast/commit/5bbe9f3f266379047cda06cf9c1e37aef693a7f0))
+
 ## [1.0.0-alpha.3](https://github.com/flex-development/docast/compare/1.0.0-alpha.2...1.0.0-alpha.3) (2022-11-13)
 
 
