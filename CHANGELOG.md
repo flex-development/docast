@@ -1,3 +1,10 @@
+## [1.0.0-alpha.3](https://github.com/flex-development/docast/compare/1.0.0-alpha.2...1.0.0-alpha.3) (2022-11-13)
+
+
+### :sparkles: Features
+
+* **interfaces:** `Point` ([7b2fac1](https://github.com/flex-development/docast/commit/7b2fac1ec94cecc90784914f7d58bdcbdf20ad70))
+
 ## [1.0.0-alpha.2](https://github.com/flex-development/docast/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2022-11-09)
 
 
