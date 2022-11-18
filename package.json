@@ -1,7 +1,7 @@
 {
   "name": "@flex-development/docast",
   "description": "Docblock Abstract Syntax Tree format",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "keywords": [
     "ast",
     "doc",

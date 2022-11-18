@@ -1,3 +1,10 @@
+## [1.0.0-alpha.5](https://github.com/flex-development/docast/compare/1.0.0-alpha.4...1.0.0-alpha.5) (2022-11-17)
+
+
+### :zap: Refactors
+
+* **enums:** `Kind.MODULE_DECLARATION` -> `Kind.MODULE` ([49ddaa3](https://github.com/flex-development/docast/commit/49ddaa3975618dbda6eec5fd2efbed6219afedad))
+
 ## [1.0.0-alpha.4](https://github.com/flex-development/docast/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2022-11-13)
 
 
