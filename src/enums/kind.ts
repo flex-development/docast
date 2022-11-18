@@ -9,6 +9,7 @@
  * @enum {Lowercase<string>}
  */
 enum Kind {
+  ACCESSOR = 'accessor',
   CLASS = 'class',
   CONST = 'const',
   CONSTRUCTOR = 'constructor',
