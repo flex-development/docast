@@ -28,6 +28,7 @@ enum Kind {
   PROPERTY_DECLARATION = 'property-declaration',
   PROPERTY_SIGNATURE = 'property-signature',
   SET = 'set',
+  STATEMENT = 'statement',
   TYPE = 'type',
   UNKNOWN = '',
   VAR = 'var'
