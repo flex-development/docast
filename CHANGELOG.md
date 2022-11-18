@@ -1,3 +1,18 @@
+## [1.0.0-alpha.7](https://github.com/flex-development/docast/compare/1.0.0-alpha.6...1.0.0-alpha.7) (2022-11-18)
+
+
+### :sparkles: Features
+
+* **enums:** `Kind.ACCESSOR` ([f0feb9a](https://github.com/flex-development/docast/commit/f0feb9ab2f157e5373c81eb819e28f885db4b8d4))
+
+
+### :zap: Refactors
+
+* **enums:** `Kind.CONST_ENUM` -> `Kind.ENUM_CONST` ([5d0d32a](https://github.com/flex-development/docast/commit/5d0d32a24c43228aab0c52030c1d85f4fbd01c48))
+* **enums:** `Kind.ENUM_MEMBER` -> `Kind.MEMBER` ([f992cd1](https://github.com/flex-development/docast/commit/f992cd14bf52630a34f52d3e4e3ae18fb7f2d725))
+* **enums:** `Kind.METHOD_DECLARATION`, `Kind.METHOD_SIGNATURE` -> `Kind.METHOD` ([179070b](https://github.com/flex-development/docast/commit/179070b209b9e4112358407767ca99f14b466579))
+* **enums:** `Kind.PROPERTY_DECLARATION`, `Kind.PROPERTY_SIGNATURE` -> `Kind.PROPERTY` ([bca6e37](https://github.com/flex-development/docast/commit/bca6e3734a39311485dde66ae44ae0ed3533102c))
+
 ## [1.0.0-alpha.6](https://github.com/flex-development/docast/compare/1.0.0-alpha.5...1.0.0-alpha.6) (2022-11-18)
 
 
