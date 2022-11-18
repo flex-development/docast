@@ -23,7 +23,7 @@ enum Kind {
   LET = 'let',
   METHOD_DECLARATION = 'method-declaration',
   METHOD_SIGNATURE = 'method-signature',
-  MODULE_DECLARATION = 'module-declaration',
+  MODULE = 'module',
   NAMESPACE = 'namespace',
   PROPERTY_DECLARATION = 'property-declaration',
   PROPERTY_SIGNATURE = 'property-signature',
