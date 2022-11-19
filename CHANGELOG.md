@@ -1,3 +1,15 @@
+## [1.0.0-alpha.8](https://github.com/flex-development/docast/compare/1.0.0-alpha.7...1.0.0-alpha.8) (2022-11-18)
+
+
+### :package: Build
+
+* **deps-dev:** bump typescript from 4.9.1-beta to 4.9.3 ([6a385b5](https://github.com/flex-development/docast/commit/6a385b582941e7718142bfecc9be3dcf673c8b32))
+
+
+### :zap: Refactors
+
+* remove `members` from comment context ([7bbd227](https://github.com/flex-development/docast/commit/7bbd227eb9e90e2e3630166733688afd7cbbec67))
+
 ## [1.0.0-alpha.7](https://github.com/flex-development/docast/compare/1.0.0-alpha.6...1.0.0-alpha.7) (2022-11-18)
 
 
