@@ -172,7 +172,6 @@ is a [*leaf*][20].
 interface Context {
   identifier: string
   kind: string
-  members: [string]
   parent: string?
   position: UnistPosition
 }

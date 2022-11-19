@@ -23,11 +23,6 @@ interface Context {
   kind: string
 
   /**
-   * Segment members.
-   */
-  members: string[]
-
-  /**
    * Segment parent.
    */
   parent: Nullable<string>
