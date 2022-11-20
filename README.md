@@ -136,6 +136,7 @@ contain [**inline tag**](#inlinetag) nodes.
 interface BlockTag <: Parent {
   children: [InlineTag]
   tag: string
+  text: string
   type: 'block-tag'
   value: string
 }

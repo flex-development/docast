@@ -36,6 +36,11 @@ interface BlockTag<Data extends unist.Data = unist.Data>
   tag: string
 
   /**
+   * Text after {@linkcode tag}.
+   */
+  text: string
+
+  /**
    * Node variant.
    */
   type: Type.BLOCK_TAG
