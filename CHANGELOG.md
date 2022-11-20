@@ -1,3 +1,11 @@
+## [1.0.0-alpha.9](https://github.com/flex-development/docast/compare/1.0.0-alpha.8...1.0.0-alpha.9) (2022-11-19)
+
+
+### :sparkles: Features
+
+* **nodes:** `BlockTag#text` ([0b76065](https://github.com/flex-development/docast/commit/0b76065b4b29077aaea9ae2749ddb021e2fb10a4))
+* **nodes:** `InlineTag#text` ([0558cd7](https://github.com/flex-development/docast/commit/0558cd7df5bb52b56ec0f2c35886f65807346837))
+
 ## [1.0.0-alpha.8](https://github.com/flex-development/docast/compare/1.0.0-alpha.7...1.0.0-alpha.8) (2022-11-18)
 
 
