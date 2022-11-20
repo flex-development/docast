@@ -153,6 +153,7 @@ comment](#docblock-comment).
 ```idl
 interface InlineTag <: Node {
   tag: string
+  text: string
   type: 'inline-tag'
   value: string
 }

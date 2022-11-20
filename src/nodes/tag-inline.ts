@@ -36,6 +36,11 @@ interface InlineTag<Data extends unist.Data = unist.Data> extends Node<Data> {
   tag: string
 
   /**
+   * Text after {@linkcode tag}.
+   */
+  text: string
+
+  /**
    * Node variant.
    */
   type: Type.INLINE_TAG
