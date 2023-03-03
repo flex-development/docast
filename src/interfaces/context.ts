@@ -3,7 +3,8 @@
  * @module docast/interfaces/Context
  */
 
-import type { Nullable } from '@flex-development/tutils'
+import type { Kind } from '#src/enums'
+import type { LiteralUnion, Nullable } from '@flex-development/tutils'
 import type Position from './position'
 
 /**
@@ -20,7 +21,7 @@ interface Context {
   /**
    * Segment syntax kind.
    */
-  kind: string
+  kind: LiteralUnion<Kind, 'string'>
 
   /**
    * Segment parent.

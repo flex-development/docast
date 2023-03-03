@@ -886,7 +886,8 @@ const config = {
         expectTypeOf: true
       },
       rules: {
-        '@typescript-eslint/ban-types': 0
+        '@typescript-eslint/ban-types': 0,
+        '@typescript-eslint/no-redundant-type-constituents': 0
       }
     },
     {
