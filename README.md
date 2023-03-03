@@ -12,8 +12,9 @@
 
 ***
 
-**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][1]. It
-implements the [**unist**][2] spec.
+**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][1].
+
+It implements the [**unist**][2] spec.
 
 ## Contents
 
