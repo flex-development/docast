@@ -2,10 +2,6 @@
 
 <!-- A clear and concise description of your changes. -->
 
-## Tests
-
-<!-- What did you test? List tests, include snippet from test suites, or write "N/A" if tests were not needed. -->
-
 ## Linked issues
 
 <!--
