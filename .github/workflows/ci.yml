@@ -57,7 +57,7 @@ jobs:
         uses: hmarr/debug-action@v2.1.0
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
@@ -88,7 +88,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
           ref: ${{ env.REF }}
@@ -114,7 +114,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
           ref: ${{ env.REF }}
@@ -137,7 +137,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
@@ -164,7 +164,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
@@ -194,7 +194,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
@@ -230,7 +230,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
@@ -268,7 +268,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ env.REF }}
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
         with:
           ref: ${{ env.REF }}
       - id: node
