@@ -9,6 +9,7 @@ dessant
 docast
 dohm
 fbca
+ggshield
 gpgsign
 hmarr
 iife
