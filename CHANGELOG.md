@@ -1,3 +1,10 @@
+## [1.0.0-alpha.11](https://github.com/flex-development/docast/compare/1.0.0-alpha.10...1.0.0-alpha.11) (2023-03-03)
+
+
+### :bug: Fixes
+
+* **interfaces:** [`Point`] ensure `offset` is a `number` ([6a9fcae](https://github.com/flex-development/docast/commit/6a9fcae5fb68affa120d7fd51fdd47b212ee5d22))
+
 ## [1.0.0-alpha.10](https://github.com/flex-development/docast/compare/1.0.0-alpha.9...1.0.0-alpha.10) (2023-03-03)
 
 
