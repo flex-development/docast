@@ -3,8 +3,7 @@
  * @module docast/nodes/Parent
  */
 
-import type { Type } from '#src/enums'
-import type { Child } from '#src/types'
+import type { Child, ParentType } from '#src/types'
 import type unist from 'unist'
 import type Node from './node'
 
@@ -34,9 +33,9 @@ interface Parent<
   /**
    * Node variant.
    *
-   * @see [`Type`]({@link ../enums/type.ts})
+   * @see [`ParentType`]({@link ../types/type-parent.ts})
    */
-  type: Type.BLOCK_TAG | Type.COMMENT | Type.IMPLICIT_DESCRIPTION | Type.ROOT
+  type: ParentType
 }
 
 export type { Parent as default }
