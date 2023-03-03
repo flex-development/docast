@@ -61,6 +61,9 @@
     "typecheck": "vitest typecheck --run",
     "typecheck:watch": "vitest typecheck"
   },
+  "dependencies": {
+    "@flex-development/tutils": "6.0.0-alpha.10"
+  },
   "devDependencies": {
     "@commitlint/cli": "17.4.4",
     "@commitlint/types": "17.4.4",
@@ -68,7 +71,6 @@
     "@flex-development/mkbuild": "1.0.0-alpha.16",
     "@flex-development/mlly": "1.0.0-alpha.15",
     "@flex-development/pathe": "1.0.3",
-    "@flex-development/tutils": "6.0.0-alpha.10",
     "@graphql-eslint/eslint-plugin": "3.16.1",
     "@types/chai": "4.3.4",
     "@types/conventional-changelog": "3.1.1",
@@ -137,7 +139,6 @@
     "yaml-eslint-parser": "1.1.0"
   },
   "peerDependencies": {
-    "@flex-development/tutils": ">=5.0.1",
     "@types/unist": ">=2.0.6"
   },
   "resolutions": {
