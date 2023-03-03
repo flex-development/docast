@@ -14,6 +14,11 @@ import type unist from 'unist'
  *
  * @extends {Required<unist.Point>}
  */
-interface Point extends Required<unist.Point> {}
+interface Point extends Required<unist.Point> {
+  /**
+   * Index of character in a source file (0-indexed integer).
+   */
+  offset: number
+}
 
 export type { Point as default }

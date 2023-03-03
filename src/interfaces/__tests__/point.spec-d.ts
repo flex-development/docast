@@ -10,4 +10,8 @@ describe('unit-d:interfaces/Point', () => {
   it('should extend Required<unist.Point>', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<Required<unist.Point>>()
   })
+
+  it('should match [offset: number]', () => {
+    expectTypeOf<TestSubject>().toHaveProperty('offset').toBeNumber()
+  })
 })
