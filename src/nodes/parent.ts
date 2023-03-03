@@ -4,12 +4,9 @@
  */
 
 import type { Type } from '#src/enums'
+import type { Child } from '#src/types'
 import type unist from 'unist'
-import type Comment from './comment'
-import type ImplicitDescription from './implicit-description'
 import type Node from './node'
-import type BlockTag from './tag-block'
-import type InlineTag from './tag-inline'
 
 /**
  * **Parent** ([**UnistParent**][1]) represents an abstract interface in docast
@@ -18,17 +15,13 @@ import type InlineTag from './tag-inline'
  * [1]: https://github.com/syntax-tree/unist#parent
  * [2]: https://github.com/syntax-tree/unist#child
  *
- * @template Child - Child node type
+ * @template ChildNode - Child node type
  * @template Data - Information from the ecosystem
  *
  * @extends {Node<Data>}
  */
 interface Parent<
-  Child extends BlockTag | Comment | ImplicitDescription | InlineTag =
-    | BlockTag
-    | Comment
-    | ImplicitDescription
-    | InlineTag,
+  ChildNode extends Child = Child,
   Data extends unist.Data = unist.Data
 > extends Node<Data> {
   /**
@@ -36,7 +29,7 @@ interface Parent<
    *
    * [1]: https://github.com/syntax-tree/unist#child
    */
-  children: Child[]
+  children: ChildNode[]
 
   /**
    * Node variant.
