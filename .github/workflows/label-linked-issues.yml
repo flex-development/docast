@@ -62,7 +62,7 @@ jobs:
               }
             }
           owner: ${{ github.repository_owner }}
-          pr: ${{ github.event.inputs.pr || github.event.number }}
+          pr: ${{ github.event.inputs.pr || github.event.pull_request.number }}
           repo: ${{ github.event.repository.name }}
       - id: label
         name: Label linked issues

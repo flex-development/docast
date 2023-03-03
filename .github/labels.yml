@@ -30,6 +30,14 @@
   description: dependency updates
   color: 74cefc
 
+- name: scope:esm
+  description: es modules
+  color: 74cefc
+
+- name: scope:install
+  description: package install
+  color: 74cefc
+
 - name: scope:nodes
   description: syntax tree nodes
   color: 74cefc
@@ -40,6 +48,10 @@
 
 - name: scope:spec
   description: unist specification
+  color: 74cefc
+
+- name: scope:tests
+  description: testing
   color: 74cefc
 
 - name: scope:ts
@@ -95,6 +107,10 @@
 
 - name: status:stale
   description: superseded by different issue, pull request, or discussion
+  color: e7034b
+
+- name: status:triaged
+  description: bug confirmed
   color: e7034b
 
 - name: status:wip

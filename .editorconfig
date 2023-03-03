@@ -26,9 +26,17 @@ trim_trailing_whitespace = true
 [*.hbs]
 max_line_length = 100
 
+# markdown
+[*.md]
+max_line_length = 120
+
 # shellscript
 [*.sh]
 max_line_length = 100
+
+# snapshots
+[*.snap]
+max_line_length = 130
 
 # yaml
 [*.yml]

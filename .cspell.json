@@ -13,25 +13,30 @@
   "failFast": false,
   "flagWords": [],
   "ignorePaths": [
-    "**/.gitignore",
+    "**/*.log",
+    "**/*.snap",
+    "**/.*ignore",
+    "**/.gitconfig",
+    "**/CHANGELOG.md",
+    "**/LICENSE.md",
     ".cspell.json",
-    ".env*",
     ".git/",
     ".husky/_/",
+    ".vscode/settings.json",
     ".yarn/",
-    "CHANGELOG.md",
-    "LICENSE.md",
-    "dist/",
     "patches/",
     "yarn.lock"
   ],
-  "ignoreRegExpList": ["/from\\s+(['\"]).*\\1/"],
+  "ignoreRegExpList": [
+    "/@flex-development\\/.*/",
+    "/from\\s+(['\"]).*\\1/",
+    "import\\(.*\\)"
+  ],
   "ignoreWords": [],
   "language": "en-US",
   "patterns": [],
   "readonly": true,
   "useGitignore": true,
   "usePnP": false,
-  "version": "0.2",
-  "words": ["docast", "fldv"]
+  "version": "0.2"
 }
