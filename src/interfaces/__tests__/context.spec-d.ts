@@ -13,10 +13,10 @@ describe('unit-d:interfaces/Context', () => {
     expectTypeOf<TestSubject>().toHaveProperty('identifier').toBeString()
   })
 
-  it('should match [kind: LiteralUnion<Kind, "string">]', () => {
+  it('should match [kind: LiteralUnion<Kind, string>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('kind')
-      .toEqualTypeOf<LiteralUnion<Kind, 'string'>>()
+      .toEqualTypeOf<LiteralUnion<Kind, string>>()
   })
 
   it('should match [parent: Nullable<string>]', () => {

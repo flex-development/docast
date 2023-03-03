@@ -21,7 +21,7 @@ interface Context {
   /**
    * Segment syntax kind.
    */
-  kind: LiteralUnion<Kind, 'string'>
+  kind: LiteralUnion<Kind, string>
 
   /**
    * Segment parent.
