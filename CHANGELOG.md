@@ -1,3 +1,65 @@
+## [1.0.0-alpha.10](https://github.com/flex-development/docast/compare/1.0.0-alpha.9...1.0.0-alpha.10) (2023-03-03)
+
+
+### :package: Build
+
+* **deps-dev:** Bump eslint-plugin-unicorn from 45.0.2 to 46.0.0 ([#20](https://github.com/flex-development/docast/issues/20)) ([74b7512](https://github.com/flex-development/docast/commit/74b7512579d93d8455a92bf570b50e26514b1511))
+* **deps:** add `@flex-development/tutils` ([17ec0c8](https://github.com/flex-development/docast/commit/17ec0c80d4602f70b1cb305195cf38e904151c8b))
+
+
+### :robot: Continuous Integration
+
+* [[@dependabot](https://github.com/dependabot)] configure private registry ([d115aaa](https://github.com/flex-development/docast/commit/d115aaab21ddf257e54a11ed87afae1e1a872e53))
+* **deps:** Bump actions/add-to-project from 0.3.0 to 0.4.0 ([#10](https://github.com/flex-development/docast/issues/10)) ([ddd86e2](https://github.com/flex-development/docast/commit/ddd86e2af3828cc9d08ad359f4f2d2c44dfb63f7))
+* **deps:** Bump actions/add-to-project from 0.4.0 to 0.4.1 ([#18](https://github.com/flex-development/docast/issues/18)) ([4e4c661](https://github.com/flex-development/docast/commit/4e4c6615f500c2ae407ab39ef5031af0251b8808))
+* **deps:** Bump actions/checkout from 3.1.0 to 3.2.0 ([#13](https://github.com/flex-development/docast/issues/13)) ([5adbec7](https://github.com/flex-development/docast/commit/5adbec715cd7c67eb99598d0b8a10933c07d9b46))
+* **deps:** Bump actions/checkout from 3.2.0 to 3.3.0 ([#15](https://github.com/flex-development/docast/issues/15)) ([eb77407](https://github.com/flex-development/docast/commit/eb774074daaf4c8e6179353ad4eafdfcbbe6f2e7))
+* **deps:** Bump actions/github-script from 6.3.3 to 6.4.0 ([#17](https://github.com/flex-development/docast/issues/17)) ([d0cbcfa](https://github.com/flex-development/docast/commit/d0cbcfa57d00028c25cb43d6b68bd387ed9927ce))
+* **deps:** Bump actions/setup-node from 3.5.1 to 3.6.0 ([#14](https://github.com/flex-development/docast/issues/14)) ([b900852](https://github.com/flex-development/docast/commit/b9008524350e84c9ebea053adea394d3b20a0517))
+* **deps:** Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 ([#16](https://github.com/flex-development/docast/issues/16)) ([792079c](https://github.com/flex-development/docast/commit/792079c5c1ccdf830b1a97de516f8de911723fad))
+* **deps:** Bump dessant/lock-threads from 3.0.0 to 4.0.0 ([#12](https://github.com/flex-development/docast/issues/12)) ([1fc0a90](https://github.com/flex-development/docast/commit/1fc0a90404b9f8ff21d494be4e6dac5ea721dbc2))
+* **deps:** Bump flex-development/dist-tag-action from 1.1.1 to 1.1.2 ([#11](https://github.com/flex-development/docast/issues/11)) ([775ee49](https://github.com/flex-development/docast/commit/775ee4906a1fb090118e2393d9a0bd82103f2d81))
+* **workflows:** [`add-to-project`] add items from repo admin account ([3e1eee8](https://github.com/flex-development/docast/commit/3e1eee8a2b13df77c5e0282ddfe0fe3dbe8fceef))
+* **workflows:** [`add-to-project`] run workflow when pr is synchronized ([2630af9](https://github.com/flex-development/docast/commit/2630af98888a13b2af52e9ff82b2ccb7e356b1e5))
+* **workflows:** [`approve-pr`] refactor approval step conditional ([c42da43](https://github.com/flex-development/docast/commit/c42da43322115ff49dca81d7795e813c0f74b1bb))
+* **workflows:** [`ci`] split `ci` job into multiple jobs ([704144b](https://github.com/flex-development/docast/commit/704144bd7d52a46450898ac91b29330b7c61f4a4))
+* **workflows:** [`dependabot-auto`] sign lockfile fix commit ([c3961db](https://github.com/flex-development/docast/commit/c3961dbc19367142e60435abc468325f802fe793))
+* **workflows:** [`integrity`] update `pull_request` event activity types ([723580d](https://github.com/flex-development/docast/commit/723580dbe7f6c983f66f98b996cf917e8e637943))
+* **workflows:** [`release`] publish release from repo admin account ([b5fca66](https://github.com/flex-development/docast/commit/b5fca66f93c8ce33302e795d2006be9666ddfea8))
+* **workflows:** add `auto-merge` ([b17cfd3](https://github.com/flex-development/docast/commit/b17cfd33bdecd4ec90f49f2e4ae7ce681258666c))
+* **workflows:** add `typescript-canary` ([c60f6b1](https://github.com/flex-development/docast/commit/c60f6b14680a2f8bfba5ecb4b76956d7e41d63be))
+* **workflows:** use environment files ([2af1e4b](https://github.com/flex-development/docast/commit/2af1e4b28acebef7103e8c8a84284cd14cf8587a))
+
+
+### :pencil: Documentation
+
+* update overview formatting ([68e404b](https://github.com/flex-development/docast/commit/68e404bf698ee71b695135a2d23e10a9df83fd2f))
+
+
+### :sparkles: Features
+
+* **types:** `Child` ([f28274d](https://github.com/flex-development/docast/commit/f28274ddfc0f07894959b6dfb9b737f4dec5d5f4))
+* **types:** `ParentType` ([fa6d75b](https://github.com/flex-development/docast/commit/fa6d75bb2879d2c84d59df694b24cb1885ae98db))
+
+
+### :bug: Fixes
+
+* **install:** [git] make `postinstall` script work with git install ([b18b198](https://github.com/flex-development/docast/commit/b18b198b49578c3649bcb285d4fd2312a7b2fff6))
+
+
+### :house_with_garden: Housekeeping
+
+* update config files ([bec49b3](https://github.com/flex-development/docast/commit/bec49b3caf5608d70f66aa692deaa74832817885))
+* **github:** add "package manager" dropdown to bug report template ([a4e63c0](https://github.com/flex-development/docast/commit/a4e63c0affe338eb1a68208f936036ce836aa2c9))
+* **github:** add "typescript version" input to bug report template ([9c010fe](https://github.com/flex-development/docast/commit/9c010fe1d299eb509b68d36a0559d441d1b9a3cc))
+* **github:** configure sponsor button ([3c86791](https://github.com/flex-development/docast/commit/3c86791192ec79c61a8d977bd33dd0be366a3e44))
+* **github:** remove "tests" section from pull request template ([0dd9d60](https://github.com/flex-development/docast/commit/0dd9d604d4f3f2017181d99304cfe3d42bf31c6f))
+
+
+### :white_check_mark: Testing
+
+* **ts:** add remaining type tests ([eaf2254](https://github.com/flex-development/docast/commit/eaf2254b9add2474311edb3e60e7fbe2342892f1))
+
 ## [1.0.0-alpha.9](https://github.com/flex-development/docast/compare/1.0.0-alpha.8...1.0.0-alpha.9) (2022-11-19)
 
 
