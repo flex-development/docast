@@ -1,3 +1,10 @@
+## [1.0.0-alpha.12](https://github.com/flex-development/docast/compare/1.0.0-alpha.11...1.0.0-alpha.12) (2023-03-03)
+
+
+### :bug: Fixes
+
+* **interfaces:** [`Context`] `kind` ([e0403e8](https://github.com/flex-development/docast/commit/e0403e855267a7a23b7276c6b1a69674856d8573))
+
 ## [1.0.0-alpha.11](https://github.com/flex-development/docast/compare/1.0.0-alpha.10...1.0.0-alpha.11) (2023-03-03)
 
 
