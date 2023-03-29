@@ -89,7 +89,7 @@
     "@typescript-eslint/parser": "5.57.0",
     "@vates/toggle-scripts": "1.0.0",
     "@vitest/coverage-c8": "0.29.7",
-    "@vitest/ui": "0.29.7",
+    "@vitest/ui": "0.29.8",
     "add-stream": "1.0.0",
     "chai": "4.3.7",
     "conventional-changelog": "3.1.25",
