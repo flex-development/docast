@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "composite": true,
-    "customConditions": ["require", "node"],
+    "customConditions": ["require", "node", "default"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
@@ -10,7 +10,7 @@
     "outDir": ".",
     "verbatimModuleSyntax": false
   },
-  "exclude": ["**/node_modules"],
+  "exclude": ["**/coverage", "**/dist", "**/node_modules"],
   "extends": "./tsconfig.json",
   "include": ["**/**.cjs", "**/**.cts", "**/**.json", "**/.*.cjs", "**/.*.cts"]
 }

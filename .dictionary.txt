@@ -3,7 +3,6 @@ bdougie
 bstract
 cefc
 commitlintrc
-dawidd
 dedupe
 dessant
 docast
@@ -18,7 +17,6 @@ keyid
 larsgw
 lcov
 lintstagedrc
-micnncim
 mkbuild
 mlly
 nocheck
@@ -26,9 +24,8 @@ npmrc
 nvmrc
 pathe
 pkgs
-pnpm
 preid
-syncer
+tscu
 unist
 unstub
 vates
