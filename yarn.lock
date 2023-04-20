@@ -1110,7 +1110,7 @@ __metadata:
     ts-dedent: "npm:2.2.0"
     typescript: "npm:5.0.4"
     version-bump-prompt: "npm:6.1.0"
-    vite: "npm:4.2.2"
+    vite: "npm:4.3.0"
     vite-tsconfig-paths: "npm:4.2.0"
     vitest: "npm:0.30.1"
     vitest-github-actions-reporter: "npm:0.10.0"
@@ -7345,6 +7345,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup@npm:^3.20.2":
+  version: 3.20.6
+  resolution: "rollup@npm:3.20.6"
+  dependencies:
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 88e41ebd6fe31dae81d88f20a976cbe6831fd42aa7a133a7743a5b96d54f5d0bb3b447f011caca92831db2263ca8fc5d60e1ed7ab48c0e56c85a67d0db434881
+  languageName: node
+  linkType: hard
+
 "run-async@npm:^2.4.0":
   version: 2.4.1
   resolution: "run-async@npm:2.4.1"
@@ -8465,7 +8479,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:4.2.2, vite@npm:^3.0.0 || ^4.0.0":
+"vite@npm:4.3.0":
+  version: 4.3.0
+  resolution: "vite@npm:4.3.0"
+  dependencies:
+    esbuild: "npm:^0.17.5"
+    fsevents: "npm:~2.3.2"
+    postcss: "npm:^8.4.21"
+    rollup: "npm:^3.20.2"
+  peerDependencies:
+    "@types/node": ">= 14"
+    less: "*"
+    sass: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 36971fea7ee7f70d5d6d36053af655b16f8b28fd4cc16542bcca84f85e1e9859eadd7d5cdb0e725dc186af53410e4ae79bb6522cd71028788bd6c2bb15ac2e95
+  languageName: node
+  linkType: hard
+
+"vite@npm:^3.0.0 || ^4.0.0":
   version: 4.2.2
   resolution: "vite@npm:4.2.2"
   dependencies:
