@@ -1124,7 +1124,7 @@ __metadata:
     vite-tsconfig-paths: "npm:4.2.0"
     vitest: "npm:0.31.0"
     vitest-github-actions-reporter: "npm:0.10.0"
-    yaml-eslint-parser: "npm:1.2.0"
+    yaml-eslint-parser: "npm:1.2.2"
   peerDependencies:
     "@types/unist": ">=2.0.6"
   languageName: unknown
@@ -8777,18 +8777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml-eslint-parser@npm:1.2.0":
-  version: 1.2.0
-  resolution: "yaml-eslint-parser@npm:1.2.0"
-  dependencies:
-    eslint-visitor-keys: "npm:^3.0.0"
-    lodash: "npm:^4.17.21"
-    yaml: "npm:^2.0.0"
-  checksum: 9892830884874c4c03d57369e6bd93f4fe6855ad06d590a94dac5a954f137af70f1411a428290bbb34a1ff1ce1074569c497fccd783bca5b274c70f988383f0e
-  languageName: node
-  linkType: hard
-
-"yaml-eslint-parser@npm:^1.2.1":
+"yaml-eslint-parser@npm:1.2.2, yaml-eslint-parser@npm:^1.2.1":
   version: 1.2.2
   resolution: "yaml-eslint-parser@npm:1.2.2"
   dependencies:
