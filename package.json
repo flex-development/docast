@@ -77,7 +77,7 @@
     "@flex-development/mlly": "1.0.0-alpha.15",
     "@flex-development/pathe": "1.0.3",
     "@flex-development/tsconfig-utils": "1.1.2",
-    "@graphql-eslint/eslint-plugin": "3.18.0",
+    "@graphql-eslint/eslint-plugin": "3.19.1",
     "@types/chai": "4.3.4",
     "@types/conventional-changelog": "3.1.1",
     "@types/conventional-changelog-core": "4.2.1",
