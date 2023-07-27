@@ -114,14 +114,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-validator-identifier@npm:^7.18.6, @babel/helper-validator-identifier@npm:^7.19.1":
-  version: 7.19.1
-  resolution: "@babel/helper-validator-identifier@npm:7.19.1"
-  checksum: 089fdf605ee8dfa3004cd84c69e655ff9ab8bdb4e7fa02bf0012db728c6247acb599ca1118d2f9124d7b417fc5793ee348f2da8bc64be230b3b13ba7cd4364cc
-  languageName: node
-  linkType: hard
-
-"@babel/helper-validator-identifier@npm:^7.22.5":
+"@babel/helper-validator-identifier@npm:^7.18.6, @babel/helper-validator-identifier@npm:^7.19.1, @babel/helper-validator-identifier@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/helper-validator-identifier@npm:7.22.5"
   checksum: ae436e63eca3aa0a70575a1a5ae8234307fdfe3b5c720002899bf49833c3abcde2b9b188ed10905f2c39013a95e49cc8356dd589cae80e03b39c3370c3e9de75
@@ -981,18 +974,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/eslint-utils@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@eslint-community/eslint-utils@npm:4.2.0"
-  dependencies:
-    eslint-visitor-keys: "npm:^3.3.0"
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
-  checksum: d55ae81529acb4cfea73ef2036351d1aaa331840be97bb002fc64eb59c26c18ad63e290c97d12a354ed606b1b6ee8c2d717283e9b6a18c527c9ab6cd35bf02f2
-  languageName: node
-  linkType: hard
-
-"@eslint-community/eslint-utils@npm:^4.4.0":
+"@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
   dependencies:
@@ -7521,7 +7503,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.5.2, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8":
+"semver@npm:7.5.2":
   version: 7.5.2
   resolution: "semver@npm:7.5.2"
   dependencies:
@@ -7541,7 +7523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.5.4":
+"semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.4":
   version: 7.5.4
   resolution: "semver@npm:7.5.4"
   dependencies:
