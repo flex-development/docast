@@ -29,5 +29,6 @@ tscu
 unist
 unstub
 vates
+vitest
 yarnrc
 yntax
