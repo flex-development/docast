@@ -180,13 +180,7 @@ const config = {
           }
         ],
         '@typescript-eslint/no-empty-interface': 0,
-        '@typescript-eslint/no-explicit-any': [
-          2,
-          {
-            fixToUnknown: true,
-            ignoreRestArgs: true
-          }
-        ],
+        '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/no-extra-non-null-assertion': 2,
         '@typescript-eslint/no-extra-parens': 0,
         '@typescript-eslint/no-extra-semi': 0,

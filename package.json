@@ -92,7 +92,7 @@
     "@types/node-notifier": "8.0.2",
     "@types/prettier": "2.7.3",
     "@types/semver": "7.5.0",
-    "@types/unist": "2.0.6",
+    "@types/unist": "3.0.0",
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
     "@vates/toggle-scripts": "1.0.0",

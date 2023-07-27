@@ -1105,7 +1105,7 @@ __metadata:
     "@types/node-notifier": "npm:8.0.2"
     "@types/prettier": "npm:2.7.3"
     "@types/semver": "npm:7.5.0"
-    "@types/unist": "npm:2.0.6"
+    "@types/unist": "npm:3.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.2.0"
     "@typescript-eslint/parser": "npm:6.2.0"
     "@vates/toggle-scripts": "npm:1.0.0"
@@ -2405,7 +2405,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/unist@npm:*, @types/unist@npm:2.0.6, @types/unist@npm:^2.0.2":
+"@types/unist@npm:*, @types/unist@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@types/unist@npm:3.0.0"
+  checksum: 8c6b2b50aafee9d8abeb6fd7f16b354e7d2f84771fd2c44f8e2a73924571083a5c318b490038dfac8c0cec7c23bf0a5c832e83921f47ab052cd3c9da9a09713d
+  languageName: node
+  linkType: hard
+
+"@types/unist@npm:^2.0.2":
   version: 2.0.6
   resolution: "@types/unist@npm:2.0.6"
   checksum: 4731b678e9d9ab41386b48bf67a5da9000705c6ae84cd4fc866f774004f5e8190a33117dbff95efc54b44404deaa08a421b646823b01c57db3eeb0652cdc71a9

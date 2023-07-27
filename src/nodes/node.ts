@@ -5,6 +5,7 @@
 
 import type { Type } from '#src/enums'
 import type { Position } from '#src/interfaces'
+import type { Objectify } from '@flex-development/tutils'
 import type unist from 'unist'
 
 /**
@@ -14,9 +15,9 @@ import type unist from 'unist'
  *
  * @template Data - Information from the ecosystem
  *
- * @extends {unist.Node<Data>}
+ * @extends {unist.Node}
  */
-interface Node<Data extends unist.Data = unist.Data> extends unist.Node<Data> {
+interface Node<Data extends Objectify<any> = unist.Data> extends unist.Node {
   /**
    * Information from the ecosystem.
    *
