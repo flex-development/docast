@@ -77,7 +77,7 @@
     "@flex-development/esm-types": "2.0.0",
     "@flex-development/mkbuild": "1.0.0-alpha.20",
     "@flex-development/mlly": "1.0.0-alpha.15",
-    "@flex-development/pathe": "1.0.3",
+    "@flex-development/pathe": "2.0.0",
     "@flex-development/tsconfig-utils": "1.1.2",
     "@graphql-eslint/eslint-plugin": "3.20.1",
     "@types/chai": "4.3.5",
