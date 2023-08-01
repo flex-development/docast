@@ -66,7 +66,7 @@
     "typecheck:watch": "vitest typecheck"
   },
   "dependencies": {
-    "@flex-development/tutils": "6.0.0-alpha.13"
+    "@flex-development/tutils": "6.0.0-alpha.14"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.7.0",
@@ -152,7 +152,7 @@
   },
   "resolutions": {
     "@ardatan/sync-fetch": "larsgw/sync-fetch#head=worker_threads",
-    "@flex-development/tutils": "6.0.0-alpha.13"
+    "@flex-development/tutils": "6.0.0-alpha.14"
   },
   "engines": {
     "node": ">=16.20.0",
