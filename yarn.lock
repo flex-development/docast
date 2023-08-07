@@ -1058,6 +1058,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/builtin-modules@npm:2.1.1":
+  version: 2.1.1
+  resolution: "@flex-development/builtin-modules@npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fbuiltin-modules%2F2.1.1%2F03fc38789c4465ed1f2d7973ef4c16a56016e7bd"
+  checksum: 1690c17322a463e8d506aef613a0fd121321a1358867bd2e43bd2d054f06d0c7c191624dde3c56fbf2acea5272517a542816a538a390074ec1b4e53d9e3786e4
+  languageName: node
+  linkType: hard
+
 "@flex-development/commitlint-config@npm:1.0.1":
   version: 1.0.1
   resolution: "@flex-development/commitlint-config@npm:1.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fcommitlint-config%2F1.0.1%2F802e285802fe8188c2f02f68114ca31a20b6eb6d"
@@ -1096,7 +1103,7 @@ __metadata:
     "@flex-development/decorator-regex": "npm:2.0.0"
     "@flex-development/esm-types": "npm:2.0.0"
     "@flex-development/mkbuild": "npm:1.0.0-alpha.20"
-    "@flex-development/mlly": "npm:1.0.0-alpha.15"
+    "@flex-development/mlly": "npm:1.0.0-alpha.16"
     "@flex-development/pathe": "npm:2.0.0"
     "@flex-development/tsconfig-utils": "npm:1.1.2"
     "@flex-development/tutils": "npm:6.0.0-alpha.15"
@@ -1233,6 +1240,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/export-regex@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@flex-development/export-regex@npm:2.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fexport-regex%2F2.0.0%2F22870ef7f49a1df166fc3acd506d1c62ed4b22a5"
+  checksum: e5f313c4967003e3e492fd9222c213db4ba4a8cbbb2b748c35c03f6f9f8897b679d8ffc57cc47db28ad512ad134a0e7f7bc2cdeffe956cc4e78492861b53f5d3
+  languageName: node
+  linkType: hard
+
 "@flex-development/ext-regex@npm:1.0.0":
   version: 1.0.0
   resolution: "@flex-development/ext-regex@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fext-regex%2F1.0.0%2Fe1729f6d8dfd8e62423acbdf6a7c341e5436568b"
@@ -1258,6 +1272,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/import-regex@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@flex-development/import-regex@npm:3.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fimport-regex%2F3.0.0%2F7ebf5b55cd40a85b83155f8877507fc965e92fbf"
+  checksum: d05054a335093ebb68debd2485053bc80b2904bf0fe3708acaafb7a09cc5fccd3cfb1605ffe48b6f924f7339ca2015671544c78ca8070b5cbcf2b0fb90201517
+  languageName: node
+  linkType: hard
+
 "@flex-development/is-builtin@npm:2.0.0":
   version: 2.0.0
   resolution: "@flex-development/is-builtin@npm:2.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fis-builtin%2F2.0.0%2F898339bf7e2f10df74d1472e651f43fca8b746bf"
@@ -1266,6 +1287,19 @@ __metadata:
   peerDependencies:
     "@types/node": ">=14.18.36"
   checksum: cd331f46528c0ccbd3f2a52fa5660b41a0109b28b9ad54e960de1401904f6a22eb0f472a82dc4aca4391c5b4b3f9f38344c3a415bbb655d591d121db79281f7a
+  languageName: node
+  linkType: hard
+
+"@flex-development/is-builtin@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@flex-development/is-builtin@npm:3.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fis-builtin%2F3.1.0%2F08c6d275b7e1569b7f25f320d4538dc0f44a9080"
+  dependencies:
+    "@flex-development/builtin-modules": "npm:2.1.1"
+    "@flex-development/pathe": "npm:2.0.0"
+    "@flex-development/tutils": "npm:6.0.0-alpha.12"
+  peerDependencies:
+    "@types/node": ">=16.18.23"
+  checksum: 06cabcd2f5c4744b7fb6a31cb2008b9d1e52fdf4f5a42eb57e1418ad0d861b6c1a1adb9ba3b6386840d8792f8f523cc7eedc310728e48f2f6d03808c93bf9828
   languageName: node
   linkType: hard
 
@@ -1336,6 +1370,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/mlly@npm:1.0.0-alpha.16":
+  version: 1.0.0-alpha.16
+  resolution: "@flex-development/mlly@npm:1.0.0-alpha.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fmlly%2F1.0.0-alpha.16%2F608697efb2350bd08b96c39f0118337bb607ce2a"
+  dependencies:
+    "@flex-development/errnode": "npm:2.0.0"
+    "@flex-development/export-regex": "npm:2.0.0"
+    "@flex-development/import-regex": "npm:3.0.0"
+    "@flex-development/is-builtin": "npm:3.1.0"
+    "@flex-development/pathe": "npm:2.0.0"
+    "@flex-development/pkg-types": "npm:3.0.0"
+    "@flex-development/tutils": "npm:6.0.0-alpha.15"
+  peerDependencies:
+    "@types/node": ">=16.18.23"
+    node-fetch: ">=3.3.0"
+  checksum: eb97ee6d46e8e6df20551fc933febce44c903d6570a84d63f69e156149b9538d1068d1e2f7e070d13aa48d8fb51ddecf56e5297075fce58e5d2767e0bb58cedd
+  languageName: node
+  linkType: hard
+
 "@flex-development/pathe@npm:1.0.3":
   version: 1.0.3
   resolution: "@flex-development/pathe@npm:1.0.3::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpathe%2F1.0.3%2F097d5bd49df40304b86645ee9fd50be7711eac56"
@@ -1362,6 +1414,15 @@ __metadata:
   peerDependencies:
     "@flex-development/tutils": ">=6.0.0-alpha.7"
   checksum: 7a7ce8a3289f30e0d6aa0b5e5028c308a36956f779b9baf6f2d209842b01acc2bc645f85a541125f83f461d41b15262b3af65ff6cd3b3f727679216acf0520cb
+  languageName: node
+  linkType: hard
+
+"@flex-development/pkg-types@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@flex-development/pkg-types@npm:3.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fpkg-types%2F3.0.0%2F968008bed3a097659613707916700779e4a204f1"
+  peerDependencies:
+    "@flex-development/tutils": ">=6.0.0-alpha.7"
+  checksum: a44503bccb3e389c3645e2dd907a2ea1501eb4f585f5743554d278c542cd2fbaa500cd48ec3641d7065a6955f0c07623d6b3e5a72ab1a5b96effc35703ed5175
   languageName: node
   linkType: hard
 
