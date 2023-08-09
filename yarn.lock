@@ -1114,7 +1114,7 @@ __metadata:
     "@flex-development/mkbuild": "npm:1.0.0-alpha.20"
     "@flex-development/mlly": "npm:1.0.0-alpha.17"
     "@flex-development/pathe": "npm:2.0.0"
-    "@flex-development/tsconfig-utils": "npm:2.0.0"
+    "@flex-development/tsconfig-utils": "npm:2.0.1"
     "@flex-development/tutils": "npm:6.0.0-alpha.16"
     "@graphql-eslint/eslint-plugin": "npm:3.20.1"
     "@types/chai": "npm:4.3.5"
@@ -1379,24 +1379,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/mlly@npm:1.0.0-alpha.16":
-  version: 1.0.0-alpha.16
-  resolution: "@flex-development/mlly@npm:1.0.0-alpha.16::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fmlly%2F1.0.0-alpha.16%2F608697efb2350bd08b96c39f0118337bb607ce2a"
-  dependencies:
-    "@flex-development/errnode": "npm:2.0.0"
-    "@flex-development/export-regex": "npm:2.0.0"
-    "@flex-development/import-regex": "npm:3.0.0"
-    "@flex-development/is-builtin": "npm:3.1.0"
-    "@flex-development/pathe": "npm:2.0.0"
-    "@flex-development/pkg-types": "npm:3.0.0"
-    "@flex-development/tutils": "npm:6.0.0-alpha.15"
-  peerDependencies:
-    "@types/node": ">=16.18.23"
-    node-fetch: ">=3.3.0"
-  checksum: eb97ee6d46e8e6df20551fc933febce44c903d6570a84d63f69e156149b9538d1068d1e2f7e070d13aa48d8fb51ddecf56e5297075fce58e5d2767e0bb58cedd
-  languageName: node
-  linkType: hard
-
 "@flex-development/mlly@npm:1.0.0-alpha.17":
   version: 1.0.0-alpha.17
   resolution: "@flex-development/mlly@npm:1.0.0-alpha.17::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Fmlly%2F1.0.0-alpha.17%2Fc70a88dff7afd79d6e06f8454808b4a0c11090bd"
@@ -1506,21 +1488,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@flex-development/tsconfig-utils@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@flex-development/tsconfig-utils@npm:2.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftsconfig-utils%2F2.0.0%2Fe2906ef89166239bc6bf7133182baa3c526134fc"
+"@flex-development/tsconfig-utils@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@flex-development/tsconfig-utils@npm:2.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40flex-development%2Ftsconfig-utils%2F2.0.1%2Fc501ce712cec12d15f99b3a48671a875ddfa9255"
   dependencies:
     "@flex-development/errnode": "npm:2.0.0"
-    "@flex-development/mlly": "npm:1.0.0-alpha.16"
+    "@flex-development/mlly": "npm:1.0.0-alpha.17"
     "@flex-development/pathe": "npm:2.0.0"
     "@flex-development/tsconfig-types": "npm:4.0.0"
-    "@flex-development/tutils": "npm:6.0.0-alpha.16"
+    "@flex-development/tutils": "npm:6.0.0-alpha.18"
     strip-bom: "npm:5.0.0"
     strip-json-comments: "npm:5.0.1"
   peerDependencies:
     "@types/node": ">=16.18.23"
     typescript: ">=4.7"
-  checksum: 0d870cb81bb373bf6fd7efc7ef8017d5df022b08d0c666cf2449a2cabfba53f8a5297d1a9b4416abcdb46c9989bedecad32650c20c16cf06278c9c24542a031f
+  checksum: 68dd216301aa3d7eb9ad37dcaed56eb133f36ef7ede748ffc7d88ceb827346688a5a2198018a872335bcd2f73dbd3fa4852807a7787e19295193bbc330fc77ea
   languageName: node
   linkType: hard
 
