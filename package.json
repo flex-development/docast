@@ -97,7 +97,7 @@
     "@typescript-eslint/parser": "6.7.0",
     "@vates/toggle-scripts": "1.0.0",
     "add-stream": "1.0.0",
-    "chai": "4.3.7",
+    "chai": "4.3.8",
     "conventional-changelog": "4.0.0",
     "conventional-changelog-conventionalcommits": "6.1.0",
     "conventional-changelog-core": "5.0.2",
