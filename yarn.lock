@@ -1281,7 +1281,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.7.0"
     "@vates/toggle-scripts": "npm:1.0.0"
     add-stream: "npm:1.0.0"
-    chai: "npm:4.3.7"
+    chai: "npm:4.3.8"
     conventional-changelog: "npm:4.0.0"
     conventional-changelog-conventionalcommits: "npm:6.1.0"
     conventional-changelog-core: "npm:5.0.2"
@@ -3475,7 +3475,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:4.3.7, chai@npm:^4.3.7":
+"chai@npm:4.3.8":
+  version: 4.3.8
+  resolution: "chai@npm:4.3.8"
+  dependencies:
+    assertion-error: "npm:^1.1.0"
+    check-error: "npm:^1.0.2"
+    deep-eql: "npm:^4.1.2"
+    get-func-name: "npm:^2.0.0"
+    loupe: "npm:^2.3.1"
+    pathval: "npm:^1.1.1"
+    type-detect: "npm:^4.0.5"
+  checksum: 99029db7179ccc1fd48b28bd75c17751c2de2a2cb39318164d5d06a208f3f03198c8f27660c69375a84baa334ca489546f6293585e78ee121790d9af69a7de2d
+  languageName: node
+  linkType: hard
+
+"chai@npm:^4.3.7":
   version: 4.3.7
   resolution: "chai@npm:4.3.7"
   dependencies:
