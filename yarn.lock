@@ -3475,7 +3475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:4.3.8":
+"chai@npm:4.3.8, chai@npm:^4.3.7":
   version: 4.3.8
   resolution: "chai@npm:4.3.8"
   dependencies:
@@ -3487,21 +3487,6 @@ __metadata:
     pathval: "npm:^1.1.1"
     type-detect: "npm:^4.0.5"
   checksum: 99029db7179ccc1fd48b28bd75c17751c2de2a2cb39318164d5d06a208f3f03198c8f27660c69375a84baa334ca489546f6293585e78ee121790d9af69a7de2d
-  languageName: node
-  linkType: hard
-
-"chai@npm:^4.3.7":
-  version: 4.3.7
-  resolution: "chai@npm:4.3.7"
-  dependencies:
-    assertion-error: "npm:^1.1.0"
-    check-error: "npm:^1.0.2"
-    deep-eql: "npm:^4.1.2"
-    get-func-name: "npm:^2.0.0"
-    loupe: "npm:^2.3.1"
-    pathval: "npm:^1.1.1"
-    type-detect: "npm:^4.0.5"
-  checksum: 07600143d9c0530811acf71e3fe3d613b13c627d19890e220a01064d9187c49ccd6be76e572a90e061f010f940ca380e9364b383e8a8a3f83313890986f49414
   languageName: node
   linkType: hard
 
