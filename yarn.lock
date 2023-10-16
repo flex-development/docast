@@ -8868,17 +8868,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-argv@npm:0.3.2":
+"string-argv@npm:0.3.2, string-argv@npm:^0.3.1":
   version: 0.3.2
   resolution: "string-argv@npm:0.3.2"
   checksum: c18600f4bf449f68a64c3f265857eb1a0776b6fd5cbccc7c8d32b2aaee01a724982989600a10842a456bd57ec0c82dffa26b84f46de823f84c9e5f24fb20dfd6
-  languageName: node
-  linkType: hard
-
-"string-argv@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "string-argv@npm:0.3.1"
-  checksum: a15b435702d7e13b85ed88b4d1ad566a8b085585c86eb4e18b2cb32d38565d0b04c69da30c9fbb968ed02628bed97a296984bc9ab703f8fd467dc07b213fb326
   languageName: node
   linkType: hard
 
@@ -10101,17 +10094,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.3.2":
+"yaml@npm:2.3.2, yaml@npm:^2.0.0":
   version: 2.3.2
   resolution: "yaml@npm:2.3.2"
   checksum: e75e2ecbcd654a165ab2e5f5d29873fa2db1a3599e005475d42a975207e507c9c62232257dc0ce16c75e146559a30047d9dc961aa9c45291298db66db3906ff1
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.0.0":
-  version: 2.2.2
-  resolution: "yaml@npm:2.2.2"
-  checksum: afa383e3cb2fcd195f99eab4942c08aaa6fbb87a2cced34a5bd0c850224d4b98684706a7564455aedf2dfce0accd7e45417d9f2942e01eba2cfb83f689b8ceff
   languageName: node
   linkType: hard
 
