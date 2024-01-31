@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2022"
   },
+  "exclude": ["**/coverage", "**/dist", "**/node_modules"],
   "extends": "./tsconfig.json",
   "include": [
     "**/**.cts",

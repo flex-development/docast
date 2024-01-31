@@ -45,7 +45,7 @@ yarn-error.log*
 # Testing
 # ------------------------------------------------------------------------------
 **/*config.*.timestamp*
-**/__tests__/report.json
+**/__tests__/report.*
 **/coverage/
 **/tsconfig*temp.json
 *.lcov
@@ -58,6 +58,7 @@ codecov
 # Builds
 # ------------------------------------------------------------------------------
 **/.temp/
+**/.vitepress/cache
 **/dist/
 !**/__fixtures__/**/*.log
 !**/__fixtures__/**/dist/

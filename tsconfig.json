@@ -51,6 +51,20 @@
     "verbatimModuleSyntax": true
   },
   "exclude": ["**/coverage", "**/dist", "**/node_modules"],
-  "include": ["**/**.mjs", "**/**.mts", "**/**.ts"],
+  "include": [
+    "**/**.mjs",
+    "**/**.mts",
+    "**/**.ts",
+    "**/.*.mjs",
+    "**/.*.mts",
+    "**/.*.ts"
+  ],
+  "mdx": {
+    "plugins": [
+      "remark-directive",
+      "remark-frontmatter",
+      "remark-gfm"
+    ]
+  },
   "references": [{ "path": "./tsconfig.cjs.json" }]
 }

@@ -11,7 +11,7 @@
 
 **Doc**block **A**bstract **S**yntax **T**ree.
 
-***
+---
 
 **docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][1].
 
@@ -119,8 +119,7 @@ interface ImplicitDescription <: Parent {
 }
 ```
 
-**ImplicitDescription** ([**Parent**](#parent)) represents a piece of text located at the **beginning** of a [docblock
-comment](#docblock-comment).
+**ImplicitDescription** ([**Parent**](#parent)) represents a piece of text located at the **beginning** of a [docblock comment](#docblock-comment).
 
 **ImplicitDescription** can be used in [**comment**](#comment) nodes. It can contain [**inline tag**](#inlinetag) nodes.
 

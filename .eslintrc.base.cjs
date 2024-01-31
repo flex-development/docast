@@ -11,18 +11,6 @@
 const fs = require('node:fs')
 
 /**
- * @type {typeof import('./tsconfig.json')}
- * @const tsconfig - Tsconfig object
- */
-const tsconfig = require('./tsconfig.json')
-
-/**
- * @type {boolean}
- * @const jsx - JSX check
- */
-const jsx = Boolean(tsconfig.compilerOptions.jsx)
-
-/**
  * @type {import('eslint').Linter.Config}
  * @const config - ESLint configuration object
  */
@@ -31,7 +19,7 @@ const config = {
     [require('./tsconfig.build.json').compilerOptions.target]: true,
     node: true
   },
-  extends: ['plugin:prettier/recommended'],
+  extends: [],
   overrides: [
     {
       extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
@@ -40,13 +28,19 @@ const config = {
         BufferEncoding: 'readonly',
         Chai: 'readonly',
         Console: 'readonly',
-        JSX: jsx ? 'readonly' : false,
-        NodeJS: 'readonly'
+        NodeJS: 'readonly',
+        React: fs.existsSync('node_modules/react') ? 'readonly' : false
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        },
         extraFileExtensions: [],
-        project: ['./tsconfig.json', './tsconfig.cjs.json'],
+        project: [
+          '**/tsconfig.json',
+          './tsconfig.cjs.json'
+        ],
         sourceType: require('./package.json').type,
         tsconfigRootDir: process.cwd(),
         warnOnUnsupportedTypeScriptVersion: true
@@ -56,7 +50,6 @@ const config = {
         'import',
         'jsdoc',
         'node',
-        'prettier',
         'promise',
         'unicorn'
       ],
@@ -89,14 +82,8 @@ const config = {
         ],
         '@typescript-eslint/camelcase': 0,
         '@typescript-eslint/class-literal-property-style': [2, 'getters'],
-        '@typescript-eslint/consistent-indexed-object-style': [2, 'record'],
-        '@typescript-eslint/consistent-type-assertions': [
-          2,
-          {
-            assertionStyle: 'as',
-            objectLiteralTypeAssertions: 'allow'
-          }
-        ],
+        '@typescript-eslint/consistent-indexed-object-style': 0,
+        '@typescript-eslint/consistent-type-assertions': 0,
         '@typescript-eslint/consistent-type-definitions': 0,
         '@typescript-eslint/consistent-type-exports': [
           2,
@@ -142,13 +129,16 @@ const config = {
               memberTypes: [
                 'static-field',
                 'instance-field',
-                'constructor',
                 'signature',
+                'call-signature',
+                'public-constructor',
+                'protected-constructor',
+                'private-constructor',
+                'static-initialization',
                 'static-get',
                 'static-set',
                 'static-method',
-                'instance-get',
-                'instance-set',
+                ['instance-get', 'instance-set'],
                 'instance-method'
               ],
               order: 'alphabetically'
@@ -160,7 +150,13 @@ const config = {
         '@typescript-eslint/no-base-to-string': [
           2,
           {
-            ignoredTypeNames: ['Error', 'RegExp', 'URL', 'URLSearchParams']
+            ignoredTypeNames: [
+              'Error',
+              'RegExp',
+              'SemVer',
+              'URL',
+              'URLSearchParams'
+            ]
           }
         ],
         '@typescript-eslint/no-confusing-non-null-assertion': 0,
@@ -172,7 +168,7 @@ const config = {
           }
         ],
         '@typescript-eslint/no-dupe-class-members': 2,
-        '@typescript-eslint/no-dynamic-delete': 2,
+        '@typescript-eslint/no-dynamic-delete': 0,
         '@typescript-eslint/no-empty-function': [
           2,
           {
@@ -246,7 +242,7 @@ const config = {
             allowedNames: ['self']
           }
         ],
-        '@typescript-eslint/no-throw-literal': 2,
+        '@typescript-eslint/no-throw-literal': 0,
         '@typescript-eslint/no-type-alias': 0,
         '@typescript-eslint/no-unnecessary-boolean-literal-compare': [
           2,
@@ -299,7 +295,7 @@ const config = {
           {
             classes: true,
             enums: true,
-            functions: true,
+            functions: false,
             ignoreTypeReferences: true,
             typedefs: true,
             variables: true
@@ -326,7 +322,8 @@ const config = {
           2,
           {
             ignoreConditionalTests: true,
-            ignoreMixedLogicalExpressions: true
+            ignoreMixedLogicalExpressions: true,
+            ignorePrimitives: { string: true }
           }
         ],
         '@typescript-eslint/prefer-optional-chain': 2,
@@ -376,7 +373,7 @@ const config = {
           {
             allowAny: false,
             allowNullableBoolean: true,
-            allowNullableNumber: false,
+            allowNullableNumber: true,
             allowNullableObject: true,
             allowNullableString: true,
             allowNumber: true,
@@ -459,7 +456,16 @@ const config = {
         ],
         'jsdoc/no-restricted-syntax': 0,
         'jsdoc/no-types': 0,
-        'jsdoc/no-undefined-types': [1, { definedTypes: ['never', 'unknown'] }],
+        'jsdoc/no-undefined-types': [1, {
+          definedTypes: ['never', 'unknown'],
+          // https://github.com/gajus/eslint-plugin-jsdoc/issues/1119
+          // this rule would be nice to use to check property name changes, but
+          // it does not work properly. reporting is disabled for now, but in
+          // the future, some eslint-plugin-jsdoc usage may need to be replaced
+          // with a docast-based plugin.
+          disableReporting: true,
+          markVariablesAsUsed: true
+        }],
         'jsdoc/require-asterisk-prefix': [1, 'always'],
         'jsdoc/require-description': [
           1,
@@ -594,6 +600,7 @@ const config = {
         'no-return-await': 0,
         'no-shadow': 0,
         'no-sparse-arrays': 0,
+        'no-throw-literal': 0,
         'no-unused-expressions': 0,
         'no-unused-vars': 0,
         'no-use-before-define': 0,
@@ -619,7 +626,13 @@ const config = {
         'node/no-unpublished-require': 0,
         'node/no-unsupported-features/es-builtins': 2,
         'node/no-unsupported-features/es-syntax': 0,
-        'node/no-unsupported-features/node-builtins': 2,
+        'node/no-unsupported-features/node-builtins': [
+          2,
+          {
+            version: require('./package.json').engines?.node ??
+              '>=' + fs.readFileSync('./.nvmrc', 'utf8')
+          }
+        ],
         'node/prefer-global/buffer': 2,
         'node/prefer-global/console': 2,
         'node/prefer-global/process': 2,
@@ -634,7 +647,7 @@ const config = {
         'padding-line-between-statements': 0,
         'prefer-arrow-callback': 0,
         'promise/always-return': 2,
-        'promise/avoid-new': 2,
+        'promise/avoid-new': 0,
         'promise/catch-or-return': [2, { allowFinally: true, allowThen: true }],
         'promise/no-callback-in-promise': 2,
         'promise/no-native': 0,
@@ -644,7 +657,7 @@ const config = {
         'promise/no-return-in-finally': 2,
         'promise/no-return-wrap': [2, { allowReject: false }],
         'promise/param-names': 2,
-        'promise/prefer-await-to-callbacks': 2,
+        'promise/prefer-await-to-callbacks': 1,
         'promise/prefer-await-to-then': 2,
         'promise/valid-params': 2,
         quotes: 0,
@@ -683,21 +696,13 @@ const config = {
           }
         ],
         'unicorn/import-index': 2,
-        'unicorn/import-style': [
-          2,
-          {
-            styles: {
-              chalk: { default: true },
-              shelljs: { default: true }
-            }
-          }
-        ],
+        'unicorn/import-style': [2, { styles: {} }],
         'unicorn/new-for-builtins': 2,
         'unicorn/no-abusive-eslint-disable': 2,
         'unicorn/no-array-callback-reference': 0,
         'unicorn/no-array-for-each': 2,
         'unicorn/no-array-method-this-argument': 2,
-        'unicorn/no-array-push-push': 2,
+        'unicorn/no-array-push-push': 0,
         'unicorn/no-array-reduce': 0,
         'unicorn/no-await-expression-member': 0,
         'unicorn/no-console-spaces': 2,
@@ -730,7 +735,7 @@ const config = {
         'unicorn/no-useless-length-check': 2,
         'unicorn/no-useless-promise-resolve-reject': 2,
         'unicorn/no-useless-spread': 2,
-        'unicorn/no-useless-undefined': 2,
+        'unicorn/no-useless-undefined': 0,
         'unicorn/no-zero-fractions': 2,
         'unicorn/number-literal-case': 0,
         // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2003
@@ -798,10 +803,12 @@ const config = {
       files: '**/*.d.+(cts|mts|ts)',
       rules: {
         '@typescript-eslint/ban-types': 0,
+        '@typescript-eslint/prefer-function-type': 0,
         '@typescript-eslint/triple-slash-reference': 0,
         'jsdoc/no-undefined-types': 0,
         'jsdoc/require-file-overview': 0,
         'no-var': 0,
+        'unicorn/filename-case': 0,
         'unicorn/no-keyword-prefix': 0
       }
     },
@@ -814,14 +821,19 @@ const config = {
       }
     },
     {
-      files: '**/__mocks__/**/*.ts',
+      files: ['**/*.interface.ts', '**/interfaces/*.ts', '**/types/*.ts'],
       rules: {
-        '@typescript-eslint/no-unused-vars': 0,
+        '@typescript-eslint/no-invalid-void-type': 0
+      }
+    },
+    {
+      files: '**/__mocks__/**/*.+(ts|tsx)',
+      rules: {
         '@typescript-eslint/require-await': 0
       }
     },
     {
-      files: '**/__tests__/*.+(spec|spec-d).ts',
+      files: '**/__tests__/*.{spec,spec-d}.+(ts|tsx)',
       globals: {
         afterAll: true,
         afterEach: true,
@@ -831,9 +843,10 @@ const config = {
         chai: true,
         describe: true,
         expect: true,
-        faker: fs.existsSync('node_modules/@faker-js/faker/package.json'),
+        faker: fs.existsSync('node_modules/@faker-js/faker'),
         it: true,
-        pf: fs.existsSync('node_modules/pretty-format/package.json'),
+        pf: fs.existsSync('node_modules/pretty-format'),
+        server: fs.existsSync('node_modules/msw'),
         suite: true,
         test: true,
         vi: true,
@@ -842,10 +855,11 @@ const config = {
       plugins: ['chai-expect', 'jest-formatting'],
       rules: {
         '@typescript-eslint/class-literal-property-style': 0,
-        '@typescript-eslint/consistent-indexed-object-style': 0,
         '@typescript-eslint/no-base-to-string': 0,
         '@typescript-eslint/no-empty-function': 0,
+        '@typescript-eslint/no-invalid-void-type': 0,
         '@typescript-eslint/no-unused-expressions': 0,
+        '@typescript-eslint/prefer-as-const': 0,
         '@typescript-eslint/prefer-ts-expect-error': 0,
         '@typescript-eslint/require-await': 0,
         '@typescript-eslint/restrict-template-expressions': 0,
@@ -861,6 +875,7 @@ const config = {
         'jest-formatting/padding-around-describe-blocks': 1,
         'jest-formatting/padding-around-expect-groups': 1,
         'jest-formatting/padding-around-test-blocks': 1,
+        'no-empty-pattern': 0,
         'promise/prefer-await-to-callbacks': 0,
         'promise/valid-params': 0,
         'unicorn/consistent-destructuring': 0,
@@ -874,7 +889,7 @@ const config = {
       }
     },
     {
-      files: '**/__tests__/*.spec-d.ts',
+      files: '**/__tests__/*.spec-d.+(cts|mts|ts)',
       globals: {
         assertType: true,
         expectTypeOf: true
@@ -885,9 +900,16 @@ const config = {
       }
     },
     {
+      files: '**/*.abstract.ts',
+      rules: {
+        '@typescript-eslint/no-useless-constructor': 0
+      }
+    },
+    {
       files: ['**/decorators/*.constraint.ts', '**/*.decorator.ts'],
       rules: {
-        '@typescript-eslint/ban-types': 0
+        '@typescript-eslint/ban-types': 0,
+        '@typescript-eslint/no-invalid-void-type': 0
       }
     },
     {
@@ -898,11 +920,9 @@ const config = {
       }
     },
     {
-      extends: ['plugin:@graphql-eslint/operations-all'],
-      files: '**/*.gql',
+      files: '**/*.+(cjs|js|mjs)',
       rules: {
-        '@graphql-eslint/no-anonymous-operations': 0,
-        '@graphql-eslint/require-id-when-available': 0
+        '@typescript-eslint/explicit-member-accessibility': 0
       }
     },
     {
@@ -941,37 +961,6 @@ const config = {
         'jsonc/sort-keys': [
           2,
           {
-            order: [
-              'name',
-              'description',
-              'version',
-              'keywords',
-              'license',
-              'homepage',
-              'repository',
-              'bugs',
-              'author',
-              'contributors',
-              'publishConfig',
-              'type',
-              'files',
-              'exports',
-              'main',
-              'module',
-              'types',
-              'scripts',
-              'dependencies',
-              'devDependencies',
-              'optionalDependencies',
-              'peerDependencies',
-              'resolutions',
-              'engines',
-              'packageManager',
-              'readme'
-            ],
-            pathPattern: '^$'
-          },
-          {
             order: { caseSensitive: true, type: 'asc' },
             pathPattern: '^$'
           }
@@ -987,13 +976,28 @@ const config = {
       }
     },
     {
-      files: '**/*.md',
-      parser: 'eslint-plugin-markdownlint/parser',
-      plugins: ['markdown', 'markdownlint'],
-      processor: 'markdown/markdown'
+      files: ['**/*.{md,mdx}'],
+      globals: {
+        React: false
+      },
+      parser: 'eslint-mdx',
+      parserOptions: {
+        ecmaFeatures: {
+          impliedStrict: true,
+          jsx: true
+        },
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      },
+      plugins: ['markdown', 'markdownlint', 'mdx'],
+      processor: 'mdx/remark',
+      rules: {
+        'mdx/remark': 1,
+        'no-unused-expressions': 2
+      }
     },
     {
-      files: '**/*.md/*.+(cjs|cts|js|jsx|mjs|mts|ts|tsx)',
+      files: '**/*.{md,mdx}/*.+(cjs|cts|js|jsx|mdx|mjs|mts|ts|tsx)',
       parserOptions: { project: false },
       rules: {
         '@typescript-eslint/await-thenable': 0,
@@ -1042,8 +1046,54 @@ const config = {
         '@typescript-eslint/strict-boolean-expressions': 0,
         '@typescript-eslint/switch-exhaustiveness-check': 0,
         '@typescript-eslint/unbound-method': 0,
+        'eol-last': 0,
         'jsdoc/require-file-overview': 0,
+        'no-undef': 0,
+        'no-unused-expressions': 0,
+        'no-unused-vars': 0,
+        'padded-blocks': 0,
+        strict: 0,
+        'unicode-bom': 0,
         'unicorn/filename-case': 0
+      }
+    },
+    {
+      files: ['**/package.json'],
+      rules: {
+        'jsonc/sort-keys': [
+          2,
+          {
+            order: [
+              'name',
+              'description',
+              'version',
+              'keywords',
+              'license',
+              'homepage',
+              'repository',
+              'bugs',
+              'author',
+              'contributors',
+              'publishConfig',
+              'type',
+              'files',
+              'exports',
+              'main',
+              'module',
+              'types',
+              'scripts',
+              'dependencies',
+              'devDependencies',
+              'optionalDependencies',
+              'peerDependencies',
+              'resolutions',
+              'engines',
+              'packageManager',
+              'readme'
+            ],
+            pathPattern: '^$'
+          }
+        ]
       }
     },
     {
@@ -1051,7 +1101,7 @@ const config = {
       parser: 'yaml-eslint-parser',
       plugins: ['yml'],
       rules: {
-        'prettier/prettier': 0,
+        'spaced-comment': 0,
         'yml/block-mapping': 2,
         'yml/block-mapping-question-indicator-newline': [2, 'never'],
         'yml/block-sequence': 2,
@@ -1144,27 +1194,71 @@ const config = {
       }
     },
     {
-      files: [
-        '.github/dependabot.yml',
-        '.github/workflows/*.yml',
-        'action.yml'
-      ],
+      files: '.github/dependabot.yml',
       rules: {
-        'yml/sort-keys': 0
+        'yml/sort-keys': [
+          2,
+          {
+            order: ['version', 'registries', 'updates'],
+            pathPattern: '^$'
+          }
+        ]
       }
     },
     {
-      files: ['.github/workflows/*.yml', '.yarnrc.yml'],
+      files: '.github/workflows/*.yml',
+      rules: {
+        'yml/sort-keys': [
+          2,
+          {
+            order: ['name', 'on', 'permissions', 'env', 'concurrency', 'jobs'],
+            pathPattern: '^$'
+          }
+        ]
+      }
+    },
+    {
+      files: ['.github/workflows/*.yml', '.yarnrc.yml', 'docker*.yml'],
       rules: {
         'yml/key-name-casing': 0
       }
+    },
+    {
+      files: ['.vscode/launch.json'],
+      rules: {
+        'jsonc/sort-keys': 0
+      }
+    },
+    {
+      files: 'action.yml',
+      rules: {
+        'yml/sort-keys': [
+          2,
+          {
+            order: [
+              'name',
+              'author',
+              'description',
+              'inputs',
+              'outputs',
+              'runs',
+              'branding'
+            ],
+            pathPattern: '^$'
+          }
+        ]
+      }
+    },
+    {
+      files: ['docker*.yml', '**/*.md/*.+(yaml|yml)'],
+      rules: {
+        'yml/sort-keys': 0
+      }
     }
   ],
-  plugins: ['prettier'],
+  plugins: [],
   reportUnusedDisableDirectives: true,
-  rules: {
-    'prettier/prettier': [2, {}, { usePrettierrc: true }]
-  },
+  rules: {},
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.cts', '.mts', '.ts', '.tsx']
@@ -1178,6 +1272,7 @@ const config = {
       ignoreInternal: false,
       ignorePrivate: false,
       implementsReplacesDocs: true,
+      mode: 'typescript',
       overrideReplacesDocs: true,
       preferredTypes: {
         '*': false,
@@ -1205,6 +1300,9 @@ const config = {
         extends: {
           name: 'namepath-defining',
           required: ['type']
+        },
+        fires: {
+          required: ['name']
         },
         implements: {
           name: 'namepath-defining',
@@ -1267,7 +1365,8 @@ const config = {
         var: 'var',
         yields: 'yield'
       }
-    }
+    },
+    'mdx/code-blocks': true
   }
 }
 

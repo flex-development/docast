@@ -1,6 +1,6 @@
-# REPOSITORY INFRASTRUCTURE SETTINGS
+# REPOSITORY INFRASTRUCTURE
+# https://github.com/flex-development/repostructure-action
 ---
-# https://docs.github.com/rest/branches/branch-protection#update-branch-protection
 branches:
   - name: main
     protection:
@@ -23,24 +23,23 @@ branches:
         checks:
           - context: add-to-project
           - context: auto-merge
+          - context: auto-review
           - context: build
+          - context: changelog
           - context: commitlint
-          - context: dependabot-auto
+          - context: dependabot-dedupe
           - context: format
           - context: gitguardian
           - context: lint
           - context: spelling
-          - context: typescript (5.0.4)
-          - context: typescript (5.1.6)
+          - context: typescript (5.3.3)
           - context: typescript (latest)
         strict: true
       restrictions: null
-# https://docs.github.com/rest/deployments/environments#create-or-update-an-environment
 environments:
   - environment_name: gpr
   - environment_name: npm
   - environment_name: release
-# https://docs.github.com/rest/issues/labels#create-a-label
 labels:
   - name: flag:breaking-change
     description: contains changes that require major version bump
@@ -153,7 +152,6 @@ labels:
   - name: type:task
     description: project tasks
     color: 0052cc
-# https://docs.github.com/rest/repos/repos#update-a-repository
 repository:
   allow_auto_merge: true
   allow_merge_commit: false
@@ -172,8 +170,6 @@ repository:
   is_template: false
   private: false
   security_and_analysis:
-    advanced_security:
-      status: disabled
     secret_scanning:
       status: enabled
     secret_scanning_push_protection:
@@ -190,7 +186,4 @@ repository:
   visibility: public
   vulnerability_alerts: true
   web_commit_signoff_required: true
-# https://docs.github.com/rest/teams/teams#add-or-update-team-repository-permissions
-teams:
-  - team_slug: dependabot-review
-    permission: triage
+teams: []

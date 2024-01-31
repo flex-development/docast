@@ -1,7 +1,4 @@
 {
-  "[dotenv]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
   "[github-actions-workflow]": {
     "editor.rulers": [
       {
@@ -11,20 +8,6 @@
     ],
     "editor.wordWrapColumn": 100,
     "rewrap.wrappingColumn": 100
-  },
-  "[handlebars]": {
-    "editor.defaultFormatter": "Greenbyte.handlebars-preview",
-    "editor.rulers": [
-      {
-        "color": "var(--vscode-editorRuler-foreground)",
-        "column": 100
-      }
-    ],
-    "editor.wordWrapColumn": 100,
-    "rewrap.wrappingColumn": 100
-  },
-  "[ignore]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[jest-snapshot]": {
     "editor.rulers": [
@@ -37,7 +20,6 @@
     "rewrap.wrappingColumn": 130
   },
   "[markdown]": {
-    "editor.defaultFormatter": "vscode.markdown-language-features",
     "editor.rulers": [
       {
         "color": "var(--vscode-editorRuler-foreground)",
@@ -47,11 +29,17 @@
     "editor.wordWrapColumn": 120,
     "rewrap.wrappingColumn": 120
   },
-  "[properties]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
+  "[mdx]": {
+    "editor.rulers": [
+      {
+        "color": "var(--vscode-editorRuler-foreground)",
+        "column": 120
+      }
+    ],
+    "editor.wordWrapColumn": 120,
+    "rewrap.wrappingColumn": 120
   },
   "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format",
     "editor.rulers": [
       {
         "color": "var(--vscode-editorRuler-foreground)",
@@ -133,16 +121,18 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": false,
   "dotenv.enableAutocloaking": false,
+  "dprint.path": "node_modules/.bin/dprint",
+  "dprint.verbose": true,
   "editor.acceptSuggestionOnEnter": "smart",
   "editor.autoClosingBrackets": "always",
   "editor.bracketPairColorization.enabled": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.fixAll.sortJSON": false,
-    "source.organizeImports": true
+    "source.fixAll": "always",
+    "source.fixAll.sortJSON": "never",
+    "source.organizeImports": "always"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "dprint.dprint",
   "editor.detectIndentation": false,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -150,7 +140,7 @@
   "editor.guides.indentation": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.overviewRulerBorder": true,
-  "editor.renderFinalNewline": "off",
+  "editor.renderFinalNewline": "on",
   "editor.rulers": [
     {
       // microsoft/vscode#166261
@@ -172,29 +162,39 @@
   "eslint.nodePath": "node_modules/.bin/eslint",
   "eslint.options": {
     "extensions": [
+      "css",
+      "html",
       "cjs",
       "cts",
       "gql",
+      "graphql",
       "js",
       "json",
       "json5",
       "jsonc",
+      "jsx",
       "md",
+      "mdx",
       "mjs",
       "mts",
       "ts",
+      "tsx",
+      "yaml",
       "yml"
     ],
     "overrideConfigFile": ".eslintrc.cjs"
   },
-  "eslint.packageManager": "yarn",
   "eslint.validate": [
+    "css",
+    "github-actions-workflow",
     "graphql",
+    "html",
     "javascript",
     "json",
     "json5",
     "jsonc",
     "markdown",
+    "mdx",
     "typescript",
     "yaml"
   ],
@@ -243,12 +243,9 @@
     "!**/LICENSE.md",
     "!**/RELEASE_NOTES.md"
   ],
+  "mdx.trace.server.verbosity": "verbose",
   "npm-intellisense.scanDevDependencies": true,
-  "prettier.configPath": ".prettierrc.json",
-  "prettier.enable": true,
-  "prettier.ignorePath": ".prettierignore",
-  "prettier.prettierPath": "node_modules/prettier",
-  "prettier.useEditorConfig": true,
+  "prettier.enable": false,
   "rewrap.autoWrap.enabled": true,
   "rewrap.doubleSentenceSpacing": true,
   "rewrap.reformat": true,
@@ -299,6 +296,7 @@
   "typescript.format.semicolons": "remove",
   "typescript.inlayHints.enumMemberValues.enabled": true,
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.preferences.quoteStyle": "single",
   "typescript.preferences.useAliasesForRenames": true,
   "typescript.suggest.completeFunctionCalls": true,
@@ -308,9 +306,6 @@
   "typescript.suggest.jsdoc.generateReturns": true,
   "typescript.suggest.paths": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsserver.enableTracing": true,
-  "typescript.tsserver.log": "verbose",
-  "typescript.tsserver.trace": "verbose",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.validate.enable": true,
   "versionlens.npm.dependencyProperties": [
@@ -328,11 +323,6 @@
       "extensions": [".eslintrc.base.cjs"],
       "format": "svg",
       "icon": "eslint"
-    },
-    {
-      "extensions": [".graphqlrc.yml"],
-      "format": "svg",
-      "icon": "graphql"
     },
     {
       "extensions": ["build.json", "cjs.json", "typecheck.json"],
@@ -382,6 +372,11 @@
       "icon": "config"
     },
     {
+      "extensions": ["testing"],
+      "format": "svg",
+      "icon": "test"
+    },
+    {
       "extensions": ["types"],
       "format": "svg",
       "icon": "typings"
@@ -393,7 +388,7 @@
   "xml.format.closingBracketNewLine": true,
   "xml.format.maxLineWidth": 100,
   "xml.format.spaceBeforeEmptyCloseTag": false,
-  "xml.format.splitAttributes": true,
+  "xml.format.splitAttributes": "splitNewLine",
   "xml.format.splitAttributesIndentSize": 0,
   "yaml.schemas": {
     "https://json.schemastore.org/github-issue-config": ".github/ISSUE_TEMPLATE/config.yml",

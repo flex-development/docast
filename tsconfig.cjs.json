@@ -5,12 +5,17 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
-    "module": "commonjs",
-    "moduleResolution": "nodenext",
     "outDir": ".",
     "verbatimModuleSyntax": false
   },
   "exclude": ["**/coverage", "**/dist", "**/node_modules"],
   "extends": "./tsconfig.json",
-  "include": ["**/**.cjs", "**/**.cts", "**/**.json", "**/.*.cjs", "**/.*.cts"]
+  "include": [
+    "**/**.cjs",
+    "**/**.cts",
+    "**/**.json",
+    "**/.*.cjs",
+    "**/.*.cts",
+    "**/.*.json"
+  ]
 }

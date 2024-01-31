@@ -8,31 +8,23 @@ import { DECORATOR_REGEX } from '@flex-development/decorator-regex'
 import * as esm from '@flex-development/esm-types'
 import * as mlly from '@flex-development/mlly'
 import * as pathe from '@flex-development/pathe'
-import * as tscu from '@flex-development/tsconfig-utils'
 import * as tutils from '@flex-development/tutils'
 import * as esbuild from 'esbuild'
 import { URL, fileURLToPath, pathToFileURL } from 'node:url'
 import ts from 'typescript'
+import tsconfig from './tsconfig.json' assert { type: 'json' }
 
 // add support for extensionless files in "bin" scripts
 // https://github.com/nodejs/modules/issues/488
 mlly.EXTENSION_FORMAT_MAP.set('', mlly.Format.COMMONJS)
 
 /**
- * {@linkcode URL} of tsconfig file.
+ * URL of current working directory.
  *
  * @type {URL}
- * @const tsconfig
+ * @const cwd
  */
-const tsconfig = mlly.toURL('tsconfig.json')
-
-/**
- * TypeScript compiler options.
- *
- * @type {tscu.CompilerOptions}
- * @const compilerOptions
- */
-const compilerOptions = tscu.loadCompilerOptions(tsconfig)
+const cwd = pathToFileURL(tsconfig.compilerOptions.baseUrl)
 
 /**
  * Determines how the given module `url` should be interpreted, retrieved, and
@@ -68,10 +60,21 @@ export const load = async (url, context) => {
   /**
    * Module source code.
    *
-   * @type {esm.Source<Uint8Array | string> | undefined}
+   * @type {tutils.Optional<esm.Source<Uint8Array | string>>}
    * @var source
    */
   let source = await mlly.getSource(url, { format: context.format })
+
+  // emit decorator metadata
+  DECORATOR_REGEX.lastIndex = 0
+  if (DECORATOR_REGEX.test(source)) {
+    const { outputText } = ts.transpileModule(source, {
+      compilerOptions: { ...tsconfig.compilerOptions, inlineSourceMap: true },
+      fileName: url
+    })
+
+    source = outputText
+  }
 
   // transform typescript files
   if (/^\.(?:cts|mts|tsx?)$/.test(ext) && !/\.d\.(?:cts|mts|ts)$/.test(url)) {
@@ -83,11 +86,12 @@ export const load = async (url, context) => {
     }
 
     // resolve path aliases
-    source = await tscu.resolvePaths(source, {
+    source = await mlly.resolveAliases(source, {
+      aliases: tsconfig.compilerOptions.paths,
       conditions: context.conditions,
+      cwd,
       ext: '',
-      parent: url,
-      tsconfig
+      parent: url
     })
 
     // resolve modules
@@ -96,33 +100,29 @@ export const load = async (url, context) => {
       parent: url
     })
 
-    // emit decorator metadata
-    if (DECORATOR_REGEX.test(source)) {
-      const { outputText } = ts.transpileModule(source, {
-        compilerOptions: { ...compilerOptions, sourceMap: false },
-        fileName: url
-      })
-
-      source = outputText
-    }
-
     // transpile source code
     const { code } = await esbuild.transform(source, {
       format: 'esm',
+      keepNames: true,
       loader: ext.slice(/^\.[cm]/.test(ext) ? 2 : 1),
       minify: false,
       sourcefile: fileURLToPath(url),
       sourcemap: 'inline',
       target: `node${process.versions.node}`,
-      tsconfigRaw: { compilerOptions }
+      tsconfigRaw: { compilerOptions: tsconfig.compilerOptions }
     })
 
     // set source code to transpiled source
     source = code
   }
 
-  return { format: context.format, shortCircuit: true, source }
+  return {
+    format: context.format,
+    shortCircuit: true,
+    source: tutils.ifelse(context.format === mlly.Format.COMMONJS, null, source)
+  }
 }
+
 /**
  * Resolves the given module `specifier`, and its module format as a hint to the
  * {@linkcode load} hook.
@@ -148,9 +148,9 @@ export const resolve = async (specifier, context) => {
 
   // resolve path alias
   specifier = await mlly.resolveAlias(specifier, {
-    aliases: compilerOptions.paths,
+    aliases: tsconfig.compilerOptions.paths,
     conditions,
-    cwd: pathToFileURL(compilerOptions.baseUrl),
+    cwd,
     parent
   })
 

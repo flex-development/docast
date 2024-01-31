@@ -5,9 +5,9 @@
  */
 
 import pathe from '@flex-development/pathe'
+import { ifelse, sift } from '@flex-development/tutils'
 import ci from 'is-ci'
-import tsconfigpaths from 'vite-tsconfig-paths'
-import GithubActionsReporter from 'vitest-github-actions-reporter'
+import tsconfigPaths from 'vite-tsconfig-paths'
 import {
   defineConfig,
   type UserConfig,
@@ -32,7 +32,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
 
   return {
     define: {},
-    plugins: [tsconfigpaths({ projects: [pathe.resolve('tsconfig.json')] })],
+    plugins: [tsconfigPaths({ projects: [pathe.resolve('tsconfig.json')] })],
     test: {
       allowOnly: !ci,
       benchmark: {},
@@ -68,17 +68,16 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
       globals: true,
       hookTimeout: 10 * 1000,
       include: [
-        `**/__tests__/*.${LINT_STAGED ? '{spec,spec-d}' : 'spec'}.{ts,tsx}`
+        `**/__tests__/*.${ifelse(LINT_STAGED, '{spec,spec-d}', 'spec')}.ts?(x)`
       ],
-      isolate: true,
       mockReset: true,
       outputFile: { json: './__tests__/report.json' },
       passWithNoTests: true,
-      reporters: [
+      reporters: sift([
         'json',
         'verbose',
-        ci ? new GithubActionsReporter() : './__tests__/reporters/notifier.ts'
-      ],
+        ifelse(ci, '', './__tests__/reporters/notifier.ts')
+      ]),
       /**
        * Stores snapshots next to `file`'s directory.
        *
@@ -117,7 +116,6 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
       },
       setupFiles: ['./__tests__/setup/index.ts'],
       silent: false,
-      singleThread: true,
       slowTestThreshold: 3000,
       snapshotFormat: {
         callToJSON: true,
@@ -131,6 +129,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
         checker: 'tsc',
         ignoreSourceErrors: false,
         include: ['**/__tests__/*.spec-d.ts'],
+        only: true,
         tsconfig: pathe.resolve('tsconfig.typecheck.json')
       },
       unstubEnvs: true,
