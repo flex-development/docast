@@ -328,7 +328,7 @@ jobs:
         run: attw ${{ env.TARFILE }}
       - id: archive
         name: Archive production artifacts
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: ${{ env.TARFILE }}
           path: ${{ env.TARFILE }}
