@@ -13,10 +13,7 @@ import { defineBuildConfig, type Config } from '@flex-development/mkbuild'
  */
 const config: Config = defineBuildConfig({
   charset: 'utf8',
-  entries: [
-    { dts: 'only' },
-    { dts: false, pattern: ['**/index.ts', 'enums/*'] }
-  ],
+  dts: 'only',
   tsconfig: 'tsconfig.build.json'
 })
 

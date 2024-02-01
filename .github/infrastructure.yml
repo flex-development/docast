@@ -56,6 +56,9 @@ labels:
   - name: flag:needs-refactor
     description: code improvements required before being merged
     color: fbca04
+  - name: scope:content
+    description: syntax tree content
+    color: 74cefc
   - name: scope:dependencies
     description: dependency updates
     color: 74cefc
@@ -64,6 +67,9 @@ labels:
     color: 74cefc
   - name: scope:install
     description: package install
+    color: 74cefc
+  - name: scope:mixins
+    description: syntax tree node mixins
     color: 74cefc
   - name: scope:nodes
     description: syntax tree nodes
@@ -180,6 +186,8 @@ repository:
     - ast
     - doc
     - docblock
+    - markdown
+    - mdast
     - syntax-tree
     - unist
     - unist-spec

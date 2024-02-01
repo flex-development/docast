@@ -3,20 +3,28 @@
  * @module docast/interfaces/Position
  */
 
-import type unist from 'unist'
 import type Point from './point'
 
 /**
  * Location of a node in a source [*file*][1].
  *
+ * A position is a range between two points.
+ *
  * [1]: https://github.com/syntax-tree/unist#file
- *
- * @see https://github.com/syntax-tree/unist#position
- *
- * @extends {unist.Position}
  */
-interface Position extends unist.Position {
+interface Position {
+  /**
+   * Index of first character after parsed source region.
+   *
+   * @see {@linkcode Point}
+   */
   end: Point
+
+  /**
+   * Index of first character in parsed source region.
+   *
+   * @see {@linkcode Point}
+   */
   start: Point
 }
 

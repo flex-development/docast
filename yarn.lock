@@ -1374,7 +1374,8 @@ __metadata:
     "@flex-development/tutils": "npm:6.0.0-alpha.25"
     "@types/eslint": "npm:8.56.2"
     "@types/is-ci": "npm:3.0.4"
-    "@types/node": "npm:20.11.12"
+    "@types/mdast": "npm:4.0.3"
+    "@types/node": "npm:20.11.14"
     "@types/node-notifier": "npm:8.0.5"
     "@types/unist": "npm:3.0.2"
     "@typescript-eslint/eslint-plugin": "npm:6.20.0"
@@ -1382,6 +1383,7 @@ __metadata:
     "@vates/toggle-scripts": "npm:1.0.0"
     cross-env: "npm:7.0.3"
     cspell: "npm:8.3.2"
+    debug: "npm:4.3.4"
     dprint: "npm:0.45.0"
     editorconfig: "npm:2.0.0"
     esbuild: "npm:0.20.0"
@@ -1420,7 +1422,8 @@ __metadata:
     vitest: "npm:1.2.2"
     yaml-eslint-parser: "npm:1.2.2"
   peerDependencies:
-    "@types/unist": ">=2.0.6"
+    "@types/mdast": ">=4.0.3"
+    "@types/unist": ">=3.0.2"
   languageName: unknown
   linkType: soft
 
@@ -2263,21 +2266,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mdast@npm:4.0.3, @types/mdast@npm:^4.0.0":
+  version: 4.0.3
+  resolution: "@types/mdast@npm:4.0.3"
+  dependencies:
+    "@types/unist": "npm:*"
+  checksum: 10/6d2d8f00ffaff6663dd67ea9ab999a5e52066c001432a9b99947fa9e76bccba819dfca40e419588a637a70d42cd405071f5b76efd4ddeb1dc721353b7cc73623
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^3.0.0":
   version: 3.0.10
   resolution: "@types/mdast@npm:3.0.10"
   dependencies:
     "@types/unist": "npm:*"
   checksum: 10/6b7f613feba54a394ca71694ed3b6719f7ce504d42454ec2d09203a9da3e7086189b4db080e0ea070bd6bae35f6f74f6596f23e21646566e3054e6539cb8a2fe
-  languageName: node
-  linkType: hard
-
-"@types/mdast@npm:^4.0.0":
-  version: 4.0.3
-  resolution: "@types/mdast@npm:4.0.3"
-  dependencies:
-    "@types/unist": "npm:*"
-  checksum: 10/6d2d8f00ffaff6663dd67ea9ab999a5e52066c001432a9b99947fa9e76bccba819dfca40e419588a637a70d42cd405071f5b76efd4ddeb1dc721353b7cc73623
   languageName: node
   linkType: hard
 
@@ -2304,12 +2307,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.11.12, @types/node@npm:^20.0.0":
-  version: 20.11.12
-  resolution: "@types/node@npm:20.11.12"
+"@types/node@npm:*, @types/node@npm:20.11.14, @types/node@npm:^20.0.0":
+  version: 20.11.14
+  resolution: "@types/node@npm:20.11.14"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10/26efca2c1a2d97d1db0e8c03964361bf3209259715e31bd856eaf783a9ccb1536405870e19613f2c142bc03ebcfec8a556ae37bae759daac5d5d695aa1197d2e
+  checksum: 10/129104b80a33b92ffcd139593b51d39b85e9dce0e7065a39eca23cd3c629da9f06a747509cdcbf0e6bd89349d944d1a4b112b598d122d0d33f10765d51a39334
   languageName: node
   linkType: hard
 

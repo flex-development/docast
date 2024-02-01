@@ -12,6 +12,7 @@
 # - https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions
 # - https://docs.github.com/webhooks-and-events/webhooks/webhook-events-and-payloads#release
 # - https://docs.github.com/webhooks-and-events/webhooks/webhook-events-and-payloads#workflow_dispatch
+# - https://docs.npmjs.com/generating-provenance-statements
 # - https://github.com/actions/checkout
 # - https://github.com/actions/setup-node
 # - https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#yarn2-configuration
@@ -67,7 +68,7 @@ jobs:
         env:
           ARTIFACT: ${{ steps.artifact.outputs.result }}
           FLAGS: ${{ steps.dist-tag.outputs.flag }}
-        run: echo "result=npm publish $FLAGS $ARTIFACT" >>$GITHUB_OUTPUT
+        run: echo "result=npm publish --provenance $FLAGS $ARTIFACT" >>$GITHUB_OUTPUT
   gpr:
     needs: preflight
     permissions:

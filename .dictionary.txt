@@ -17,6 +17,7 @@ iife
 jchen
 kaisugi
 lintstagedrc
+mdast
 mkbuild
 mlly
 nocheck
