@@ -6,6 +6,8 @@
     "ast",
     "doc",
     "docblock",
+    "markdown",
+    "mdast",
     "syntax-tree",
     "unist",
     "unist-spec"
@@ -29,10 +31,9 @@
     "dist"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/index.d.mts",
     "./package.json": "./package.json"
   },
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "mkbuild",
@@ -81,7 +82,8 @@
     "@flex-development/tsconfig-utils": "2.0.2",
     "@types/eslint": "8.56.2",
     "@types/is-ci": "3.0.4",
-    "@types/node": "20.11.12",
+    "@types/mdast": "4.0.3",
+    "@types/node": "20.11.14",
     "@types/node-notifier": "8.0.5",
     "@types/unist": "3.0.2",
     "@typescript-eslint/eslint-plugin": "6.20.0",
@@ -89,6 +91,7 @@
     "@vates/toggle-scripts": "1.0.0",
     "cross-env": "7.0.3",
     "cspell": "8.3.2",
+    "debug": "4.3.4",
     "dprint": "0.45.0",
     "editorconfig": "2.0.0",
     "esbuild": "0.20.0",
@@ -128,7 +131,8 @@
     "yaml-eslint-parser": "1.2.2"
   },
   "peerDependencies": {
-    "@types/unist": ">=2.0.6"
+    "@types/mdast": ">=4.0.3",
+    "@types/unist": ">=3.0.2"
   },
   "packageManager": "yarn@4.1.0",
   "sideEffects": false

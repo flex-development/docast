@@ -3,40 +3,38 @@
  * @module docast/nodes/tests/unit-d/Comment
  */
 
-import type { Type } from '#src/enums'
-import type { Context, Position } from '#src/interfaces'
-import type { Nullable } from '@flex-development/tutils'
-import type TestSubject from '../comment'
-import type ImplicitDescription from '../implicit-description'
+import type { FlowContent } from '#src/content'
+import type { CodeSegment } from '#src/interfaces'
+import type { Nilable, Optional } from '@flex-development/tutils'
+import type { CommentData, default as TestSubject } from '../comment'
 import type Parent from '../parent'
-import type BlockTag from '../tag-block'
 
 describe('unit-d:nodes/Comment', () => {
-  it('should extend Parent<BlockTag | ImplicitDescription, Data>', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<
-      Parent<BlockTag | ImplicitDescription>
-    >()
+  it('should extend Parent>', () => {
+    expectTypeOf<TestSubject>().toMatchTypeOf<Parent>()
   })
 
-  it('should match [context: Nullable<Context>]', () => {
+  it('should match [children: FlowContent[]]', () => {
     expectTypeOf<TestSubject>()
-      .toHaveProperty('context')
-      .toEqualTypeOf<Nullable<Context>>()
+      .toHaveProperty('children')
+      .toEqualTypeOf<FlowContent[]>()
   })
 
-  it('should match [position: Position]', () => {
+  it('should match [code?: Nilable<CodeSegment>]', () => {
     expectTypeOf<TestSubject>()
-      .toHaveProperty('position')
-      .toEqualTypeOf<Position>()
+      .toHaveProperty('code')
+      .toEqualTypeOf<Nilable<CodeSegment>>()
   })
 
-  it('should match [type: Type.COMMENT]', () => {
+  it('should match [data?: Optional<CommentData>]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('data')
+      .toEqualTypeOf<Optional<CommentData>>()
+  })
+
+  it('should match [type: "comment"]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('type')
-      .toEqualTypeOf<Type.COMMENT>()
-  })
-
-  it('should match [value: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('value').toBeString()
+      .toEqualTypeOf<'comment'>()
   })
 })

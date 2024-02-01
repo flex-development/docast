@@ -3,27 +3,24 @@
  * @module docast/nodes/Node
  */
 
-import type { Type } from '#src/enums'
-import type { Position } from '#src/interfaces'
-import type { Objectify } from '@flex-development/tutils'
+import type { Data, Position } from '#src/interfaces'
+import type { Optional } from '@flex-development/tutils'
 import type unist from 'unist'
 
 /**
- * **Node** ([**UnistNode**][1]) is a syntactic unit in docast syntax trees.
+ * Abstract docast node.
  *
- * [1]: https://github.com/syntax-tree/unist#node
- *
- * @template Data - Information from the ecosystem
+ * @see {@linkcode unist.Node}
  *
  * @extends {unist.Node}
  */
-interface Node<Data extends Objectify<any> = unist.Data> extends unist.Node {
+interface Node extends unist.Node {
   /**
-   * Information from the ecosystem.
+   * Info from the ecosystem.
    *
-   * @see https://github.com/syntax-tree/unist#data
+   * @see {@linkcode Data}
    */
-  data?: Data
+  data?: Optional<Data>
 
   /**
    * Location of node in source document.
@@ -32,16 +29,9 @@ interface Node<Data extends Objectify<any> = unist.Data> extends unist.Node {
    *
    * [1]: https://github.com/syntax-tree/unist#generated
    *
-   * @see [`Position`]({@link ../interfaces/position.ts})
+   * @see {@linkcode Position}
    */
-  position?: Position
-
-  /**
-   * Node variant.
-   *
-   * @see [`Type`]({@link ../enums/type.ts})
-   */
-  type: Type
+  position?: Optional<Position>
 }
 
 export type { Node as default }

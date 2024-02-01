@@ -3,39 +3,25 @@
  * @module docast/nodes/Parent
  */
 
-import type { Child, ParentType } from '#src/types'
-import type unist from 'unist'
+import type { Content } from '#src/content'
+import type Comment from './comment'
 import type Node from './node'
 
 /**
- * **Parent** ([**UnistParent**][1]) represents an abstract interface in docast
- * containing other nodes (said to be [*children*][2]).
+ * Abstract docast node that contains other docast or mdast nodes.
  *
- * [1]: https://github.com/syntax-tree/unist#parent
- * [2]: https://github.com/syntax-tree/unist#child
+ * @see {@linkcode Node}
  *
- * @template ChildNode - Child node type
- * @template Data - Information from the ecosystem
- *
- * @extends {Node<Data>}
+ * @extends {Node}
  */
-interface Parent<
-  ChildNode extends Child = Child,
-  Data extends unist.Data = unist.Data
-> extends Node<Data> {
+interface Parent extends Node {
   /**
-   * List representing [*children*][1].
+   * List of children.
    *
-   * [1]: https://github.com/syntax-tree/unist#child
+   * @see {@linkcode Comment}
+   * @see {@linkcode Content}
    */
-  children: ChildNode[]
-
-  /**
-   * Node variant.
-   *
-   * @see [`ParentType`]({@link ../types/type-parent.ts})
-   */
-  type: ParentType
+  children: (Comment | Content)[]
 }
 
 export type { Parent as default }

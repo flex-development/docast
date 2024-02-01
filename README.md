@@ -13,206 +13,371 @@
 
 ---
 
-**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][1].
+**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][unist-syntax-tree].
 
-It implements the [**unist**][2] spec.
+It implements the [**unist**][unist] spec.
 
 ## Contents
 
 - [Introduction](#introduction)
   - [Where this specification fits](#where-this-specification-fits)
-- [Nodes](#nodes)
+- [Types](#types)
+- [Nodes (abstract)](#nodes-abstract)
   - [`Node`](#node)
+    - [`Position`](#position)
+    - [`Point`](#point)
+  - [`Literal`](#literal)
   - [`Parent`](#parent)
-  - [`Root`](#root)
-  - [`Comment`](#comment)
-  - [`ImplicitDescription`](#implicitdescription)
+- [Nodes](#nodes)
   - [`BlockTag`](#blocktag)
+  - [`Comment`](#comment)
+    - [`CodeSegment`](#codesegment)
+  - [`Description`](#description)
   - [`InlineTag`](#inlinetag)
-- [Interfaces](#interfaces)
-  - [`Context`](#context)
+  - [`Root`](#root)
+  - [`TypeExpression`](#typeexpression)
+- [Mixins](#mixins)
+  - [`Tag`](#tag)
+- [Content model](#content-model)
+  - [`BlockTagContent`](#blocktagcontent)
+  - [`DescriptionContent`](#descriptioncontent)
+  - [`FlowContent`](#flowcontent)
+  - [`PhrasingContent`](#phrasingcontent)
 - [Glossary](#glossary)
 - [List of utilities](#list-of-utilities)
 - [Contribute](#contribute)
 
 ## Introduction
 
-This document defines a format for representing [docblock comments](#docblock-comment) as [abstract syntax trees][1].
-Development of docast started in October 2022. This specification is written in a [Web IDL][3]-like grammar.
+This document defines a format for representing [docblock comments](#docblock-comment) as [abstract syntax trees][unist-syntax-tree].
+Development of docast started in October 2022. This specification is written in a [TypeScript][typescript]-like grammar.
 
 ### Where this specification fits
 
-docast extends [unist][2], a format for syntax trees, to benefit from its [ecosystem of utilities][4].
+docast extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+It also integrates with [mdast][mdast], a specification for representing markdown.
 
-docast relates to [JavaScript][5] and [TypeScript][6] in that both languages support docblock comments. docast is
-**language-agnostic**, however, and can be used with any programming language.
+docast relates to [JavaScript][javascript] and [TypeScript][typescript] in that both languages support docblock comments.
+docast is **language-agnostic**, however, and can be used with any programming language that supports docblock comments.
 
-docast relates to [JSDoc][7], [TSDoc][8], and [typedoc][9] in that these tools parse docblock comments. These tools also
-have a limited set of tags that developers are allowed to use. If developers already have a set of tags they're using,
-they must spend additional time re-configuring those tags for their chosen tool. **docast does not enforce any tag
-semantics** &mdash; the user does. Tag specifications can be left to an [ESLint][10] rule or setting akin to
-[`jsdoc/check-tag-names`][11] or [`jsdoc.structuredTags`][12].
+docast relates to [JSDoc][jsdoc], [TSDoc][tsdoc], and [typedoc][typedoc] in that these tools parse docblock comments.
+These tools also have a limited set of tags that developers are allowed to use. If developers already have a set of tags
+they're using, they must spend additional time re-configuring those tags for their chosen tool. **docast does not
+enforce any tag semantics** &mdash; the user does. Tag specifications can be left to an [ESLint][eslint] rule or setting
+akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
 
-## Nodes
+## Types
+
+TypeScript users can integrate `docast` type definitions into their project by installing the appropriate packages:
+
+```sh
+yarn add @flex-development/docast @types/mdast @types/unist
+```
+
+## Nodes (abstract)
 
 ### Node
 
-```idl
-interface Node <: UnistNode {
-  type: 'block-tag' | 'comment' | 'implicit-description' | 'inline-tag' | 'root'
+```ts
+interface Node extends unist.Node {
+  position?: Position | undefined
 }
 ```
 
-**Node** ([**UnistNode**][13]) is a syntactic unit in docast syntax trees.
+**Node** ([**unist.Node**][unist-node]) is a syntactic unit in docast syntax trees.
 
-### Parent
+The `position` field represents the location of a node in a source document. The value of the `position` field implements
+the [`Position`](#position) interface. The `position` field must not be present if a node is [*generated*][unist-generated].
 
-```idl
-interface Parent <: UnistParent {
-  children: [BlockTag | Comment | ImplicitDescription | InlineTag]
-  type: 'block-tag' | 'comment' | 'implicit-description' | 'root'
+#### `Position`
+
+```ts
+interface Position {
+  end: Point
+  start: Point
 }
 ```
 
-**Parent** ([**UnistParent**][14]) represents an abstract interface in docast containing other nodes (said to be
-[*children*][15]).
+**Position** represents the location of a node in a source [*file*][unist-file].
 
-### Root
+The `start` field of **Position** represents the index of the first character of the parsed source region. The `end`
+field represents the index of the first character after the parsed source region, whether it exists or not. The value
+of the `start` and `end` fields implement the [**Point**](#point) interface.
 
-```idl
-interface Root <: Parent {
-  children: [Comment]
+If the syntactic unit represented by a node is not present in the source [*file*][unist-file] at the time of parsing,
+the node is said to be [*generated*][unist-generated] and it must not have positional information.
+
+#### `Point`
+
+```ts
+interface Point {
+  column: number // >= 1
+  line: number // >= 1
+  offset: number // >= 0
+}
+```
+
+**Point** represents one place in a source [*file*][unist-file].
+
+The `line` and `column` fields are `1`-indexed integers representing a line and column in a source file. The offset
+field (`0`-indexed integer) represents a character in a source file.
+
+The term character refers to a (UTF-16) code unit as defined by the [Web IDL specification][webidl-spec].
+
+### `Literal`
+
+```ts
+interface Literal extends Node {
+  value: string
+}
+```
+
+**Literal** represents an abstract interface in docast containing a value.
+
+Its `value` field is a `string`.
+
+### `Parent`
+
+```ts
+interface Parent extends unist.Parent {
+  children: (Comment | Content)[]
+}
+```
+
+**Parent** ([**unist.Parent**][unist-parent]) represents an abstract interface in docast containing other nodes (said to
+be [*children*][unist-child]).
+
+Its content is limited to [**comment**](#comment) nodes and [docast content](#content-model).
+
+## Nodes
+
+### `BlockTag`
+
+```ts
+interface BlockTag extends Parent, Tag {
+  children: BlockTagContent[]
+  data?: BlockTagData | undefined
+  type: 'block-tag'
+}
+```
+
+**BlockTag** ([**Parent**](#parent)) represents top-level metadata.
+
+**BlockTag** can be used in [**comment**](#comment) nodes. Its content model is [**block tag**](#blocktagcontent)
+content.
+
+### `Comment`
+
+```ts
+interface Comment extends Parent {
+  children: FlowContent[]
+  code?: CodeSegment | null | undefined
+  data?: CommentData | undefined
+  type: 'comment'
+}
+```
+
+**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment) in a source [*file*][unist-file].
+
+The `code` field represents the segment of code documented by a comment. The value of the `code` field may be `null`,
+`undefined`, or implement the [`CodeSegment`](#codesegment) interface. The `code` field must not be present if a comment
+is used only to provide additional information.
+
+**Comment** can be used in [**root**](#root) nodes. Its content model is [**flow**](#flowcontent) content.
+
+#### `CodeSegment`
+
+```ts
+interface CodeSegment {
+  identifier: string
+  kind: number | string
+  parent?: CodeSegment | null | undefined
+  position: Position
+}
+```
+
+**CodeSegment** represents the code segment in a [*file*][unist-file] that is documented by a [**comment**](#comment).
+
+The `identifier` field represents the name of documented code segment. The value of the `identifier` field is a
+non-empty string that matches the identifier found in the respective programming langauge's AST.
+
+The `kind` field represents the syntax kind of the code segment. The value of the `kind` field is an enumerated value.
+
+The `parent` field represents the code segment the current segment is nested under. The value of the `parent` field may
+be `null` or `undefined` for top-level code segments, or for nested code segments, implement the `CodeSegment` interface.
+
+### `Description`
+
+```ts
+interface Description extends Parent {
+  children: DescriptionContent[]
+  data?: DescriptionData | undefined
+  type: 'description'
+}
+```
+
+**Description** ([**Parent**](#parent)) represents the text of a [**comment**](#comment). It is located at the start of
+a comment, before any [**block tags**](#blocktag), and may contain [Markdown][mdast] content.
+
+**Description** can be used in [**comment**](#comment) nodes. Its content model is [**description**](#descriptioncontent).
+
+### `InlineTag`
+
+```ts
+interface InlineTag extends Literal, Tag {
+  data?: InlineTagData | undefined
+  type: 'inline-tag'
+}
+```
+
+**InlineTag** ([**Literal**](#literal)) represents inline metadata.
+
+**InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes. It cannot contain any
+children &mdash; it is a [*leaf*][unist-leaf].
+
+### `Root`
+
+```ts
+interface Root extends Parent {
+  children: Comment[]
+  data?: RootData | undefined
+  position?: undefined
   type: 'root'
 }
 ```
 
 **Root** ([**Parent**](#parent)) represents a document.
 
-**Root** can be used as the [*root*][16] of a [*tree*][17], never as a [*child*][18]. It can contain
-[**comment**](#comment) nodes.
+**Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child]. It can
+contain [**comment**](#comment) nodes.
 
-### Comment
+### `TypeExpression`
 
-```idl
-interface Comment <: Parent {
-  children: [BlockTag | ImplicitDescription]
-  context: Context?
-  type: 'comment'
-  value: string
+```ts
+interface TypeExpression extends Literal {
+  data?: TypeExpressionData | undefined
+  type: 'type-expression'
 }
 ```
 
-**Comment** ([**Parent**](#parent)) represents a [docblock comment](#docblock-comment).
+**TypeExpression** ([**Literal**](#literal)) represents a type defintion or constraint.
 
-**Comment** can be used in [**root**](#root) nodes. It can contain [**implicit description**](#implicitdescription) and
-[**block tag**](#blocktag) nodes.
+**TypeExpression** can be used in [**block tag**](#blocktag) nodes. It cannot contain any children &mdash; it is a
+[*leaf*][unist-leaf].
 
-A **comment** has [*context*](#context) if [positioned][19] exactly one line before the code it documents.
+## Mixins
 
-### ImplicitDescription
+### `Tag`
 
-```idl
-interface ImplicitDescription <: Parent {
-  children: [InlineTag]
-  type: 'implicit-description'
-  value: string
-}
-```
-
-**ImplicitDescription** ([**Parent**](#parent)) represents a piece of text located at the **beginning** of a [docblock comment](#docblock-comment).
-
-**ImplicitDescription** can be used in [**comment**](#comment) nodes. It can contain [**inline tag**](#inlinetag) nodes.
-
-### BlockTag
-
-```idl
-interface BlockTag <: Parent {
-  children: [InlineTag]
+```ts
+interface Tag {
+  name: string
+  prefix: string
   tag: string
-  text: string
-  type: 'block-tag'
-  value: string
 }
 ```
 
-**BlockTag** ([**Parent**](#parent)) represents metadata in a [docblock comment](#docblock-comment).
+**Tag** represents metadata associated with a [**comment**](#comment).
 
-**BlockTag** can be used in [**comment**](#comment) nodes. It can contain [**inline tag**](#inlinetag) nodes.
+The `prefix` field represents the tag prefix. The value is a non-empty string.
 
-### InlineTag
+The `name` field represents the tag name without `prefix`. The value of the `name` field is a non-empty string.
 
-```idl
-interface InlineTag <: Node {
-  tag: string
-  text: string
-  type: 'inline-tag'
-  value: string
-}
+The `tag` field represents the parsed tag. The value of `tag` field is `prefix` and `name`.
+
+## Content model
+
+```ts
+type Content = BlockTagContent | DescriptionContent | FlowContent | PhrasingContent
 ```
 
-**InlineTag** ([**Node**](#node)) represents inline metadata in a [docblock comment](#docblock-comment).
+Nodes are grouped by content type, if applicable. Each node in docast, with the exception of [`Comment`](#comment),
+falls into one or more categories of `Content`.
 
-**InlineTag** can be used in [**implicit description**](#implicitdescription) and [**block tag**](#blocktag) nodes. It
-cannot contain any children &mdash; it is a [*leaf*][20].
+### `BlockTagContent`
 
-## Interfaces
-
-### Context
-
-```idl
-interface Context {
-  identifier: string
-  kind: string
-  parent: string?
-  position: UnistPosition
-}
+```ts
+type BlockTagContent = PhrasingContent | TypeExpression
 ```
 
-Data representing the segment of code a [**comment**](#comment) documents.
+**Block** content represents [**block tag**](#blocktag) text, and its markup.
+
+### `DescriptionContent`
+
+```ts
+type DescriptionContent =
+  | mdast.Blockquote
+  | mdast.Definition
+  | mdast.FootnoteDefinition
+  | mdast.List
+  | mdast.ListItem
+  | mdast.Paragraph
+  | mdast.Table
+  | mdast.ThematicBreak
+  | PhrasingContent
+```
+
+**Description** content represents [**description**](#description) text, and its markup.
+
+### `FlowContent`
+
+```ts
+type FlowContent = BlockTag | Description
+```
+
+**Flow** content represents the sections of [**comment**](#comment).
+
+### `PhrasingContent`
+
+```ts
+type PhrasingContent = InlineTag | mdast.Code | mdast.PhrasingContent
+```
+
+**Phrasing** content represents [**comment**](#comment) text, and its markup.
 
 ## Glossary
 
-See the [unist glossary][21] for more terms.
+See the [unist glossary][unist-glossary] for more terms.
 
 ### Docblock comment
 
-A specially formatted [comment][22] in a source file used to document a segment of code or provide additional
-information.
+A specially formatted [comment][wiki-comment] in a source [*file*][unist-file] used to document a segment of code or
+provide additional information.
 
 ## List of utilities
 
-See the [unist list of utilities][4] for more utilities.
-
-- [`docast-parse`][23] &mdash; [unified][24] compliant file parser
+See the [unist list of utilities][unist-utilities] for more utilities.
 
 ## Contribute
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-Ideas for new utilities and tools can be posted in [docast/ideas][25].
+Ideas for new utilities and tools can be posted in [docast/ideas][docast-ideas].
 
-[1]: https://github.com/syntax-tree/unist#syntax-tree
-[2]: https://github.com/syntax-tree/unist
-[3]: https://heycam.github.io/webidl
-[4]: https://github.com/syntax-tree/unist#list-of-utilities
-[5]: https://www.ecma-international.org/ecma-262/9.0/index.html
-[6]: https://typescriptlang.org
-[7]: https://jsdoc.app
-[8]: https://tsdoc.org
-[9]: https://github.com/TypeStrong/typedoc
-[10]: https://eslint.org
-[11]: https://github.com/gajus/eslint-plugin-jsdoc#check-tag-names
-[12]: https://github.com/gajus/eslint-plugin-jsdoc#structuredtags
-[13]: https://github.com/syntax-tree/unist#node
-[14]: https://github.com/syntax-tree/unist#parent
-[15]: https://github.com/syntax-tree/unist#child
-[16]: https://github.com/syntax-tree/unist#root
-[17]: https://github.com/syntax-tree/unist#tree
-[18]: https://github.com/syntax-tree/unist#child
-[19]: https://github.com/syntax-tree/unist#positional-information
-[20]: https://github.com/syntax-tree/unist#leaf
-[21]: https://github.com/syntax-tree/unist#glossary
-[22]: https://en.wikipedia.org/wiki/Comment_(computer_programming)
-[23]: https://github.com/flex-development/docast-parse
-[24]: https://github.com/unifiedjs/unified
-[25]: https://github.com/flex-development/docast/discussions/new?category=ideas
+This project has a [code of conduct](CODE_OF_CONDUCT.md). By interacting with this repository, organization, or
+community you agree to abide by its terms.
+
+[check-tag-names]: https://github.com/gajus/eslint-plugin-jsdoc-check-tag-names
+[docast-ideas]: https://github.com/flex-development/docast/discussions/new?category=ideas
+[eslint]: https://eslint.org
+[javascript]: https://www.ecma-international.org/ecma-262/9.0/index.html
+[jsdoc]: https://jsdoc.app
+[mdast]: https://github.com/syntax-tree/mdast
+[structuredtags]: https://github.com/gajus/eslint-plugin-jsdoc-structuredtags
+[tsdoc]: https://tsdoc.org
+[typedoc]: https://github.com/TypeStrong/typedoc
+[typescript]: https://typescriptlang.org
+[unist-child]: https://github.com/syntax-tree/unist#child
+[unist-file]: https://github.com/syntax-tree/unist#file
+[unist-generated]: https://github.com/syntax-tree/unist#generated
+[unist-glossary]: https://github.com/syntax-tree/unist#glossary
+[unist-leaf]: https://github.com/syntax-tree/unist#leaf
+[unist-node]: https://github.com/syntax-tree/unist#node
+[unist-parent]: https://github.com/syntax-tree/unist#parent
+[unist-root]: https://github.com/syntax-tree/unist#root
+[unist-syntax-tree]: https://github.com/syntax-tree/unist#syntax-tree
+[unist-tree]: https://github.com/syntax-tree/unist#tree
+[unist-utilities]: https://github.com/syntax-tree/unist#list-of-utilities
+[unist]: https://github.com/syntax-tree/unist
+[webidl-spec]: https://webidl.spec.whatwg.org/
+[wiki-comment]: https://en.wikipedia.org/wiki/Comment_(computer_programming)

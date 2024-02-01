@@ -184,6 +184,7 @@
     ],
     "overrideConfigFile": ".eslintrc.cjs"
   },
+  "eslint.runtime": "node",
   "eslint.validate": [
     "css",
     "github-actions-workflow",

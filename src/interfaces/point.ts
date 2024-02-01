@@ -10,13 +10,13 @@ import type unist from 'unist'
  *
  * [1]: https://github.com/syntax-tree/unist#file
  *
- * @see https://github.com/syntax-tree/unist#point
+ * @see {@linkcode unist.Point}
  *
  * @extends {Required<unist.Point>}
  */
 interface Point extends Required<unist.Point> {
   /**
-   * Index of character in a source file (0-indexed integer).
+   * Index of character in source file (0-indexed integer).
    */
   offset: number
 }

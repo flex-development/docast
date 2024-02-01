@@ -3,29 +3,25 @@
  * @module docast/nodes/tests/unit-d/Node
  */
 
-import type { Type } from '#src/enums'
-import type { Position } from '#src/interfaces'
+import type { Data, Position } from '#src/interfaces'
+import type { Optional } from '@flex-development/tutils'
 import type unist from 'unist'
 import type TestSubject from '../node'
 
 describe('unit-d:nodes/Node', () => {
-  it('should extend unist.Node<Data>', () => {
+  it('should extend unist.Node', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<unist.Node>()
   })
 
-  it('should match [data?: Data]', () => {
+  it('should match [data?: Optional<Data>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('data')
-      .toEqualTypeOf<unist.Data | undefined>()
+      .toEqualTypeOf<Optional<Data>>()
   })
 
-  it('should match [position?: Position]', () => {
+  it('should match [position?: Optional<Position>]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('position')
-      .toEqualTypeOf<Position | undefined>()
-  })
-
-  it('should match [type: Type]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('type').toEqualTypeOf<Type>()
+      .toEqualTypeOf<Optional<Position>>()
   })
 })
