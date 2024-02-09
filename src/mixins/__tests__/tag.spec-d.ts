@@ -10,10 +10,6 @@ describe('unit-d:mixins/Tag', () => {
     expectTypeOf<TestSubject>().toHaveProperty('name').toBeString()
   })
 
-  it('should match [prefix: string]', () => {
-    expectTypeOf<TestSubject>().toHaveProperty('prefix').toBeString()
-  })
-
   it('should match [tag: string]', () => {
     expectTypeOf<TestSubject>().toHaveProperty('tag').toBeString()
   })

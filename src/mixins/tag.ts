@@ -13,11 +13,6 @@ interface Tag {
   name: string
 
   /**
-   * Tag prefix.
-   */
-  prefix: string
-
-  /**
    * Parsed tag.
    */
   tag: string
