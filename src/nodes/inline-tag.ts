@@ -36,7 +36,7 @@ interface InlineTag extends Literal, Tag {
   /**
    * Node type.
    */
-  type: 'inline-tag'
+  type: 'inlineTag'
 }
 
 export type { InlineTagData, InlineTag as default }

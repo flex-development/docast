@@ -45,7 +45,7 @@ interface BlockTag extends Parent, Tag {
   /**
    * Node type.
    */
-  type: 'block-tag'
+  type: 'blockTag'
 }
 
 export type { BlockTagData, BlockTag as default }

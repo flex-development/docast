@@ -23,9 +23,9 @@ describe('unit-d:nodes/InlineTag', () => {
       .toEqualTypeOf<Optional<InlineTagData>>()
   })
 
-  it('should match [type: "inline-tag"]', () => {
+  it('should match [type: "inlineTag"]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('type')
-      .toEqualTypeOf<'inline-tag'>()
+      .toEqualTypeOf<'inlineTag'>()
   })
 })

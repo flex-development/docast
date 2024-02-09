@@ -21,9 +21,9 @@ describe('unit-d:nodes/TypeExpression', () => {
       .toEqualTypeOf<Optional<TypeExpressionData>>()
   })
 
-  it('should match [type: "type-expression"]', () => {
+  it('should match [type: "typeExpression"]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('type')
-      .toEqualTypeOf<'type-expression'>()
+      .toEqualTypeOf<'typeExpression'>()
   })
 })

@@ -10,7 +10,7 @@ import type { CommentData, default as TestSubject } from '../comment'
 import type Parent from '../parent'
 
 describe('unit-d:nodes/Comment', () => {
-  it('should extend Parent>', () => {
+  it('should extend Parent', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<Parent>()
   })
 

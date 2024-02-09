@@ -34,7 +34,7 @@ interface TypeExpression extends Literal {
   /**
    * Node type.
    */
-  type: 'type-expression'
+  type: 'typeExpression'
 }
 
 export type { TypeExpressionData, TypeExpression as default }

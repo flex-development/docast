@@ -30,9 +30,9 @@ describe('unit-d:nodes/BlockTag', () => {
       .toEqualTypeOf<Optional<BlockTagData>>()
   })
 
-  it('should match [type: "block-tag"]', () => {
+  it('should match [type: "blockTag"]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('type')
-      .toEqualTypeOf<'block-tag'>()
+      .toEqualTypeOf<'blockTag'>()
   })
 })
