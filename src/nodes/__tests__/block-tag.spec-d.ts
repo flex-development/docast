@@ -8,6 +8,7 @@ import type { Tag } from '#src/mixins'
 import type { Optional } from '@flex-development/tutils'
 import type { BlockTagData, default as TestSubject } from '../block-tag'
 import type Parent from '../parent'
+import type TypeExpression from '../type-expression'
 
 describe('unit-d:nodes/BlockTag', () => {
   it('should extend Parent', () => {
@@ -18,10 +19,21 @@ describe('unit-d:nodes/BlockTag', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<Tag>()
   })
 
-  it('should match [children: BlockContent[]]', () => {
+  it('should match [children: Exclude<BlockTagContent, TypeExpression>[]]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('children')
-      .toEqualTypeOf<BlockTagContent[]>()
+      .extract<Exclude<BlockTagContent, TypeExpression>[]>()
+      .toBeArray()
+  })
+
+  it('should match [children: [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]]', () => {
+    expectTypeOf<TestSubject>()
+      .toHaveProperty('children')
+      .extract<[
+        TypeExpression,
+        ...Exclude<BlockTagContent, TypeExpression>[]
+      ]>()
+      .toBeArray()
   })
 
   it('should match [data?: Optional<BlockTagData>]', () => {

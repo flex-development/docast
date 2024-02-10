@@ -8,6 +8,7 @@ import type { Data } from '#src/interfaces'
 import type { Tag } from '#src/mixins'
 import type { Optional } from '@flex-development/tutils'
 import type Parent from './parent'
+import type TypeExpression from './type-expression'
 
 /**
  * Info associated with block tag nodes.
@@ -33,7 +34,9 @@ interface BlockTag extends Parent, Tag {
    *
    * @see {@linkcode BlockTagContent}
    */
-  children: BlockTagContent[]
+  children:
+    | Exclude<BlockTagContent, TypeExpression>[]
+    | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
 
   /**
    * Data associated with block tag.
