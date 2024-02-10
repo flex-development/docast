@@ -3,8 +3,23 @@
  * @module docast/content/Description
  */
 
+import type { InlineTag } from '#src/nodes'
 import type mdast from 'mdast'
 import type { PhrasingContentMap } from './phrasing'
+
+declare module 'mdast' {
+  interface BlockContentMap {
+    inlineTag: InlineTag
+  }
+
+  interface DefinitionContentMap {
+    inlineTag: InlineTag
+  }
+
+  interface RootContentMap {
+    inlineTag: InlineTag
+  }
+}
 
 /**
  * Union of registered docast nodes that can occur where description content is
@@ -32,12 +47,14 @@ type DescriptionContent = DescriptionContentMap[keyof DescriptionContentMap]
  */
 interface DescriptionContentMap extends PhrasingContentMap {
   blockquote: mdast.Blockquote
+  code: mdast.Code
   definition: mdast.Definition
   footnoteDefinition: mdast.FootnoteDefinition
   list: mdast.List
   listItem: mdast.ListItem
-  paragraph: mdast.Paragraph
   table: mdast.Table
+  tableCell: mdast.TableCell
+  tableRow: mdast.TableRow
   thematicBreak: mdast.ThematicBreak
 }
 

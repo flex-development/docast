@@ -6,6 +6,12 @@
 import type { InlineTag } from '#src/nodes'
 import type mdast from 'mdast'
 
+declare module 'mdast' {
+  interface PhrasingContentMap {
+    inlineTag: InlineTag
+  }
+}
+
 /**
  * Union of registered docast nodes that can occur where phrasing content is
  * expected.
@@ -30,9 +36,6 @@ type PhrasingContent = PhrasingContentMap[keyof PhrasingContentMap]
  *
  * @extends {mdast.PhrasingContentMap}
  */
-interface PhrasingContentMap extends mdast.PhrasingContentMap {
-  code: mdast.Code
-  inlineTag: InlineTag
-}
+interface PhrasingContentMap extends mdast.PhrasingContentMap {}
 
 export type { PhrasingContent, PhrasingContentMap }

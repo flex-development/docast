@@ -4,6 +4,7 @@
  */
 
 import type { TypeExpression } from '#src/nodes'
+import type mdast from 'mdast'
 import type { PhrasingContentMap } from './phrasing'
 
 /**
@@ -31,6 +32,7 @@ type BlockTagContent = BlockTagContentMap[keyof BlockTagContentMap]
  * @extends {PhrasingContentMap}
  */
 interface BlockTagContentMap extends PhrasingContentMap {
+  code: mdast.Code
   typeExpression: TypeExpression
 }
 

@@ -20,6 +20,12 @@ describe('unit-d:content/Description', () => {
         .toEqualTypeOf<mdast.Blockquote>
     })
 
+    it('should match [code: mdast.Code]', () => {
+      expectTypeOf<TestSubject.DescriptionContentMap>()
+        .toHaveProperty('code')
+        .toEqualTypeOf<mdast.Code>
+    })
+
     it('should match [definition: mdast.Definition]', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
         .toHaveProperty('definition')
@@ -44,16 +50,22 @@ describe('unit-d:content/Description', () => {
         .toEqualTypeOf<mdast.ListItem>
     })
 
-    it('should match [paragraph: mdast.Paragraph]', () => {
-      expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('paragraph')
-        .toEqualTypeOf<mdast.Paragraph>
-    })
-
     it('should match [table: mdast.Table]', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
         .toHaveProperty('table')
         .toEqualTypeOf<mdast.Table>
+    })
+
+    it('should match [tableCell: mdast.TableCell]', () => {
+      expectTypeOf<TestSubject.DescriptionContentMap>()
+        .toHaveProperty('tableCell')
+        .toEqualTypeOf<mdast.TableCell>
+    })
+
+    it('should match [tableRow: mdast.TableRow]', () => {
+      expectTypeOf<TestSubject.DescriptionContentMap>()
+        .toHaveProperty('tableRow')
+        .toEqualTypeOf<mdast.TableRow>
     })
 
     it('should match [thematicBreak: mdast.ThematicBreak]', () => {
