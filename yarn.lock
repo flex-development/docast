@@ -19,9 +19,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arethetypeswrong/cli@npm:0.13.9":
-  version: 0.13.9
-  resolution: "@arethetypeswrong/cli@npm:0.13.9"
+"@arethetypeswrong/cli@npm:0.13.10":
+  version: 0.13.10
+  resolution: "@arethetypeswrong/cli@npm:0.13.10"
   dependencies:
     "@arethetypeswrong/core": "npm:0.13.9"
     chalk: "npm:^4.1.2"
@@ -32,7 +32,7 @@ __metadata:
     semver: "npm:^7.5.4"
   bin:
     attw: dist/index.js
-  checksum: 10/4e1bfbc45c42b4419f5bde12e7b39feb17a68a104cb74d173bd9ed3481a8603d5843877fe9f4d11a5e82619e3868b7712a1dc3368f48a94f33bf33f749da1446
+  checksum: 10/3d8aa55761353135738efdde16cafd468c36ef5a6eb10feb847ca0936d97a9c2310a0be92e014eb17c38088ee62164ad3558c78474897db019572c35a44abd2c
   languageName: node
   linkType: hard
 
@@ -1360,7 +1360,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@flex-development/docast@workspace:."
   dependencies:
-    "@arethetypeswrong/cli": "npm:0.13.9"
+    "@arethetypeswrong/cli": "npm:0.13.10"
     "@commitlint/cli": "npm:18.6.1"
     "@commitlint/types": "npm:18.6.1"
     "@flex-development/commitlint-config": "npm:1.0.1"
