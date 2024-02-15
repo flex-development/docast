@@ -52,6 +52,7 @@ interface DescriptionContentMap extends PhrasingContentMap {
   footnoteDefinition: mdast.FootnoteDefinition
   list: mdast.List
   listItem: mdast.ListItem
+  paragraph: mdast.Paragraph
   table: mdast.Table
   tableCell: mdast.TableCell
   tableRow: mdast.TableRow

@@ -50,6 +50,12 @@ describe('unit-d:content/Description', () => {
         .toEqualTypeOf<mdast.ListItem>
     })
 
+    it('should match [paragraph: mdast.Paragraph]', () => {
+      expectTypeOf<TestSubject.DescriptionContentMap>()
+        .toHaveProperty('paragraph')
+        .toEqualTypeOf<mdast.Paragraph>
+    })
+
     it('should match [table: mdast.Table]', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
         .toHaveProperty('table')
