@@ -1,5 +1,4 @@
 attw
-bdougie
 bstract
 cefc
 commitlintrc
