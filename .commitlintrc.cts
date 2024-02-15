@@ -19,6 +19,7 @@ const config: UserConfig = {
   extends: ['@flex-development'],
   rules: {
     'scope-enum': [Severity.Error, 'always', scopes([
+      'chore',
       'content',
       'nodes',
       'spec'
