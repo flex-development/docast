@@ -45,8 +45,6 @@ updates:
         patterns:
           - '@vitest/*'
           - vitest*
-    ignore:
-      - dependency-name: vite-tsconfig-paths
     labels:
       - scope:dependencies
       - type:build
