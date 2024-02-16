@@ -14,7 +14,7 @@
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": false,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2022"],
+    "lib": ["es2023"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "newLine": "lf",

@@ -62,8 +62,8 @@
     "prepublishOnly": "toggle-scripts -prepack",
     "release": "bash ./scripts/release.sh",
     "test": "yarn typecheck",
-    "typecheck": "vitest --run --typecheck",
-    "typecheck:watch": "vitest --typecheck"
+    "typecheck": "vitest --run --typecheck --mode=typecheck",
+    "typecheck:watch": "vitest --typecheck --mode=typecheck"
   },
   "dependencies": {
     "@flex-development/tutils": "6.0.0-alpha.25"
@@ -125,8 +125,8 @@
     "trash-cli": "5.0.0",
     "ts-dedent": "2.2.0",
     "typescript": "5.3.3",
-    "vite": "5.1.2",
-    "vite-tsconfig-paths": "4.3.1",
+    "vite": "5.1.3",
+    "vite-tsconfig-paths": "4.2.3",
     "vitest": "1.2.2",
     "yaml-eslint-parser": "1.2.2"
   },

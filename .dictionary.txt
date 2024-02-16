@@ -27,6 +27,7 @@ preid
 shfmt
 unstub
 vates
+vite
 vitest
 yarnrc
 yntax
