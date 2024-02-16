@@ -16,7 +16,7 @@ const fs = require('node:fs')
  */
 const config = {
   env: {
-    [require('./tsconfig.build.json').compilerOptions.target]: true,
+    es2023: true,
     node: true
   },
   extends: [],
@@ -37,10 +37,7 @@ const config = {
           jsx: true
         },
         extraFileExtensions: [],
-        project: [
-          '**/tsconfig.json',
-          './tsconfig.cjs.json'
-        ],
+        project: ['**/tsconfig.json'],
         sourceType: require('./package.json').type,
         tsconfigRootDir: process.cwd(),
         warnOnUnsupportedTypeScriptVersion: true

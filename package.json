@@ -50,7 +50,7 @@
     "clean:modules": "trash ./.yarn/{cache,*.gz} ./node_modules",
     "clean:pack": "trash ./*.tgz",
     "clean:test": "trash ./__tests__/report.json",
-    "commitlint": "cross-env TS_NODE_PROJECT=tsconfig.cjs.json commitlint -V",
+    "commitlint": "commitlint -V",
     "fix:cg": "yarn fix:format && yarn fix:lint",
     "fix:dedupe": "yarn dedupe --strategy=highest",
     "fix:format": "dprint fmt",
@@ -62,7 +62,7 @@
     "prepublishOnly": "toggle-scripts -prepack",
     "release": "bash ./scripts/release.sh",
     "test": "yarn typecheck",
-    "typecheck": "vitest --run --typecheck",
+    "typecheck": "vitest run --typecheck",
     "typecheck:watch": "vitest --typecheck"
   },
   "dependencies": {
@@ -126,7 +126,6 @@
     "ts-dedent": "2.2.0",
     "typescript": "5.3.3",
     "vite": "5.1.2",
-    "vite-tsconfig-paths": "4.3.1",
     "vitest": "1.2.2",
     "yaml-eslint-parser": "1.2.2"
   },

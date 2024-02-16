@@ -7,13 +7,13 @@
 import pathe from '@flex-development/pathe'
 import { ifelse, sift } from '@flex-development/tutils'
 import ci from 'is-ci'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import {
   defineConfig,
   type UserConfig,
   type UserConfigExport
 } from 'vitest/config'
 import { BaseSequencer, type WorkspaceSpec } from 'vitest/node'
+import Notifier from './__tests__/reporters/notifier.ts'
 
 /**
  * Vitest configuration export.
@@ -32,12 +32,6 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
 
   return {
     define: {},
-    plugins: [
-      tsconfigPaths({
-        parseNative: true,
-        projects: [pathe.resolve('tsconfig.json')]
-      })
-    ],
     test: {
       allowOnly: !ci,
       benchmark: {},
@@ -78,11 +72,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
       mockReset: true,
       outputFile: { json: './__tests__/report.json' },
       passWithNoTests: true,
-      reporters: sift([
-        'json',
-        'verbose',
-        ifelse(ci, '', './__tests__/reporters/notifier.ts')
-      ]),
+      reporters: sift([ifelse(ci, null, new Notifier()), 'json', 'verbose']),
       /**
        * Stores snapshots next to `file`'s directory.
        *
@@ -135,7 +125,7 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
         ignoreSourceErrors: false,
         include: ['**/__tests__/*.spec-d.ts'],
         only: true,
-        tsconfig: pathe.resolve('tsconfig.typecheck.json')
+        tsconfig: 'tsconfig.typecheck.json'
       },
       unstubEnvs: true,
       unstubGlobals: true

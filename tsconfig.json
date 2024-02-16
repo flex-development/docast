@@ -14,7 +14,7 @@
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": false,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2022"],
+    "lib": ["es2023"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "newLine": "lf",
@@ -52,12 +52,15 @@
   },
   "exclude": ["**/coverage", "**/dist", "**/node_modules"],
   "include": [
+    "**/**.json",
     "**/**.mjs",
     "**/**.mts",
     "**/**.ts",
+    "**/.*.json",
     "**/.*.mjs",
     "**/.*.mts",
-    "**/.*.ts"
+    "**/.*.ts",
+    ".eslintrc*cjs"
   ],
   "mdx": {
     "plugins": [
@@ -65,6 +68,5 @@
       "remark-frontmatter",
       "remark-gfm"
     ]
-  },
-  "references": [{ "path": "./tsconfig.cjs.json" }]
+  }
 }
