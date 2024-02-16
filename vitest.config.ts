@@ -32,7 +32,12 @@ const config: UserConfigExport = defineConfig((): UserConfig => {
 
   return {
     define: {},
-    plugins: [tsconfigPaths({ projects: [pathe.resolve('tsconfig.json')] })],
+    plugins: [
+      tsconfigPaths({
+        parseNative: true,
+        projects: [pathe.resolve('tsconfig.json')]
+      })
+    ],
     test: {
       allowOnly: !ci,
       benchmark: {},
