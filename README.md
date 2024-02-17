@@ -348,6 +348,8 @@ provide additional information.
 
 See the [unist list of utilities][unist-utilities] for more utilities.
 
+- [`docast-util-from-docs`][docast-util-from-docs] - parse docblocks
+
 ## Contribute
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
@@ -358,7 +360,8 @@ This project has a [code of conduct](CODE_OF_CONDUCT.md). By interacting with th
 community you agree to abide by its terms.
 
 [check-tag-names]: https://github.com/gajus/eslint-plugin-jsdoc-check-tag-names
-[docast-ideas]: https://github.com/flex-development/docast/discussions/new?category=ideas
+[docast-ideas]: https://github.com/flex-development/docast/discussions/new?category=idea
+[docast-util-from-docs]: https://github.com/flex-development/docast-util-from-docs
 [eslint]: https://eslint.org
 [javascript]: https://www.ecma-international.org/ecma-262/9.0/index.html
 [jsdoc]: https://jsdoc.app
