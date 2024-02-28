@@ -70,8 +70,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.15.0",
-    "@commitlint/cli": "18.6.1",
-    "@commitlint/types": "18.6.1",
+    "@commitlint/cli": "19.0.1",
+    "@commitlint/types": "19.0.0",
     "@flex-development/commitlint-config": "1.0.1",
     "@flex-development/decorator-regex": "2.0.0",
     "@flex-development/esm-types": "2.0.0",
