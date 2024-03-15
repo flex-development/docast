@@ -94,7 +94,7 @@
     "debug": "4.3.4",
     "dprint": "0.45.0",
     "editorconfig": "2.0.0",
-    "esbuild": "0.20.1",
+    "esbuild": "0.20.2",
     "eslint": "8.57.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-mdx": "3.1.5",
