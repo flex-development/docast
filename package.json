@@ -69,7 +69,7 @@
     "@flex-development/tutils": "6.0.0-alpha.25"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.15.1",
+    "@arethetypeswrong/cli": "0.15.2",
     "@commitlint/cli": "19.2.1",
     "@commitlint/types": "19.0.3",
     "@flex-development/commitlint-config": "1.0.1",
