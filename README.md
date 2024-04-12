@@ -63,8 +63,8 @@ docast is **language-agnostic**, however, and can be used with any programming l
 docast relates to [JSDoc][jsdoc], [TSDoc][tsdoc], and [typedoc][typedoc] in that these tools parse docblock comments.
 These tools also have a limited set of tags that developers are allowed to use. If developers already have a set of tags
 they're using, they must spend additional time re-configuring those tags for their chosen tool. **docast does not
-enforce any tag semantics** &mdash; the user does. Tag specifications can be left to an [ESLint][eslint] rule or setting
-akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
+enforce any tag semantics** &mdash; the user does. Tag specifications can be left to an [ESLint][eslint] rule, or a
+setting akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
 
 ## Types
 
@@ -176,7 +176,9 @@ content.
 
 ```ts
 interface Comment extends Parent {
-  children: FlowContent[]
+  children:
+    | Exclude<FlowContent, Description>[]
+    | [summary: Description, ...Exclude<FlowContent, Description>[]]
   code?: CodeSegment | null | undefined
   data?: CommentData | undefined
   type: 'comment'
