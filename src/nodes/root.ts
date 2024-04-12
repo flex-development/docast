@@ -3,10 +3,8 @@
  * @module docast/nodes/Root
  */
 
-import type { Data } from '#src/interfaces'
+import type { Comment, Data, Parent } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Comment from './comment'
-import type Parent from './parent'
 
 /**
  * Info associated with documents.
@@ -35,16 +33,11 @@ interface Root extends Parent {
   children: Comment[]
 
   /**
-   * Data associated with docast root.
+   * Info from the ecosystem.
    *
    * @see {@linkcode RootData}
    */
   data?: Optional<RootData>
-
-  /**
-   * Position of root in source document.
-   */
-  position?: undefined
 
   /**
    * Node type.

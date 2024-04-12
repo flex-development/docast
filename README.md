@@ -241,7 +241,6 @@ children &mdash; it is a [*leaf*][unist-leaf].
 interface Root extends Parent {
   children: Comment[]
   data?: RootData | undefined
-  position?: undefined
   type: 'root'
 }
 ```
