@@ -155,7 +155,9 @@ Its content is limited to [docast content](#content-model) and [mdast content][m
 
 ```ts
 interface BlockTag extends Parent, Tag {
-  children: BlockTagContent[]
+  children:
+    | Exclude<BlockTagContent, TypeExpression>[]
+    | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
   data?: BlockTagData | undefined
   type: 'blockTag'
 }
