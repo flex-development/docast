@@ -71,7 +71,7 @@ akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][s
 TypeScript users can integrate `docast` type definitions into their project by installing the appropriate packages:
 
 ```sh
-yarn add @flex-development/docast @types/mdast @types/unist
+yarn add @flex-development/docast @flex-development/unist-util-types @types/mdast @types/unist
 ```
 
 ## Nodes (abstract)
