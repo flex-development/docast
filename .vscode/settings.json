@@ -67,54 +67,6 @@
     "editor.wordWrapColumn": 100,
     "rewrap.wrappingColumn": 100
   },
-  "better-comments.highlightPlainText": true,
-  "better-comments.tags": [
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#ff2d00",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "!",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#3498db",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "?",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#474747",
-      "italic": false,
-      "strikethrough": true,
-      "tag": "//",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#ff8c00",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "todo",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#98c379",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "*",
-      "underline": false
-    }
-  ],
   "breadcrumbs.enabled": true,
   "cSpell.enabled": true,
   "debug.showBreakpointsInOverviewRuler": true,
@@ -287,7 +239,7 @@
   "todo-tree.tree.buttons.viewStyle": true,
   "todo-tree.tree.expanded": true,
   "todo-tree.tree.filterCaseSensitive": true,
-  "todo-tree.tree.scanMode": "workspace",
+  "todo-tree.tree.scanMode": "workspace only",
   "todo-tree.tree.showBadges": true,
   "todo-tree.tree.showCountsInTree": true,
   "todo-tree.tree.showCurrentScanMode": true,
@@ -315,11 +267,6 @@
     "resolutions"
   ],
   "vsicons.associations.files": [
-    {
-      "extensions": [".commitlintrc.cts"],
-      "format": "svg",
-      "icon": "commitlint"
-    },
     {
       "extensions": [".eslintrc.base.cjs"],
       "format": "svg",
@@ -361,6 +308,11 @@
       "extensions": ["internal"],
       "format": "svg",
       "icon": "private"
+    },
+    {
+      "extensions": ["namespaces"],
+      "format": "svg",
+      "icon": "module"
     },
     {
       "extensions": ["patches"],

@@ -1,83 +1,84 @@
 /**
- * @file Type Tests - Description
- * @module docast/content/tests/unit-d/Description
+ * @file Type Tests - description
+ * @module docast/content/tests/unit-d/description
  */
 
+import type { NodeObject } from '#tests/types'
+import type { PhrasingContentMap } from '@flex-development/docast'
 import type mdast from 'mdast'
 import type * as TestSubject from '../description'
-import type { PhrasingContentMap } from '../phrasing'
 
-describe('unit-d:content/Description', () => {
+describe('unit-d:content/description', () => {
+  describe('DescriptionContent', () => {
+    it('should equal DescriptionContentMap[keyof DescriptionContentMap]', () => {
+      // Arrange
+      type K = keyof TestSubject.DescriptionContentMap
+      type Expect = TestSubject.DescriptionContentMap[K]
+
+      // Expect
+      expectTypeOf<TestSubject.DescriptionContent>().toEqualTypeOf<Expect>
+    })
+  })
+
   describe('DescriptionContentMap', () => {
-    it('should extend  PhrasingContentMap', () => {
+    it('should extend PhrasingContentMap', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
         .toMatchTypeOf<PhrasingContentMap>()
     })
 
-    it('should match [blockquote: mdast.Blockquote]', () => {
+    it('should match NodeObject<mdast.Blockquote>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('blockquote')
-        .toEqualTypeOf<mdast.Blockquote>
+        .toMatchTypeOf<NodeObject<mdast.Blockquote>>()
     })
 
-    it('should match [code: mdast.Code]', () => {
+    it('should match NodeObject<mdast.Code>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('code')
-        .toEqualTypeOf<mdast.Code>
+        .toMatchTypeOf<NodeObject<mdast.Code>>()
     })
 
-    it('should match [definition: mdast.Definition]', () => {
+    it('should match NodeObject<mdast.Definition>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('definition')
-        .toEqualTypeOf<mdast.Definition>
+        .toMatchTypeOf<NodeObject<mdast.Definition>>()
     })
 
-    it('should match [footnoteDefinition: mdast.FootnoteDefinition]', () => {
+    it('should match NodeObject<mdast.FootnoteDefinition>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('footnoteDefinition')
-        .toEqualTypeOf<mdast.FootnoteDefinition>
+        .toMatchTypeOf<NodeObject<mdast.FootnoteDefinition>>()
     })
 
-    it('should match [list: mdast.List]', () => {
+    it('should match NodeObject<mdast.List>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('list')
-        .toEqualTypeOf<mdast.List>
+        .toMatchTypeOf<NodeObject<mdast.List>>()
     })
 
-    it('should match [listItem: mdast.ListItem]', () => {
+    it('should match NodeObject<mdast.ListItem>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('listItem')
-        .toEqualTypeOf<mdast.ListItem>
+        .toMatchTypeOf<NodeObject<mdast.ListItem>>()
     })
 
-    it('should match [paragraph: mdast.Paragraph]', () => {
+    it('should match NodeObject<mdast.Paragraph>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('paragraph')
-        .toEqualTypeOf<mdast.Paragraph>
+        .toMatchTypeOf<NodeObject<mdast.Paragraph>>()
     })
 
-    it('should match [table: mdast.Table]', () => {
+    it('should match NodeObject<mdast.Table>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('table')
-        .toEqualTypeOf<mdast.Table>
+        .toMatchTypeOf<NodeObject<mdast.Table>>()
     })
 
-    it('should match [tableCell: mdast.TableCell]', () => {
+    it('should match NodeObject<mdast.TableCell>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('tableCell')
-        .toEqualTypeOf<mdast.TableCell>
+        .toMatchTypeOf<NodeObject<mdast.TableCell>>()
     })
 
-    it('should match [tableRow: mdast.TableRow]', () => {
+    it('should match NodeObject<mdast.TableRow>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('tableRow')
-        .toEqualTypeOf<mdast.TableRow>
+        .toMatchTypeOf<NodeObject<mdast.TableRow>>()
     })
 
-    it('should match [thematicBreak: mdast.ThematicBreak]', () => {
+    it('should match NodeObject<mdast.ThematicBreak>', () => {
       expectTypeOf<TestSubject.DescriptionContentMap>()
-        .toHaveProperty('thematicBreak')
-        .toEqualTypeOf<mdast.ThematicBreak>
+        .toMatchTypeOf<NodeObject<mdast.ThematicBreak>>()
     })
   })
 })

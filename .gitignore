@@ -45,7 +45,9 @@ yarn-error.log*
 # Testing
 # ------------------------------------------------------------------------------
 **/*config.*.timestamp*
+**/__tests__/benchmark.json
 **/__tests__/report.*
+**/__tests__/typecheck.json
 **/coverage/
 **/tsconfig*temp.json
 *.lcov

@@ -1,11 +1,13 @@
 /**
- * @file Content - BlockTag
- * @module docast/content/BlockTag
+ * @file Content - blockTag
+ * @module docast/content/blockTag
  */
 
-import type { TypeExpression } from '#src/nodes'
+import type {
+  PhrasingContentMap,
+  TypeExpression
+} from '@flex-development/docast'
 import type mdast from 'mdast'
-import type { PhrasingContentMap } from './phrasing'
 
 /**
  * Union of registered docast nodes that can occur where block tag content is
@@ -24,7 +26,7 @@ type BlockTagContent = BlockTagContentMap[keyof BlockTagContentMap]
  *
  * @example
  *  declare module '@flex-development/docast' {
- *    interface BlockContentMap {
+ *    interface BlockTagContentMap {
  *      custom: CustomNode
  *    }
  *  }

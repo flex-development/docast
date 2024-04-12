@@ -8,7 +8,9 @@
 **/*config.*.timestamp*
 **/.DS_Store
 **/.temp/
+**/__tests__/benchmark.json
 **/__tests__/report.*
+**/__tests__/typecheck.json
 **/coverage/
 **/dist/
 **/node_modules/

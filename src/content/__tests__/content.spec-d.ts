@@ -1,15 +1,17 @@
 /**
- * @file Type Tests - Content
- * @module docast/content/tests/unit-d/Content
+ * @file Type Tests - content
+ * @module docast/content/tests/unit-d/content
  */
 
-import type { BlockTagContent } from '../block-tag'
+import type {
+  BlockTagContent,
+  DescriptionContent,
+  FlowContent,
+  PhrasingContent
+} from '@flex-development/docast'
 import type TestSubject from '../content'
-import type { DescriptionContent } from '../description'
-import type { FlowContent } from '../flow'
-import type { PhrasingContent } from '../phrasing'
 
-describe('unit-d:content/Content', () => {
+describe('unit-d:content/content', () => {
   it('should allow BlockTagContent', () => {
     expectTypeOf<BlockTagContent>().toMatchTypeOf<TestSubject>
   })

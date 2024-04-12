@@ -10,7 +10,9 @@
     "**/.temp/",
     "**/.vercel/",
     "**/__fixtures__/git/**/*.txt",
+    "**/__tests__/benchmark.json",
     "**/__tests__/report.json",
+    "**/__tests__/typecheck.json",
     "**/coverage/",
     "**/dist/",
     "**/node_modules",
@@ -62,7 +64,8 @@
     "array.preferSingleLine": false,
     "commentLine.forceSpaceAfterSlashes": true,
     "ignoreNodeCommentText": "dprint-ignore",
-    "object.preferSingleLine": false
+    "object.preferSingleLine": false,
+    "trailingCommas": "never"
   },
   "lineWidth": 80,
   "markdown": {
@@ -78,10 +81,10 @@
   },
   "newLineKind": "lf",
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.88.3.wasm",
-    "https://plugins.dprint.dev/json-0.17.4.wasm",
-    "https://plugins.dprint.dev/markdown-0.16.0.wasm",
-    "https://plugins.dprint.dev/exec-0.4.3.json@42343548b8022c99b1d750be6b894fe6b6c7ee25f72ae9f9082226dd2e515072"
+    "https://plugins.dprint.dev/typescript-0.90.1.wasm",
+    "https://plugins.dprint.dev/json-0.19.2.wasm",
+    "https://plugins.dprint.dev/markdown-0.16.4.wasm",
+    "https://plugins.dprint.dev/exec-0.4.4.json@c207bf9b9a4ee1f0ecb75c594f774924baf62e8e53a2ce9d873816a408cecbf7"
   ],
   "typescript": {
     "arrowFunction.useParentheses": "preferNone",
@@ -95,7 +98,7 @@
     "constructorType.spaceAfterNewKeyword": true,
     "doWhileStatement.spaceAfterWhileKeyword": true,
     "enumDeclaration.memberSpacing": "maintain",
-    "exportDeclaration.forceMultiLine": false,
+    "exportDeclaration.forceMultiLine": "never",
     "exportDeclaration.forceSingleLine": false,
     "exportDeclaration.sortNamedExports": "maintain",
     "exportDeclaration.spaceSurroundingNamedExports": true,
@@ -110,7 +113,7 @@
     "ifStatement.spaceAfterIfKeyword": true,
     "ignoreFileCommentText": "dprint-ignore-file",
     "ignoreNodeCommentText": "dprint-ignore",
-    "importDeclaration.forceMultiLine": false,
+    "importDeclaration.forceMultiLine": "never",
     "importDeclaration.forceSingleLine": false,
     "importDeclaration.sortNamedImports": "maintain",
     "importDeclaration.spaceSurroundingNamedImports": true,

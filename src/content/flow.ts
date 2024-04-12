@@ -1,9 +1,9 @@
 /**
- * @file Content - Flow
- * @module docast/content/Flow
+ * @file Content - flow
+ * @module docast/content/flow
  */
 
-import type { BlockTag, Description } from '#src/nodes'
+import type { BlockTag, Description } from '@flex-development/docast'
 
 /**
  * Union of registered docast nodes that can occur where `Comment` flow content

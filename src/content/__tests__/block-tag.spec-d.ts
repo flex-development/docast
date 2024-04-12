@@ -1,30 +1,42 @@
 /**
- * @file Type Tests - BlockTag
- * @module docast/content/tests/unit-d/BlockTag
+ * @file Type Tests - blockTag
+ * @module docast/content/tests/unit-d/blockTag
  */
 
-import type { TypeExpression } from '#src/nodes'
+import type { NodeObject } from '#tests/types'
+import type {
+  PhrasingContentMap,
+  TypeExpression
+} from '@flex-development/docast'
 import type mdast from 'mdast'
 import type * as TestSubject from '../block-tag'
-import type { PhrasingContentMap } from '../phrasing'
 
-describe('unit-d:content/BlockTag', () => {
+describe('unit-d:content/blockTag', () => {
+  describe('BlockTagContent', () => {
+    it('should equal BlockTagContentMap[keyof BlockTagContentMap]', () => {
+      // Arrange
+      type K = keyof TestSubject.BlockTagContentMap
+      type Expect = TestSubject.BlockTagContentMap[K]
+
+      // Expect
+      expectTypeOf<TestSubject.BlockTagContent>().toEqualTypeOf<Expect>
+    })
+  })
+
   describe('BlockTagContentMap', () => {
     it('should extend PhrasingContentMap', () => {
       expectTypeOf<TestSubject.BlockTagContentMap>()
         .toMatchTypeOf<PhrasingContentMap>()
     })
 
-    it('should match [code: mdast.Code]', () => {
+    it('should match NodeObject<mdast.Code>', () => {
       expectTypeOf<TestSubject.BlockTagContentMap>()
-        .toHaveProperty('code')
-        .toEqualTypeOf<mdast.Code>
+        .toMatchTypeOf<NodeObject<mdast.Code>>()
     })
 
-    it('should match [typeExpression: TypeExpression]', () => {
+    it('should match NodeObject<TypeExpression>', () => {
       expectTypeOf<TestSubject.BlockTagContentMap>()
-        .toHaveProperty('typeExpression')
-        .toEqualTypeOf<TypeExpression>
+        .toMatchTypeOf<NodeObject<TypeExpression>>()
     })
   })
 })

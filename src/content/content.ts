@@ -1,12 +1,14 @@
 /**
- * @file Content - Content
- * @module docast/content/Content
+ * @file Content - content
+ * @module docast/content/content
  */
 
-import type { BlockTagContent } from './block-tag'
-import type { DescriptionContent } from './description'
-import type { FlowContent } from './flow'
-import type { PhrasingContent } from './phrasing'
+import type {
+  BlockTagContent,
+  DescriptionContent,
+  FlowContent,
+  PhrasingContent
+} from '@flex-development/docast'
 
 /**
  * Union of registered content model nodes.

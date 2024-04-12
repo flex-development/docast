@@ -1,11 +1,10 @@
 /**
- * @file Content - Description
- * @module docast/content/Description
+ * @file Content - description
+ * @module docast/content/description
  */
 
-import type { InlineTag } from '#src/nodes'
+import type { InlineTag, PhrasingContentMap } from '@flex-development/docast'
 import type mdast from 'mdast'
-import type { PhrasingContentMap } from './phrasing'
 
 declare module 'mdast' {
   interface BlockContentMap {

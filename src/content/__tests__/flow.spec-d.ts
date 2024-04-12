@@ -1,23 +1,33 @@
 /**
- * @file Type Tests - Flow
- * @module docast/content/tests/unit-d/Flow
+ * @file Type Tests - flow
+ * @module docast/content/tests/unit-d/flow
  */
 
-import type { BlockTag, Description } from '#src/nodes'
+import type { NodeObject } from '#tests/types'
+import type { BlockTag, Description } from '@flex-development/docast'
 import type * as TestSubject from '../flow'
 
-describe('unit-d:content/Flow', () => {
+describe('unit-d:content/flow', () => {
+  describe('FlowContent', () => {
+    it('should equal FlowContentMap[keyof FlowContentMap]', () => {
+      // Arrange
+      type K = keyof TestSubject.FlowContentMap
+      type Expect = TestSubject.FlowContentMap[K]
+
+      // Expect
+      expectTypeOf<TestSubject.FlowContent>().toEqualTypeOf<Expect>
+    })
+  })
+
   describe('FlowContentMap', () => {
-    it('should match [blockTag: BlockTag]', () => {
+    it('should match NodeObject<BlockTag>', () => {
       expectTypeOf<TestSubject.FlowContentMap>()
-        .toHaveProperty('blockTag')
-        .toEqualTypeOf<BlockTag>
+        .toMatchTypeOf<NodeObject<BlockTag>>()
     })
 
-    it('should match [description: Description]', () => {
+    it('should match NodeObject<Description>', () => {
       expectTypeOf<TestSubject.FlowContentMap>()
-        .toHaveProperty('description')
-        .toEqualTypeOf<Description>
+        .toMatchTypeOf<NodeObject<Description>>()
     })
   })
 })

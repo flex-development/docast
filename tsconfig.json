@@ -30,7 +30,9 @@
     "outDir": "dist",
     "paths": {
       "#src": ["src/index"],
-      "#src/*": ["src/*"]
+      "#src/*": ["src/*"],
+      "#tests/*": ["__tests__/*"],
+      "@flex-development/docast": ["dist/index", "src/index"]
     },
     "preserveConstEnums": true,
     "preserveSymlinks": false,
@@ -50,12 +52,17 @@
     "useUnknownInCatchVariables": true,
     "verbatimModuleSyntax": true
   },
-  "exclude": ["**/coverage", "**/dist", "**/node_modules"],
+  "exclude": [
+    "**/coverage",
+    "**/dist",
+    "**/node_modules",
+    "*-temp.json"
+  ],
   "include": [
-    "**/**.json",
-    "**/**.mjs",
-    "**/**.mts",
-    "**/**.ts",
+    "**/**/*.json",
+    "**/**/*.mjs",
+    "**/**/*.mts",
+    "**/**/*.ts",
     "**/.*.json",
     "**/.*.mjs",
     "**/.*.mts",

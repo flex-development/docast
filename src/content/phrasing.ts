@@ -1,9 +1,9 @@
 /**
- * @file Content - Phrasing
- * @module docast/content/Phrasing
+ * @file Content - phrasing
+ * @module docast/content/phrasing
  */
 
-import type { InlineTag } from '#src/nodes'
+import type { InlineTag } from '@flex-development/docast'
 import type mdast from 'mdast'
 
 declare module 'mdast' {

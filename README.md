@@ -76,7 +76,7 @@ yarn add @flex-development/docast @types/mdast @types/unist
 
 ## Nodes (abstract)
 
-### Node
+### `Node`
 
 ```ts
 interface Node extends unist.Node {

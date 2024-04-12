@@ -33,12 +33,8 @@ const config = {
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true
-        },
         extraFileExtensions: [],
-        project: ['**/tsconfig.json'],
-        sourceType: require('./package.json').type,
+        project: ['**/tsconfig.json', '**/tsconfig.*.json'],
         tsconfigRootDir: process.cwd(),
         warnOnUnsupportedTypeScriptVersion: true
       },
@@ -499,9 +495,16 @@ const config = {
             checkConstructors: true,
             checkGetters: true,
             checkSetters: true,
+            contexts: [
+              'TSDeclareFunction:not(TSDeclareFunction + TSDeclareFunction)',
+              'FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)'
+            ],
             enableFixer: true,
             exemptEmptyConstructors: true,
-            exemptEmptyFunctions: false
+            exemptEmptyFunctions: false,
+            require: {
+              FunctionDeclaration: false
+            }
           }
         ],
         'jsdoc/require-param': [
@@ -623,13 +626,7 @@ const config = {
         'node/no-unpublished-require': 0,
         'node/no-unsupported-features/es-builtins': 2,
         'node/no-unsupported-features/es-syntax': 0,
-        'node/no-unsupported-features/node-builtins': [
-          2,
-          {
-            version: require('./package.json').engines?.node ??
-              '>=' + fs.readFileSync('./.nvmrc', 'utf8')
-          }
-        ],
+        'node/no-unsupported-features/node-builtins': 2,
         'node/prefer-global/buffer': 2,
         'node/prefer-global/console': 2,
         'node/prefer-global/process': 2,
@@ -750,7 +747,7 @@ const config = {
         'unicorn/prefer-export-from': [2, { ignoreUsedVariables: true }],
         'unicorn/prefer-includes': 2,
         'unicorn/prefer-json-parse-buffer': 0,
-        'unicorn/prefer-math-trunc': 2,
+        'unicorn/prefer-math-trunc': 0,
         'unicorn/prefer-module': 2,
         'unicorn/prefer-negative-index': 2,
         'unicorn/prefer-node-protocol': 2,
@@ -978,14 +975,6 @@ const config = {
         React: false
       },
       parser: 'eslint-mdx',
-      parserOptions: {
-        ecmaFeatures: {
-          impliedStrict: true,
-          jsx: true
-        },
-        ecmaVersion: 'latest',
-        sourceType: 'module'
-      },
       plugins: ['markdown', 'markdownlint', 'mdx'],
       processor: 'mdx/remark',
       rules: {
@@ -1007,6 +996,7 @@ const config = {
         '@typescript-eslint/no-floating-promises': 0,
         '@typescript-eslint/no-for-in-array': 0,
         '@typescript-eslint/no-implied-eval': 0,
+        '@typescript-eslint/no-invalid-void-type': 0,
         '@typescript-eslint/no-meaningless-void-operator': 0,
         '@typescript-eslint/no-misused-promises': 0,
         '@typescript-eslint/no-mixed-enums': 0,
@@ -1254,6 +1244,14 @@ const config = {
       }
     }
   ],
+  parserOptions: {
+    ecmaFeatures: {
+      impliedStrict: true,
+      jsx: true
+    },
+    ecmaVersion: 'latest',
+    sourceType: require('./package.json').type
+  },
   plugins: [],
   reportUnusedDisableDirectives: true,
   rules: {},

@@ -1,6 +1,6 @@
 /**
- * @file Entry Point - Type Definitions
+ * @file Entry Point - Type Aliases
  * @module docast/types
  */
 
-export type { default as DocastNode } from './docast-node'
+export type {}
