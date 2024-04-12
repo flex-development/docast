@@ -40,7 +40,7 @@ permissions:
   packages: read
 env:
   CACHE_PATH: node_modules
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
   HUSKY: 0
   REF: ${{ github.head_ref || github.ref }}
   REF_NAME: ${{ github.head_ref || github.ref_name }}
