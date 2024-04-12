@@ -38,6 +38,7 @@ It implements the [**unist**][unist] spec.
   - [`TypeExpression`](#typeexpression)
 - [Mixins](#mixins)
   - [`Tag`](#tag)
+    - [`TagName`](#tagname)
 - [Content model](#content-model)
   - [`BlockTagContent`](#blocktagcontent)
   - [`DescriptionContent`](#descriptioncontent)
