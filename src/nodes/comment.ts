@@ -3,13 +3,17 @@
  * @module docast/nodes/Comment
  */
 
-import type { FlowContent } from '#src/content'
-import type { CodeSegment, Data } from '#src/interfaces'
+import type {
+  CodeSegment,
+  Data,
+  Description,
+  FlowContent,
+  Parent
+} from '@flex-development/docast'
 import type { Nilable, Optional } from '@flex-development/tutils'
-import type Parent from './parent'
 
 /**
- * Info associated with comment nodes.
+ * Info associated with comments.
  *
  * @see {@linkcode Data}
  *
@@ -32,9 +36,12 @@ interface Comment extends Parent {
   /**
    * List of children.
    *
+   * @see {@linkcode Description}
    * @see {@linkcode FlowContent}
    */
-  children: FlowContent[]
+  children:
+    | Exclude<FlowContent, Description>[]
+    | [summary: Description, ...Exclude<FlowContent, Description>[]]
 
   /**
    * Code segment documented by comment.
@@ -44,7 +51,7 @@ interface Comment extends Parent {
   code?: Nilable<CodeSegment>
 
   /**
-   * Data associated with comment.
+   * Info from the ecosystem.
    *
    * @see {@linkcode CommentData}
    */

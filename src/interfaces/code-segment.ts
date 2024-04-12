@@ -3,8 +3,8 @@
  * @module docast/interfaces/CodeSegment
  */
 
+import type { Position } from '@flex-development/docast'
 import type { Nilable, NumberString } from '@flex-development/tutils'
-import type Position from './position'
 
 /**
  * The segment of code a comment documents.

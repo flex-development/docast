@@ -3,38 +3,53 @@
  * @module docast/nodes/tests/unit-d/Comment
  */
 
-import type { FlowContent } from '#src/content'
-import type { CodeSegment } from '#src/interfaces'
+import type {
+  CodeSegment,
+  Data,
+  Description,
+  FlowContent,
+  Parent
+} from '@flex-development/docast'
 import type { Nilable, Optional } from '@flex-development/tutils'
-import type { CommentData, default as TestSubject } from '../comment'
-import type Parent from '../parent'
+import type * as TestSubject from '../comment'
 
 describe('unit-d:nodes/Comment', () => {
+  type Subject = TestSubject.default
+  type SubjectData = TestSubject.CommentData
+
   it('should extend Parent', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Parent>()
+    expectTypeOf<Subject>().toMatchTypeOf<Parent>()
   })
 
-  it('should match [children: FlowContent[]]', () => {
-    expectTypeOf<TestSubject>()
-      .toHaveProperty('children')
-      .toEqualTypeOf<FlowContent[]>()
+  it('should match [children: Exclude<FlowContent, Description>[] | [Description, ...Exclude<FlowContent, Description>[]]]', () => {
+    // Arrange
+    type Expect =
+      | Exclude<FlowContent, Description>[]
+      | [summary: Description, ...Exclude<FlowContent, Description>[]]
+
+    // Expect
+    expectTypeOf<Subject>().toHaveProperty('children').toEqualTypeOf<Expect>()
   })
 
   it('should match [code?: Nilable<CodeSegment>]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('code')
       .toEqualTypeOf<Nilable<CodeSegment>>()
   })
 
   it('should match [data?: Optional<CommentData>]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('data')
-      .toEqualTypeOf<Optional<CommentData>>()
+      .toEqualTypeOf<Optional<SubjectData>>()
   })
 
   it('should match [type: "comment"]', () => {
-    expectTypeOf<TestSubject>()
-      .toHaveProperty('type')
-      .toEqualTypeOf<'comment'>()
+    expectTypeOf<Subject>().toHaveProperty('type').toEqualTypeOf<'comment'>()
+  })
+
+  describe('CommentData', () => {
+    it('should extend Data', () => {
+      expectTypeOf<SubjectData>().toMatchTypeOf<Data>()
+    })
   })
 })

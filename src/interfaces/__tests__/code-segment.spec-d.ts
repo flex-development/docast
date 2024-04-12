@@ -3,9 +3,9 @@
  * @module docast/interfaces/tests/unit-d/CodeSegment
  */
 
+import type { Position } from '@flex-development/docast'
 import type { Nilable, NumberString } from '@flex-development/tutils'
 import type TestSubject from '../code-segment'
-import type Position from '../position'
 
 describe('unit-d:interfaces/CodeSegment', () => {
   it('should match [identifier: string]', () => {

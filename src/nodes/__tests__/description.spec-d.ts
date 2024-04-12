@@ -3,31 +3,43 @@
  * @module docast/nodes/tests/unit-d/Description
  */
 
-import type { DescriptionContent } from '#src/content'
+import type {
+  Data,
+  DescriptionContent,
+  Parent
+} from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type { DescriptionData, default as TestSubject } from '../description'
-import type Parent from '../parent'
+import type * as TestSubject from '../description'
 
 describe('unit-d:nodes/Description', () => {
+  type Subject = TestSubject.default
+  type SubjectData = TestSubject.DescriptionData
+
   it('should extend Parent', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Parent>()
+    expectTypeOf<Subject>().toMatchTypeOf<Parent>()
   })
 
   it('should match [children: DescriptionContent[]]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('children')
       .toEqualTypeOf<DescriptionContent[]>()
   })
 
   it('should match [data?: Optional<DescriptionData>]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('data')
-      .toEqualTypeOf<Optional<DescriptionData>>()
+      .toEqualTypeOf<Optional<SubjectData>>()
   })
 
   it('should match [type: "description"]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('type')
       .toEqualTypeOf<'description'>()
+  })
+
+  describe('DescriptionData', () => {
+    it('should extend Data', () => {
+      expectTypeOf<SubjectData>().toMatchTypeOf<Data>()
+    })
   })
 })

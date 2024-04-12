@@ -3,13 +3,15 @@
  * @module docast/nodes/Description
  */
 
-import type { DescriptionContent } from '#src/content'
-import type { Data } from '#src/interfaces'
+import type {
+  Data,
+  DescriptionContent,
+  Parent
+} from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Parent from './parent'
 
 /**
- * Info associated with implicit description nodes.
+ * Info associated with comment descriptions.
  *
  * @see {@linkcode Data}
  *
@@ -18,7 +20,7 @@ import type Parent from './parent'
 interface DescriptionData extends Data {}
 
 /**
- * A piece of text located at the **beginning** of a docblock comment.
+ * Text located at the **beginning** of a comment, before any block tags.
  *
  * @see {@linkcode Parent}
  *
@@ -33,7 +35,7 @@ interface Description extends Parent {
   children: DescriptionContent[]
 
   /**
-   * Data associated with implicit description.
+   * Info from the ecosystem.
    *
    * @see {@linkcode DescriptionData}
    */
