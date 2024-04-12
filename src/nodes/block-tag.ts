@@ -3,15 +3,17 @@
  * @module docast/nodes/BlockTag
  */
 
-import type { BlockTagContent } from '#src/content'
-import type { Data } from '#src/interfaces'
-import type { Tag } from '#src/mixins'
+import type {
+  BlockTagContent,
+  Data,
+  Parent,
+  Tag,
+  TypeExpression
+} from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Parent from './parent'
-import type TypeExpression from './type-expression'
 
 /**
- * Info associated with block tag nodes.
+ * Info associated with block tags.
  *
  * @see {@linkcode Data}
  *
@@ -21,6 +23,11 @@ interface BlockTagData extends Data {}
 
 /**
  * Top-level metadata.
+ *
+ * Block tags should be the only element on their line, except in cases where
+ * special meaning is assigned to succeeding text. All text following a block
+ * tag, up until the start of the next block tag, is considered to be the block
+ * tag's **tag content**.
  *
  * @see {@linkcode Parent}
  * @see {@linkcode Tag}
@@ -39,7 +46,7 @@ interface BlockTag extends Parent, Tag {
     | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
 
   /**
-   * Data associated with block tag.
+   * Info from the ecosystem.
    *
    * @see {@linkcode BlockTagData}
    */

@@ -3,27 +3,33 @@
  * @module docast/nodes/tests/unit-d/TypeExpression
  */
 
+import type { Data, Literal } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Literal from '../literal'
-import type {
-  default as TestSubject,
-  TypeExpressionData
-} from '../type-expression'
+import type * as TestSubject from '../type-expression'
 
 describe('unit-d:nodes/TypeExpression', () => {
+  type Subject = TestSubject.default
+  type SubjectData = TestSubject.TypeExpressionData
+
   it('should extend Literal', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Literal>()
+    expectTypeOf<Subject>().toMatchTypeOf<Literal>()
   })
 
   it('should match [data?: Optional<TypeExpressionData>]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('data')
-      .toEqualTypeOf<Optional<TypeExpressionData>>()
+      .toEqualTypeOf<Optional<SubjectData>>()
   })
 
   it('should match [type: "typeExpression"]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('type')
       .toEqualTypeOf<'typeExpression'>()
+  })
+
+  describe('TypeExpressionData', () => {
+    it('should extend Data', () => {
+      expectTypeOf<SubjectData>().toMatchTypeOf<Data>()
+    })
   })
 })

@@ -3,48 +3,51 @@
  * @module docast/nodes/tests/unit-d/BlockTag
  */
 
-import type { BlockTagContent } from '#src/content'
-import type { Tag } from '#src/mixins'
+import type {
+  BlockTagContent,
+  Data,
+  Parent,
+  Tag,
+  TypeExpression
+} from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type { BlockTagData, default as TestSubject } from '../block-tag'
-import type Parent from '../parent'
-import type TypeExpression from '../type-expression'
+import type * as TestSubject from '../block-tag'
 
 describe('unit-d:nodes/BlockTag', () => {
+  type Subject = TestSubject.default
+  type SubjectData = TestSubject.BlockTagData
+
   it('should extend Parent', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Parent>()
+    expectTypeOf<Subject>().toMatchTypeOf<Parent>()
   })
 
   it('should extend Tag', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<Tag>()
+    expectTypeOf<Subject>().toMatchTypeOf<Tag>()
   })
 
-  it('should match [children: Exclude<BlockTagContent, TypeExpression>[]]', () => {
-    expectTypeOf<TestSubject>()
-      .toHaveProperty('children')
-      .extract<Exclude<BlockTagContent, TypeExpression>[]>()
-      .toBeArray()
-  })
+  it('should match [children: Exclude<BlockTagContent, TypeExpression>[] | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]]', () => {
+    // Arrange
+    type Expect =
+      | Exclude<BlockTagContent, TypeExpression>[]
+      | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
 
-  it('should match [children: [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]]', () => {
-    expectTypeOf<TestSubject>()
-      .toHaveProperty('children')
-      .extract<[
-        TypeExpression,
-        ...Exclude<BlockTagContent, TypeExpression>[]
-      ]>()
-      .toBeArray()
+    // Expect
+    expectTypeOf<Subject>().toHaveProperty('children').toEqualTypeOf<Expect>()
   })
 
   it('should match [data?: Optional<BlockTagData>]', () => {
-    expectTypeOf<TestSubject>()
+    expectTypeOf<Subject>()
       .toHaveProperty('data')
-      .toEqualTypeOf<Optional<BlockTagData>>()
+      .toEqualTypeOf<Optional<SubjectData>>()
   })
 
   it('should match [type: "blockTag"]', () => {
-    expectTypeOf<TestSubject>()
-      .toHaveProperty('type')
-      .toEqualTypeOf<'blockTag'>()
+    expectTypeOf<Subject>().toHaveProperty('type').toEqualTypeOf<'blockTag'>()
+  })
+
+  describe('BlockTagData', () => {
+    it('should extend Data', () => {
+      expectTypeOf<SubjectData>().toMatchTypeOf<Data>()
+    })
   })
 })

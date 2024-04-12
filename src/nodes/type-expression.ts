@@ -3,12 +3,11 @@
  * @module docast/nodes/TypeExpression
  */
 
-import type { Data } from '#src/interfaces'
+import type { Data, Literal } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Literal from './literal'
 
 /**
- * Info associated with type expression nodes.
+ * Info associated with type expressions.
  *
  * @see {@linkcode Data}
  *
@@ -17,7 +16,7 @@ import type Literal from './literal'
 interface TypeExpressionData extends Data {}
 
 /**
- * A type definition or constraint.
+ * A type definition or constraint denoted in block tag **tag content**.
  *
  * @see {@linkcode Literal}
  *
@@ -25,7 +24,7 @@ interface TypeExpressionData extends Data {}
  */
 interface TypeExpression extends Literal {
   /**
-   * Data associated with type expression.
+   * Info from the ecosystem.
    *
    * @see {@linkcode TypeExpressionData}
    */

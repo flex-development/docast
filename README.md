@@ -157,7 +157,7 @@ Its content is limited to [**comment**](#comment) nodes and [docast content](#co
 interface BlockTag extends Parent, Tag {
   children: BlockTagContent[]
   data?: BlockTagData | undefined
-  type: 'block-tag'
+  type: 'blockTag'
 }
 ```
 
@@ -226,7 +226,7 @@ a comment, before any [**block tags**](#blocktag), and may contain [Markdown][md
 ```ts
 interface InlineTag extends Literal, Tag {
   data?: InlineTagData | undefined
-  type: 'inline-tag'
+  type: 'inlineTag'
 }
 ```
 
@@ -256,7 +256,7 @@ contain [**comment**](#comment) nodes.
 ```ts
 interface TypeExpression extends Literal {
   data?: TypeExpressionData | undefined
-  type: 'type-expression'
+  type: 'typeExpression'
 }
 ```
 
@@ -271,19 +271,14 @@ interface TypeExpression extends Literal {
 
 ```ts
 interface Tag {
-  name: string
-  prefix: string
-  tag: string
+  name: TagName
 }
 ```
 
 **Tag** represents metadata associated with a [**comment**](#comment).
 
-The `prefix` field represents the tag prefix. The value is a non-empty string.
-
-The `name` field represents the tag name without `prefix`. The value of the `name` field is a non-empty string.
-
-The `tag` field represents the parsed tag. The value of `tag` field is `prefix` and `name`.
+The `name` field represents the tag name. Tag names start with an at-sign (`@`) and may contain any ASCII letters after
+the at-sign.
 
 ## Content model
 

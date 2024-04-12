@@ -3,7 +3,7 @@
  * @module docast/nodes/Literal
  */
 
-import type Node from './node'
+import type { Node } from '@flex-development/docast'
 
 /**
  * Abstract docast node containing the smallest possible value.

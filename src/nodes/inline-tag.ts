@@ -3,13 +3,11 @@
  * @module docast/nodes/InlineTag
  */
 
-import type { Data } from '#src/interfaces'
-import type { Tag } from '#src/mixins'
+import type { Data, Literal, Tag } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
-import type Literal from './literal'
 
 /**
- * Info associated with inline tag nodes.
+ * Info associated with inline tags.
  *
  * @see {@linkcode Data}
  *
@@ -20,6 +18,10 @@ interface InlineTagData extends Data {}
 /**
  * Inline metadata.
  *
+ * Inline tags are denoted by wrapping a tag name and any **tag content** in
+ * angle brackets (`{` and `}`).
+ *
+ * @see {@linkcode Literal}
  * @see {@linkcode Tag}
  *
  * @extends {Literal}
@@ -27,7 +29,7 @@ interface InlineTagData extends Data {}
  */
 interface InlineTag extends Literal, Tag {
   /**
-   * Data associated with inline tag.
+   * Info from the ecosystem.
    *
    * @see {@linkcode InlineTagData}
    */

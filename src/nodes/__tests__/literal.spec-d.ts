@@ -3,8 +3,8 @@
  * @module docast/nodes/tests/unit-d/Literal
  */
 
+import type { Node } from '@flex-development/docast'
 import type TestSubject from '../literal'
-import type Node from '../node'
 
 describe('unit-d:nodes/Literal', () => {
   it('should extend Node', () => {
