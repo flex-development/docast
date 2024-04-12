@@ -3,7 +3,7 @@
  * @module docast/nodes/tests/unit-d/Node
  */
 
-import type { Data, Position } from '#src/interfaces'
+import type { Data, Position } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
 import type unist from 'unist'
 import type TestSubject from '../node'

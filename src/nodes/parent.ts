@@ -3,9 +3,7 @@
  * @module docast/nodes/Parent
  */
 
-import type { Content } from '#src/content'
-import type Comment from './comment'
-import type Node from './node'
+import type { Child, Node } from '@flex-development/docast'
 
 /**
  * Abstract docast node that contains other docast or mdast nodes.
@@ -18,10 +16,9 @@ interface Parent extends Node {
   /**
    * List of children.
    *
-   * @see {@linkcode Comment}
-   * @see {@linkcode Content}
+   * @see {@linkcode Child}
    */
-  children: (Comment | Content)[]
+  children: Child[]
 }
 
 export type { Parent as default }

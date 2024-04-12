@@ -3,7 +3,7 @@
  * @module docast/interfaces/Position
  */
 
-import type Point from './point'
+import type { Point } from '@flex-development/docast'
 
 /**
  * Location of a node in a source [*file*][1].

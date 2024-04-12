@@ -80,6 +80,7 @@
     "@flex-development/mlly": "1.0.0-alpha.18",
     "@flex-development/pathe": "2.0.0",
     "@flex-development/tsconfig-utils": "2.0.2",
+    "@flex-development/unist-util-types": "1.2.0",
     "@types/eslint": "8.56.2",
     "@types/is-ci": "3.0.4",
     "@types/mdast": "4.0.3",
@@ -130,6 +131,7 @@
     "yaml-eslint-parser": "1.2.2"
   },
   "peerDependencies": {
+    "@flex-development/unist-util-types": ">=1.1.0",
     "@types/mdast": ">=4.0.3",
     "@types/unist": ">=3.0.2"
   },

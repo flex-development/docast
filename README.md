@@ -140,7 +140,7 @@ Its `value` field is a `string`.
 
 ```ts
 interface Parent extends unist.Parent {
-  children: (Comment | Content)[]
+  children: Child[]
 }
 ```
 

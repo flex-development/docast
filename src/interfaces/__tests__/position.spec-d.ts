@@ -3,7 +3,7 @@
  * @module docast/interfaces/tests/unit-d/Position
  */
 
-import type Point from '../point'
+import type { Point } from '@flex-development/docast'
 import type TestSubject from '../position'
 
 describe('unit-d:interfaces/Position', () => {

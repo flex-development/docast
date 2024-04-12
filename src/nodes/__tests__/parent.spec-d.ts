@@ -3,9 +3,7 @@
  * @module docast/nodes/tests/unit-d/Parent
  */
 
-import type { Content } from '#src/content'
-import type Comment from '../comment'
-import type Node from '../node'
+import type { Child, Node } from '@flex-development/docast'
 import type TestSubject from '../parent'
 
 describe('unit-d:nodes/Parent', () => {
@@ -13,9 +11,9 @@ describe('unit-d:nodes/Parent', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<Node>()
   })
 
-  it('should match [children: (Comment | Content)[]]', () => {
+  it('should match [children: Child[]]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('children')
-      .toEqualTypeOf<(Comment | Content)[]>()
+      .toEqualTypeOf<Child[]>()
   })
 })
