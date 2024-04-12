@@ -147,7 +147,7 @@ interface Parent extends unist.Parent {
 **Parent** ([**unist.Parent**][unist-parent]) represents an abstract interface in docast containing other nodes (said to
 be [*children*][unist-child]).
 
-Its content is limited to [**comment**](#comment) nodes and [docast content](#content-model).
+Its content is limited to [docast content](#content-model) and [mdast content][mdast-content].
 
 ## Nodes
 
@@ -359,6 +359,7 @@ community you agree to abide by its terms.
 [eslint]: https://eslint.org
 [javascript]: https://www.ecma-international.org/ecma-262/9.0/index.html
 [jsdoc]: https://jsdoc.app
+[mdast-content]: https://github.com/syntax-tree/mdast#content-model
 [mdast]: https://github.com/syntax-tree/mdast
 [structuredtags]: https://github.com/gajus/eslint-plugin-jsdoc-structuredtags
 [tsdoc]: https://tsdoc.org
