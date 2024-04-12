@@ -165,6 +165,10 @@ interface BlockTag extends Parent, Tag {
 
 **BlockTag** ([**Parent**](#parent)) represents top-level metadata.
 
+Block tags should be the only element on their line, except in cases where special meaning is assigned to succeeding
+text. All text following a block [tag name](#tagname), up until the start of the next block tag name, or comment closer
+(`*/`), is considered to be the block tag's [*tag content*](#tag-content).
+
 **BlockTag** can be used in [**comment**](#comment) nodes. Its content model is [**block tag**](#blocktagcontent)
 content.
 
@@ -234,6 +238,9 @@ interface InlineTag extends Literal, Tag {
 
 **InlineTag** ([**Literal**](#literal)) represents inline metadata.
 
+Inline tags are denoted by wrapping a [tag name](#tagname) and any [*tag content*](#tag-content) in angle brackets (`{`
+and `}`).
+
 **InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes. It cannot contain any
 children &mdash; it is a [*leaf*][unist-leaf].
 
@@ -278,8 +285,14 @@ interface Tag {
 
 **Tag** represents metadata associated with a [**comment**](#comment).
 
-The `name` field represents the tag name. Tag names start with an at-sign (`@`) and may contain any ASCII letters after
+The `name` field represents the tag name. Tag names start with an at-sign (`@`) and may contain any ASCII letter after
 the at-sign.
+
+#### `TagName`
+
+```ts
+type TagName<T extends string = string> = `@${T}`
+```
 
 ## Content model
 
@@ -339,6 +352,11 @@ See the [unist glossary][unist-glossary] for more terms.
 
 A specially formatted [comment][wiki-comment] in a source [*file*][unist-file] used to document a segment of code or
 provide additional information.
+
+### Tag content
+
+Any text following a [block tag](#blocktag) name (e.g. `@example`, `@param`), up until the start of the next block tag
+or comment closer (`*/`), or any text following an [inline tag](#inlinetag) name, up until the closing punctuator (`}`).
 
 ## List of utilities
 

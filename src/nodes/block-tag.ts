@@ -26,8 +26,8 @@ interface BlockTagData extends Data {}
  *
  * Block tags should be the only element on their line, except in cases where
  * special meaning is assigned to succeeding text. All text following a block
- * tag, up until the start of the next block tag, is considered to be the block
- * tag's **tag content**.
+ * tag name, up until the start of the next block tag name, or comment closer,
+ * is considered to be the block tag's **tag content**.
  *
  * @see {@linkcode Parent}
  * @see {@linkcode Tag}
@@ -43,7 +43,7 @@ interface BlockTag extends Parent, Tag {
    */
   children:
     | Exclude<BlockTagContent, TypeExpression>[]
-    | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
+    | [type: TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
 
   /**
    * Info from the ecosystem.
