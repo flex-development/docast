@@ -244,8 +244,8 @@ jobs:
       fail-fast: false
       matrix:
         typescript-version:
-          - 5.3.3
           - ${{ needs.preflight.outputs.version-typescript }}
+          - 5.3.3
           - latest
     steps:
       - id: checkout
