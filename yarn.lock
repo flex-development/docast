@@ -1282,10 +1282,6 @@ __metadata:
     vite: "npm:5.2.9"
     vitest: "npm:1.5.0"
     yaml-eslint-parser: "npm:1.2.2"
-  peerDependencies:
-    "@flex-development/unist-util-types": ">=1.1.0"
-    "@types/mdast": ">=4.0.3"
-    "@types/unist": ">=3.0.2"
   languageName: unknown
   linkType: soft
 

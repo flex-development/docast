@@ -2,6 +2,7 @@
 #
 # References:
 #
+# - https://github.com/actions/create-github-app-token
 # - https://github.com/dessant/lock-threads
 # - https://docs.github.com/actions/using-workflows/events-that-trigger-workflows#schedule
 
