@@ -1,3 +1,17 @@
+## [1.0.0-alpha.16](https://github.com/flex-development/docast/compare/1.0.0-alpha.15...1.0.0-alpha.16) (2024-04-21)
+
+### :package: Build
+
+- [[`7f72e91`](https://github.com/flex-development/docast/commit/7f72e91adf0935041e11ee4d984003ceb5563f10)] **deps-dev:** Bump @commitlint/cli from 19.2.1 to 19.2.2 in the commitlint group ([#425](https://github.com/flex-development/docast/issues/425))
+- [[`d9edba7`](https://github.com/flex-development/docast/commit/d9edba7e5b2f034061c2811bc9d2248ddd0cbbd3)] **deps-dev:** Bump the typescript-eslint group with 2 updates ([#426](https://github.com/flex-development/docast/issues/426))
+- [[`949085f`](https://github.com/flex-development/docast/commit/949085f9f502c34d3ece64ab5527493c147d4c0c)] **deps-dev:** Bump vite from 5.2.8 to 5.2.9 ([#427](https://github.com/flex-development/docast/issues/427))
+- [[`2d0a6d9`](https://github.com/flex-development/docast/commit/2d0a6d90d613852d8b5b128e5fbe976b60987f88)] **deps:** `peerDependencies` -> `dependencies`
+
+### :robot: Continuous Integration
+
+- [[`c3d225c`](https://github.com/flex-development/docast/commit/c3d225c8f00eebb23fdcdd2f82f672dd89794c9f)] **deps:** Bump actions/upload-artifact from 4.3.1 to 4.3.2 ([#429](https://github.com/flex-development/docast/issues/429))
+- [[`0ab0306`](https://github.com/flex-development/docast/commit/0ab0306da9ac623068fd532f4de8a0052bacb74f)] **deps:** Bump octokit/graphql-action from 2.3.0 to 2.3.1 ([#428](https://github.com/flex-development/docast/issues/428))
+
 ## [1.0.0-alpha.15](https://github.com/flex-development/docast/compare/1.0.0-alpha.14...1.0.0-alpha.15) (2024-04-12)
 
 ### ⚠ BREAKING CHANGES
@@ -516,6 +530,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
