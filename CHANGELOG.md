@@ -1,3 +1,17 @@
+## [1.0.0-alpha.17](https://github.com/flex-development/docast/compare/1.0.0-alpha.16...1.0.0-alpha.17) (2024-04-24)
+
+### :package: Build
+
+- [[`145a46e`](https://github.com/flex-development/docast/commit/145a46ebb561755af5161d10186196b0a2584f3f)] **deps-dev:** Bump @commitlint/cli from 19.2.2 to 19.3.0 in the commitlint group ([#435](https://github.com/flex-development/docast/issues/435))
+- [[`fbed39e`](https://github.com/flex-development/docast/commit/fbed39e507fb839a0a55eba2d0e05bad3f432d09)] **deps-dev:** Bump the typescript-eslint group with 2 updates ([#437](https://github.com/flex-development/docast/issues/437))
+- [[`5e9a2cf`](https://github.com/flex-development/docast/commit/5e9a2cf9109fce0fec21d0ba2cfab74f2cf0da7c)] **deps-dev:** Bump vite from 5.2.9 to 5.2.10 ([#434](https://github.com/flex-development/docast/issues/434))
+- [[`a58bba7`](https://github.com/flex-development/docast/commit/a58bba7392477ed4d085976ccf3ca72d81a67d52)] **deps:** bump @flex-development/unist-util-types from 1.2.0 to 1.3.1
+
+### :robot: Continuous Integration
+
+- [[`06bfb6f`](https://github.com/flex-development/docast/commit/06bfb6f9aef179209a9a717c95307869b5f3554a)] **deps:** Bump actions/checkout from 4.1.2 to 4.1.3 ([#433](https://github.com/flex-development/docast/issues/433))
+- [[`b60a45c`](https://github.com/flex-development/docast/commit/b60a45cbc55efddae78e545dbfe13d732a4bc31b)] **deps:** Bump actions/upload-artifact from 4.3.2 to 4.3.3 ([#438](https://github.com/flex-development/docast/issues/438))
+
 ## [1.0.0-alpha.16](https://github.com/flex-development/docast/compare/1.0.0-alpha.15...1.0.0-alpha.16) (2024-04-21)
 
 ### :package: Build
@@ -530,6 +544,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
