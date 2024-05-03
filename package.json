@@ -126,7 +126,7 @@
     "trash-cli": "5.0.0",
     "ts-dedent": "2.2.0",
     "typescript": "5.4.5",
-    "vite": "5.2.10",
+    "vite": "5.2.11",
     "vitest": "1.5.3",
     "yaml-eslint-parser": "1.2.2"
   },
