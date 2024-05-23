@@ -7501,7 +7501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:4.0.6, micromatch@npm:^4.0.4":
+"micromatch@npm:4.0.6":
   version: 4.0.6
   resolution: "micromatch@npm:4.0.6"
   dependencies:
@@ -7511,7 +7511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.7":
+"micromatch@npm:^4.0.4, micromatch@npm:^4.0.7":
   version: 4.0.7
   resolution: "micromatch@npm:4.0.7"
   dependencies:
