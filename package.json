@@ -91,7 +91,7 @@
     "@typescript-eslint/parser": "7.10.0",
     "@vates/toggle-scripts": "1.0.0",
     "cross-env": "7.0.3",
-    "cspell": "8.8.2",
+    "cspell": "8.8.3",
     "debug": "4.3.4",
     "dprint": "0.45.1",
     "editorconfig": "2.0.0",
