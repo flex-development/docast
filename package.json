@@ -128,7 +128,7 @@
     "typescript": "5.4.5",
     "vite": "5.2.11",
     "vitest": "1.6.0",
-    "yaml-eslint-parser": "1.2.2"
+    "yaml-eslint-parser": "1.2.3"
   },
   "packageManager": "yarn@4.1.0",
   "sideEffects": false
