@@ -93,7 +93,7 @@
     "cross-env": "7.0.3",
     "cspell": "8.8.3",
     "debug": "4.3.4",
-    "dprint": "0.45.1",
+    "dprint": "0.46.1",
     "editorconfig": "2.0.0",
     "esbuild": "0.21.3",
     "eslint": "8.57.0",
