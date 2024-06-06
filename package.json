@@ -117,7 +117,7 @@
     "jsonc-eslint-parser": "2.4.0",
     "lint-staged": "15.2.5",
     "node-notifier": "10.0.1",
-    "prettier": "3.3.0",
+    "prettier": "3.3.1",
     "remark": "15.0.1",
     "remark-directive": "3.0.0",
     "remark-frontmatter": "5.0.0",
