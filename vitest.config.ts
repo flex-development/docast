@@ -33,16 +33,23 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
       passWithNoTests: true,
       reporters: sift([ifelse(ci, null, new Notifier()), 'json', 'verbose']),
       sequence: {
+        /**
+         * Sorting and sharding algorithm provider.
+         *
+         * @see {@linkcode BaseSequencer}
+         *
+         * @extends {BaseSequencer}
+         */
         sequencer: class Sequencer extends BaseSequencer {
           /**
-           * Determines test file execution order.
+           * Determine test file execution order.
            *
            * @public
            * @override
            * @async
            *
            * @param {WorkspaceSpec[]} specs - Workspace spec objects
-           * @return {Promise<WorkspaceSpec[]>} `files` sorted
+           * @return {Promise<WorkspaceSpec[]>} Sorted `specs`
            */
           public override async sort(
             specs: WorkspaceSpec[]
