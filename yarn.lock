@@ -29,9 +29,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@arethetypeswrong/cli@npm:0.15.3":
-  version: 0.15.3
-  resolution: "@arethetypeswrong/cli@npm:0.15.3"
+"@arethetypeswrong/cli@npm:0.16.0":
+  version: 0.16.0
+  resolution: "@arethetypeswrong/cli@npm:0.16.0"
   dependencies:
     "@arethetypeswrong/core": "npm:0.15.1"
     chalk: "npm:^4.1.2"
@@ -40,9 +40,10 @@ __metadata:
     marked: "npm:^9.1.2"
     marked-terminal: "npm:^6.0.0"
     semver: "npm:^7.5.4"
+    which-pm-runs: "npm:^1.1.0"
   bin:
     attw: dist/index.js
-  checksum: 10/d64eea5c946669a24cd93007b03546b1422b9fa26e298589add461fc818a9aa1fddd2f0d3a7ed3a5f302f6c047ba574782bf4b04f7b087f1a370540e5dbfbb90
+  checksum: 10/4b8a4eda1a9c6592642ff55944e82045b29e05c169ea039c47454b0b7d43a3a73c80c4c3ef04955cfa5e204b95e05168f2b00c3a4751bc64983321f40dbb5ce2
   languageName: node
   linkType: hard
 
@@ -1435,7 +1436,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@flex-development/docast@workspace:."
   dependencies:
-    "@arethetypeswrong/cli": "npm:0.15.3"
+    "@arethetypeswrong/cli": "npm:0.16.0"
     "@commitlint/cli": "npm:19.3.0"
     "@commitlint/types": "npm:19.0.3"
     "@eslint/js": "npm:9.6.0"
@@ -10452,6 +10453,13 @@ __metadata:
     is-string: "npm:^1.0.5"
     is-symbol: "npm:^1.0.3"
   checksum: 10/9c7ca7855255f25ac47f4ce8b59c4cc33629e713fd7a165c9d77a2bb47bf3d9655a5664660c70337a3221cf96742f3589fae15a3a33639908d33e29aa2941efb
+  languageName: node
+  linkType: hard
+
+"which-pm-runs@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "which-pm-runs@npm:1.1.0"
+  checksum: 10/39a56ee50886fb33ec710e3b36dc9fe3d0096cac44850d9ca0c6186c4cb824d6c8125f013e0562e7c94744e1e8e4a6ab695592cdb12555777c7a4368143d822c
   languageName: node
   linkType: hard
 
