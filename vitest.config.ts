@@ -26,7 +26,7 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
     test: {
       include: ['**/__tests__/*.spec-d.ts'],
       outputFile: {
-        json: includes(['benchmark', 'typecheck'], env.mode)
+        json: includes(env.mode, 'typecheck')
           ? pathe.join('__tests__', pathe.addExt(env.mode, 'json'))
           : '__tests__/report.json'
       },
@@ -48,7 +48,7 @@ const config: UserConfigExport = defineConfig((env: ConfigEnv): UserConfig => {
            * @override
            * @async
            *
-           * @param {WorkspaceSpec[]} specs - Workspace spec objects
+           * @param {WorkspaceSpec[]} specs - Workspace specifications
            * @return {Promise<WorkspaceSpec[]>} Sorted `specs`
            */
           public override async sort(
