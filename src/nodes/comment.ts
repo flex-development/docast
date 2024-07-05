@@ -10,7 +10,6 @@ import type {
   FlowContent,
   Parent
 } from '@flex-development/docast'
-import type { Nilable, Optional } from '@flex-development/tutils'
 
 /**
  * Info associated with comments.
@@ -48,14 +47,14 @@ interface Comment extends Parent {
    *
    * @see {@linkcode CodeSegment}
    */
-  code?: Nilable<CodeSegment>
+  code?: CodeSegment | null | undefined
 
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode CommentData}
    */
-  data?: Optional<CommentData>
+  data?: CommentData | undefined
 
   /**
    * Node type.

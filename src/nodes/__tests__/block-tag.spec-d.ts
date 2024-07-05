@@ -4,11 +4,9 @@
  */
 
 import type {
-  BlockTagContent,
   Data,
   Parent,
-  Tag,
-  TypeExpression
+  Tag
 } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
 import type * as TestSubject from '../block-tag'
@@ -25,17 +23,7 @@ describe('unit-d:nodes/BlockTag', () => {
     expectTypeOf<Subject>().toMatchTypeOf<Tag>()
   })
 
-  it('should match [children: Exclude<BlockTagContent, TypeExpression>[] | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]]', () => {
-    // Arrange
-    type Expect =
-      | Exclude<BlockTagContent, TypeExpression>[]
-      | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
-
-    // Expect
-    expectTypeOf<Subject>().toHaveProperty('children').toEqualTypeOf<Expect>()
-  })
-
-  it('should match [data?: Optional<BlockTagData>]', () => {
+  it('should match [data?: BlockTagData | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<SubjectData>>()

@@ -7,7 +7,8 @@ import type {
   BlockTagContent,
   DescriptionContent,
   FlowContent,
-  PhrasingContent
+  PhrasingContent,
+  TypeExpression
 } from '@flex-development/docast'
 
 /**
@@ -20,11 +21,13 @@ import type {
  * @see {@linkcode DescriptionContent}
  * @see {@linkcode FlowContent}
  * @see {@linkcode PhrasingContent}
+ * @see {@linkcode TypeExpression}
  */
 type Content =
   | BlockTagContent
   | DescriptionContent
   | FlowContent
   | PhrasingContent
+  | TypeExpression
 
 export type { Content as default }

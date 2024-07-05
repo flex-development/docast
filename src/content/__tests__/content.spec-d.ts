@@ -7,7 +7,8 @@ import type {
   BlockTagContent,
   DescriptionContent,
   FlowContent,
-  PhrasingContent
+  PhrasingContent,
+  TypeExpression
 } from '@flex-development/docast'
 import type TestSubject from '../content'
 
@@ -26,5 +27,9 @@ describe('unit-d:content/content', () => {
 
   it('should allow PhrasingContent', () => {
     expectTypeOf<PhrasingContent>().toMatchTypeOf<TestSubject>
+  })
+
+  it('should allow TypeExpression', () => {
+    expectTypeOf<TypeExpression>().toMatchTypeOf<TestSubject>
   })
 })

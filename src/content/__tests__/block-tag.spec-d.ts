@@ -6,7 +6,7 @@
 import type { NodeObject } from '#tests/types'
 import type {
   PhrasingContentMap,
-  TypeExpression
+  TypeMetadata
 } from '@flex-development/docast'
 import type mdast from 'mdast'
 import type * as TestSubject from '../block-tag'
@@ -34,9 +34,9 @@ describe('unit-d:content/blockTag', () => {
         .toMatchTypeOf<NodeObject<mdast.Code>>()
     })
 
-    it('should match NodeObject<TypeExpression>', () => {
+    it('should match NodeObject<TypeMetadata>', () => {
       expectTypeOf<TestSubject.BlockTagContentMap>()
-        .toMatchTypeOf<NodeObject<TypeExpression>>()
+        .toMatchTypeOf<NodeObject<TypeMetadata>>()
     })
   })
 })

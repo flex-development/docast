@@ -8,7 +8,6 @@ import type {
   DescriptionContent,
   Parent
 } from '@flex-development/docast'
-import type { Optional } from '@flex-development/tutils'
 
 /**
  * Info associated with comment descriptions.
@@ -39,7 +38,7 @@ interface Description extends Parent {
    *
    * @see {@linkcode DescriptionData}
    */
-  data?: Optional<DescriptionData>
+  data?: DescriptionData | undefined
 
   /**
    * Node type.
@@ -47,4 +46,4 @@ interface Description extends Parent {
   type: 'description'
 }
 
-export type { DescriptionData, Description as default }
+export type { Description as default, DescriptionData }

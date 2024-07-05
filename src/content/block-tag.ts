@@ -5,7 +5,7 @@
 
 import type {
   PhrasingContentMap,
-  TypeExpression
+  TypeMetadata
 } from '@flex-development/docast'
 import type mdast from 'mdast'
 
@@ -22,7 +22,7 @@ type BlockTagContent = BlockTagContentMap[keyof BlockTagContentMap]
  * Registry of nodes that can occur where {@linkcode BlockTagContent} is
  * expected.
  *
- * This interface can be augmented to register custom node types.
+ * This interface can be augmented to register custom nodes.
  *
  * @example
  *  declare module '@flex-development/docast' {
@@ -35,7 +35,7 @@ type BlockTagContent = BlockTagContentMap[keyof BlockTagContentMap]
  */
 interface BlockTagContentMap extends PhrasingContentMap {
   code: mdast.Code
-  typeExpression: TypeExpression
+  typeMetadata: TypeMetadata
 }
 
 export type { BlockTagContent, BlockTagContentMap }
