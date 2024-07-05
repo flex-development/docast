@@ -3,36 +3,34 @@
  * @module docast/interfaces/CodeSegment
  */
 
-import type { Position } from '@flex-development/docast'
-import type { Nilable, NumberString } from '@flex-development/tutils'
+import type unist from 'unist'
 
 /**
  * The segment of code a comment documents.
+ *
+ * This interface can be augmented to register custom fields.
+ *
+ * @example
+ *  declare module '@flex-development/docast' {
+ *    interface CodeSegment {
+ *      kind: number | string
+ *    }
+ *  }
  */
 interface CodeSegment {
   /**
-   * Code segment name.
-   */
-  identifier: string
-
-  /**
-   * Code syntax kind.
-   */
-  kind: NumberString
-
-  /**
-   * Parent code.
-   */
-  parent?: Nilable<CodeSegment>
-
-  /**
-   * [Position][1] of code in source file.
+   * [Position][1] of code segment in source file.
    *
    * [1]: https://github.com/syntax-tree/unist#position
    *
-   * @see {@linkcode Position}
+   * @see {@linkcode  unist.Position}
    */
-  position: Position
+  position: unist.Position
+
+  /**
+   * Node type of code segment.
+   */
+  type: string
 }
 
 export type { CodeSegment as default }

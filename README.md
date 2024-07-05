@@ -198,22 +198,14 @@ is used only to provide additional information.
 
 ```ts
 interface CodeSegment {
-  identifier: string
-  kind: number | string
-  parent?: CodeSegment | null | undefined
-  position: Position
+  position: unist.Position
+  type: string
 }
 ```
 
 **CodeSegment** represents the code segment in a [*file*][unist-file] that is documented by a [**comment**](#comment).
 
-The `identifier` field represents the name of documented code segment. The value of the `identifier` field is a
-non-empty string that matches the identifier found in the respective programming langauge's AST.
-
-The `kind` field represents the syntax kind of the code segment. The value of the `kind` field is an enumerated value.
-
-The `parent` field represents the code segment the current segment is nested under. The value of the `parent` field may
-be `null` or `undefined` for top-level code segments, or for nested code segments, implement the `CodeSegment` interface.
+The value of the `type` field is the node type of the code segment.
 
 ### `Description`
 
