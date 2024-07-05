@@ -33,7 +33,7 @@ type DescriptionContent = DescriptionContentMap[keyof DescriptionContentMap]
  * Registry of docast nodes that can occur where {@linkcode DescriptionContent}
  * is expected.
  *
- * This interface can be augmented to register custom node types.
+ * This interface can be augmented to register custom nodes.
  *
  * @example
  *  declare module '@flex-development/docast' {

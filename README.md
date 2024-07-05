@@ -35,7 +35,7 @@ It implements the [**unist**][unist] spec.
   - [`Description`](#description)
   - [`InlineTag`](#inlinetag)
   - [`Root`](#root)
-  - [`TypeExpression`](#typeexpression)
+  - [`TypeMetadata`](#typemetadata)
 - [Mixins](#mixins)
   - [`Tag`](#tag)
     - [`TagName`](#tagname)
@@ -44,6 +44,7 @@ It implements the [**unist**][unist] spec.
   - [`DescriptionContent`](#descriptioncontent)
   - [`FlowContent`](#flowcontent)
   - [`PhrasingContent`](#phrasingcontent)
+  - [`TypeExpression`](#typeexpression)
 - [Glossary](#glossary)
 - [List of utilities](#list-of-utilities)
 - [Contribute](#contribute)
@@ -157,8 +158,8 @@ Its content is limited to [docast content](#content-model) and [mdast content][m
 ```ts
 interface BlockTag extends Parent, Tag {
   children:
-    | Exclude<BlockTagContent, TypeExpression>[]
-    | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
+    | Exclude<BlockTagContent, TypeMetadata>[]
+    | [TypeMetadata, ...Exclude<BlockTagContent, TypeMetadata>[]]
   data?: BlockTagData | undefined
   type: 'blockTag'
 }
@@ -254,19 +255,18 @@ interface Root extends Parent {
 **Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child]. It can
 contain [**comment**](#comment) nodes.
 
-### `TypeExpression`
+### `TypeMetadata`
 
 ```ts
-interface TypeExpression extends Literal {
-  data?: TypeExpressionData | undefined
-  type: 'typeExpression'
+interface TypeMetadata extends Literal {
+  data?: TypeMetadataData | undefined
+  type: 'typeMetadata'
 }
 ```
 
-**TypeExpression** ([**Literal**](#literal)) represents a type defintion or constraint.
+**TypeMetadata** ([**Literal**](#literal)) represents an inlined type expression.
 
-**TypeExpression** can be used in [**block tag**](#blocktag) nodes. It cannot contain any children &mdash; it is a
-[*leaf*][unist-leaf].
+**TypeMetadata** can be used in [**block tag**](#blocktag) nodes. Its content model is [**type expresssion**](#typeexpression).
 
 ## Mixins
 
@@ -301,7 +301,7 @@ falls into one or more categories of `Content`.
 ### `BlockTagContent`
 
 ```ts
-type BlockTagContent = PhrasingContent | TypeExpression
+type BlockTagContent = PhrasingContent | TypeMetadata
 ```
 
 **Block** content represents [**block tag**](#blocktag) text, and its markup.
@@ -338,6 +338,44 @@ type PhrasingContent = InlineTag | mdast.Code | mdast.PhrasingContent
 ```
 
 **Phrasing** content represents [**comment**](#comment) text, and its markup.
+
+### `TypeExpression`
+
+```ts
+type TypeExpression =
+  | ArrayType
+  | AssertionPredicate
+  | BigIntLiteral
+  | BooleanLiteral
+  | ConditionalType
+  | ConstructorType
+  | FunctionType
+  | GenericType
+  | Identifier
+  | InferType
+  | IntersectionType
+  | NonNullableType
+  | NullLiteral
+  | NullableType
+  | NumberLiteral
+  | ObjectLiteralType
+  | OptionalType
+  | ParenthesizedType
+  | PropertyAccessType
+  | StringLiteral
+  | Super
+  | TemplateLiteral
+  | This
+  | TupleType
+  | TypeOperation
+  | TypePredicate
+  | TypeSymbol
+  | UndefinedLiteral
+  | UnionType
+  | VariadicType
+```
+
+**TODO**: description
 
 ## Glossary
 

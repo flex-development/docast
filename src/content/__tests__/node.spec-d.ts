@@ -3,15 +3,12 @@
  * @module docast/content/tests/unit-d/node
  */
 
-import type { NodeObject } from '#tests/types'
+import type { InlineTag, Root } from '@flex-development/docast'
 import type {
-  BlockTag,
-  Comment,
-  Description,
-  InlineTag,
-  Root,
-  TypeExpression
-} from '@flex-development/docast'
+  InclusiveDescendant,
+  Type
+} from '@flex-development/unist-util-types'
+import type mdast from 'mdast'
 import type * as TestSubject from '../node'
 
 describe('unit-d:content/node', () => {
@@ -27,30 +24,16 @@ describe('unit-d:content/node', () => {
   })
 
   describe('NodeMap', () => {
-    it('should match NodeObject<BlockTag>', () => {
-      expectTypeOf<TestSubject.NodeMap>().toMatchTypeOf<NodeObject<BlockTag>>()
-    })
+    type Skip = InclusiveDescendant<mdast.Root>
+    type Test = Exclude<InclusiveDescendant<Root>, Skip> | InlineTag
 
-    it('should match NodeObject<Comment>', () => {
-      expectTypeOf<TestSubject.NodeMap>().toMatchTypeOf<NodeObject<Comment>>()
-    })
+    it('should register all docast nodes', () => {
+      // Arrange
+      type Nodes = TestSubject.NodeMap[keyof TestSubject.NodeMap]
 
-    it('should match NodeObject<Description>', () => {
-      expectTypeOf<TestSubject.NodeMap>()
-        .toMatchTypeOf<NodeObject<Description>>()
-    })
-
-    it('should match NodeObject<InlineTag>', () => {
-      expectTypeOf<TestSubject.NodeMap>().toMatchTypeOf<NodeObject<InlineTag>>()
-    })
-
-    it('should match NodeObject<Root>', () => {
-      expectTypeOf<TestSubject.NodeMap>().toMatchTypeOf<NodeObject<Root>>()
-    })
-
-    it('should match NodeObject<TypeExpression>', () => {
-      expectTypeOf<TestSubject.NodeMap>()
-        .toMatchTypeOf<NodeObject<TypeExpression>>()
+      // Expect
+      expectTypeOf<Exclude<Test, Nodes>>().toEqualTypeOf<never>()
+      expectTypeOf<keyof TestSubject.NodeMap>().toEqualTypeOf<Type<Test>>()
     })
   })
 })
