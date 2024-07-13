@@ -3,8 +3,7 @@
  * @module docast/nodes/Node
  */
 
-import type { Data, Position } from '@flex-development/docast'
-import type { Optional } from '@flex-development/tutils'
+import type { Data } from '@flex-development/docast'
 import type unist from 'unist'
 
 /**
@@ -20,18 +19,18 @@ interface Node extends unist.Node {
    *
    * @see {@linkcode Data}
    */
-  data?: Optional<Data>
+  data?: Data | undefined
 
   /**
    * Location of node in source document.
    *
-   * **Note**: Should not be defined if node is [*generated*][1].
+   * > 👉 Nodes that are [*generated*][generated] must not have a position.
    *
-   * [1]: https://github.com/syntax-tree/unist#generated
+   * [generated]: https://github.com/syntax-tree/unist#generated
    *
-   * @see {@linkcode Position}
+   * @see {@linkcode unist.Position}
    */
-  position?: Optional<Position>
+  position?: unist.Position | undefined
 }
 
 export type { Node as default }

@@ -7,24 +7,29 @@ import type {
   BlockTagContent,
   DescriptionContent,
   FlowContent,
-  PhrasingContent
+  PhrasingContent,
+  TypeExpression
 } from '@flex-development/docast'
 import type TestSubject from '../content'
 
 describe('unit-d:content/content', () => {
   it('should allow BlockTagContent', () => {
-    expectTypeOf<BlockTagContent>().toMatchTypeOf<TestSubject>
+    expectTypeOf<BlockTagContent>().toMatchTypeOf<TestSubject>()
   })
 
   it('should allow DescriptionContent', () => {
-    expectTypeOf<DescriptionContent>().toMatchTypeOf<TestSubject>
+    expectTypeOf<DescriptionContent>().toMatchTypeOf<TestSubject>()
   })
 
   it('should allow FlowContent', () => {
-    expectTypeOf<FlowContent>().toMatchTypeOf<TestSubject>
+    expectTypeOf<FlowContent>().toMatchTypeOf<TestSubject>()
   })
 
   it('should allow PhrasingContent', () => {
-    expectTypeOf<PhrasingContent>().toMatchTypeOf<TestSubject>
+    expectTypeOf<PhrasingContent>().toMatchTypeOf<TestSubject>()
+  })
+
+  it('should allow TypeExpression', () => {
+    expectTypeOf<TypeExpression>().toMatchTypeOf<TestSubject>()
   })
 })

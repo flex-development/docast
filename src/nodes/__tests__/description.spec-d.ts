@@ -5,7 +5,6 @@
 
 import type {
   Data,
-  DescriptionContent,
   Parent
 } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
@@ -19,13 +18,7 @@ describe('unit-d:nodes/Description', () => {
     expectTypeOf<Subject>().toMatchTypeOf<Parent>()
   })
 
-  it('should match [children: DescriptionContent[]]', () => {
-    expectTypeOf<Subject>()
-      .toHaveProperty('children')
-      .toEqualTypeOf<DescriptionContent[]>()
-  })
-
-  it('should match [data?: Optional<DescriptionData>]', () => {
+  it('should match [data?: DescriptionData | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<SubjectData>>()

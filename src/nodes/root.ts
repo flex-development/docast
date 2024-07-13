@@ -4,7 +4,6 @@
  */
 
 import type { Comment, Data, Parent } from '@flex-development/docast'
-import type { Optional } from '@flex-development/tutils'
 
 /**
  * Info associated with documents.
@@ -37,7 +36,7 @@ interface Root extends Parent {
    *
    * @see {@linkcode RootData}
    */
-  data?: Optional<RootData>
+  data?: RootData | undefined
 
   /**
    * Node type.
@@ -45,4 +44,4 @@ interface Root extends Parent {
   type: 'root'
 }
 
-export type { RootData, Root as default }
+export type { Root as default, RootData }

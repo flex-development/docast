@@ -6,8 +6,6 @@
 import type {
   CodeSegment,
   Data,
-  Description,
-  FlowContent,
   Parent
 } from '@flex-development/docast'
 import type { Nilable, Optional } from '@flex-development/tutils'
@@ -21,23 +19,13 @@ describe('unit-d:nodes/Comment', () => {
     expectTypeOf<Subject>().toMatchTypeOf<Parent>()
   })
 
-  it('should match [children: Exclude<FlowContent, Description>[] | [Description, ...Exclude<FlowContent, Description>[]]]', () => {
-    // Arrange
-    type Expect =
-      | Exclude<FlowContent, Description>[]
-      | [summary: Description, ...Exclude<FlowContent, Description>[]]
-
-    // Expect
-    expectTypeOf<Subject>().toHaveProperty('children').toEqualTypeOf<Expect>()
-  })
-
-  it('should match [code?: Nilable<CodeSegment>]', () => {
+  it('should match [code?: CodeSegment | null | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('code')
       .toEqualTypeOf<Nilable<CodeSegment>>()
   })
 
-  it('should match [data?: Optional<CommentData>]', () => {
+  it('should match [data?: CommentData | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<SubjectData>>()

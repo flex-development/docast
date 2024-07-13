@@ -19,7 +19,7 @@ describe('unit-d:nodes/InlineTag', () => {
     expectTypeOf<Subject>().toMatchTypeOf<Tag>()
   })
 
-  it('should match [data?: Optional<InlineTagData>]', () => {
+  it('should match [data?: InlineTagData | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<SubjectData>>()
@@ -27,6 +27,10 @@ describe('unit-d:nodes/InlineTag', () => {
 
   it('should match [type: "inlineTag"]', () => {
     expectTypeOf<Subject>().toHaveProperty('type').toEqualTypeOf<'inlineTag'>()
+  })
+
+  it('should match [value: string]', () => {
+    expectTypeOf<Subject>().toHaveProperty('value').toEqualTypeOf<string>()
   })
 
   describe('InlineTagData', () => {

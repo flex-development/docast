@@ -16,7 +16,7 @@ describe('unit-d:content/phrasing', () => {
       type Expect = TestSubject.PhrasingContentMap[K]
 
       // Expect
-      expectTypeOf<TestSubject.PhrasingContent>().toEqualTypeOf<Expect>
+      expectTypeOf<TestSubject.PhrasingContent>().toEqualTypeOf<Expect>()
     })
   })
 
