@@ -9,7 +9,8 @@ import type {
   Description,
   InlineTag,
   Root,
-  TypeExpression
+  TypeExpressionMap,
+  TypeMetadata
 } from '@flex-development/docast'
 
 /**
@@ -23,7 +24,7 @@ type DocastNode = NodeMap[keyof NodeMap]
 /**
  * Registry of docast nodes.
  *
- * This interface can be augmented to register custom node types.
+ * This interface can be augmented to register custom nodes.
  *
  * @example
  *  declare module '@flex-development/docast' {
@@ -31,14 +32,16 @@ type DocastNode = NodeMap[keyof NodeMap]
  *      customNode: CustomNode
  *    }
  *  }
+ *
+ * @extends {TypeExpressionMap}
  */
-interface NodeMap {
+interface NodeMap extends TypeExpressionMap {
   blockTag: BlockTag
   comment: Comment
   description: Description
   inlineTag: InlineTag
   root: Root
-  typeExpression: TypeExpression
+  typeMetadata: TypeMetadata
 }
 
 export type { DocastNode, NodeMap }

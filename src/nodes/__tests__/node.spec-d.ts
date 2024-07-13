@@ -3,7 +3,7 @@
  * @module docast/nodes/tests/unit-d/Node
  */
 
-import type { Data, Position } from '@flex-development/docast'
+import type { Data } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
 import type unist from 'unist'
 import type TestSubject from '../node'
@@ -13,15 +13,15 @@ describe('unit-d:nodes/Node', () => {
     expectTypeOf<TestSubject>().toMatchTypeOf<unist.Node>()
   })
 
-  it('should match [data?: Optional<Data>]', () => {
+  it('should match [data?: Data | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<Data>>()
   })
 
-  it('should match [position?: Optional<Position>]', () => {
+  it('should match [position?: unist.Position | undefined]', () => {
     expectTypeOf<TestSubject>()
       .toHaveProperty('position')
-      .toEqualTypeOf<Optional<Position>>()
+      .toEqualTypeOf<Optional<unist.Position>>()
   })
 })

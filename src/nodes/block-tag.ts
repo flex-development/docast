@@ -8,9 +8,8 @@ import type {
   Data,
   Parent,
   Tag,
-  TypeExpression
+  TypeMetadata
 } from '@flex-development/docast'
-import type { Optional } from '@flex-development/tutils'
 
 /**
  * Info associated with block tags.
@@ -42,15 +41,15 @@ interface BlockTag extends Parent, Tag {
    * @see {@linkcode BlockTagContent}
    */
   children:
-    | Exclude<BlockTagContent, TypeExpression>[]
-    | [type: TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
+    | Exclude<BlockTagContent, TypeMetadata>[]
+    | [type: TypeMetadata, ...Exclude<BlockTagContent, TypeMetadata>[]]
 
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode BlockTagData}
    */
-  data?: Optional<BlockTagData>
+  data?: BlockTagData | undefined
 
   /**
    * Node type.

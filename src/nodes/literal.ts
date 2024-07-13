@@ -14,9 +14,9 @@ import type { Node } from '@flex-development/docast'
  */
 interface Literal extends Node {
   /**
-   * Plain-text value.
+   * Plain value.
    */
-  value: string
+  value: bigint | boolean | number | string | null | undefined
 }
 
 export type { Literal as default }

@@ -15,6 +15,7 @@ hmarr
 iife
 jchen
 kaisugi
+keyof
 lintstagedrc
 mdast
 mkbuild

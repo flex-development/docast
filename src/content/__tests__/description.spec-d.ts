@@ -16,7 +16,7 @@ describe('unit-d:content/description', () => {
       type Expect = TestSubject.DescriptionContentMap[K]
 
       // Expect
-      expectTypeOf<TestSubject.DescriptionContent>().toEqualTypeOf<Expect>
+      expectTypeOf<TestSubject.DescriptionContent>().toEqualTypeOf<Expect>()
     })
   })
 

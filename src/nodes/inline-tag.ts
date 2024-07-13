@@ -4,7 +4,6 @@
  */
 
 import type { Data, Literal, Tag } from '@flex-development/docast'
-import type { Optional } from '@flex-development/tutils'
 
 /**
  * Info associated with inline tags.
@@ -33,12 +32,17 @@ interface InlineTag extends Literal, Tag {
    *
    * @see {@linkcode InlineTagData}
    */
-  data?: Optional<InlineTagData>
+  data?: InlineTagData | undefined
 
   /**
    * Node type.
    */
   type: 'inlineTag'
+
+  /**
+   * Plain-text value.
+   */
+  value: string
 }
 
-export type { InlineTagData, InlineTag as default }
+export type { InlineTag as default, InlineTagData }

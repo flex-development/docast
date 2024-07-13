@@ -21,7 +21,7 @@ describe('unit-d:nodes/Root', () => {
       .toEqualTypeOf<Comment[]>()
   })
 
-  it('should match [data?: Optional<RootData>]', () => {
+  it('should match [data?: RootData | undefined]', () => {
     expectTypeOf<Subject>()
       .toHaveProperty('data')
       .toEqualTypeOf<Optional<SubjectData>>()

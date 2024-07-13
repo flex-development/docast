@@ -24,8 +24,6 @@ It implements the [**unist**][unist] spec.
 - [Types](#types)
 - [Nodes (abstract)](#nodes-abstract)
   - [`Node`](#node)
-    - [`Position`](#position)
-    - [`Point`](#point)
   - [`Literal`](#literal)
   - [`Parent`](#parent)
 - [Nodes](#nodes)
@@ -35,7 +33,7 @@ It implements the [**unist**][unist] spec.
   - [`Description`](#description)
   - [`InlineTag`](#inlinetag)
   - [`Root`](#root)
-  - [`TypeExpression`](#typeexpression)
+  - [`TypeMetadata`](#typemetadata)
 - [Mixins](#mixins)
   - [`Tag`](#tag)
     - [`TagName`](#tagname)
@@ -44,6 +42,7 @@ It implements the [**unist**][unist] spec.
   - [`DescriptionContent`](#descriptioncontent)
   - [`FlowContent`](#flowcontent)
   - [`PhrasingContent`](#phrasingcontent)
+  - [`TypeExpression`](#typeexpression)
 - [Glossary](#glossary)
 - [List of utilities](#list-of-utilities)
 - [Contribute](#contribute)
@@ -80,62 +79,20 @@ yarn add @flex-development/docast
 ### `Node`
 
 ```ts
-interface Node extends unist.Node {
-  position?: Position | undefined
-}
+interface Node extends unist.Node {}
 ```
 
 **Node** ([**unist.Node**][unist-node]) is a syntactic unit in docast syntax trees.
-
-The `position` field represents the location of a node in a source document. The value of the `position` field implements
-the [`Position`](#position) interface. The `position` field must not be present if a node is [*generated*][unist-generated].
-
-#### `Position`
-
-```ts
-interface Position {
-  end: Point
-  start: Point
-}
-```
-
-**Position** represents the location of a node in a source [*file*][unist-file].
-
-The `start` field of **Position** represents the index of the first character of the parsed source region. The `end`
-field represents the index of the first character after the parsed source region, whether it exists or not. The value
-of the `start` and `end` fields implement the [**Point**](#point) interface.
-
-If the syntactic unit represented by a node is not present in the source [*file*][unist-file] at the time of parsing,
-the node is said to be [*generated*][unist-generated] and it must not have positional information.
-
-#### `Point`
-
-```ts
-interface Point {
-  column: number // >= 1
-  line: number // >= 1
-  offset: number // >= 0
-}
-```
-
-**Point** represents one place in a source [*file*][unist-file].
-
-The `line` and `column` fields are `1`-indexed integers representing a line and column in a source file. The offset
-field (`0`-indexed integer) represents a character in a source file.
-
-The term character refers to a (UTF-16) code unit as defined by the [Web IDL specification][webidl-spec].
 
 ### `Literal`
 
 ```ts
 interface Literal extends Node {
-  value: string
+  value: bigint | boolean | number | string | null | undefined
 }
 ```
 
-**Literal** represents an abstract interface in docast containing a value.
-
-Its `value` field is a `string`.
+**Literal** represents an abstract interface in docast containing the smallest possible value.
 
 ### `Parent`
 
@@ -157,8 +114,8 @@ Its content is limited to [docast content](#content-model) and [mdast content][m
 ```ts
 interface BlockTag extends Parent, Tag {
   children:
-    | Exclude<BlockTagContent, TypeExpression>[]
-    | [TypeExpression, ...Exclude<BlockTagContent, TypeExpression>[]]
+    | Exclude<BlockTagContent, TypeMetadata>[]
+    | [TypeMetadata, ...Exclude<BlockTagContent, TypeMetadata>[]]
   data?: BlockTagData | undefined
   type: 'blockTag'
 }
@@ -228,6 +185,7 @@ a comment, before any [**block tags**](#blocktag), and may contain [Markdown][md
 interface InlineTag extends Literal, Tag {
   data?: InlineTagData | undefined
   type: 'inlineTag'
+  value: string
 }
 ```
 
@@ -254,19 +212,22 @@ interface Root extends Parent {
 **Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child]. It can
 contain [**comment**](#comment) nodes.
 
-### `TypeExpression`
+### `TypeMetadata`
 
 ```ts
-interface TypeExpression extends Literal {
-  data?: TypeExpressionData | undefined
-  type: 'typeExpression'
+interface TypeMetadata extends Parent {
+  children: TypeExpression[]
+  data?: TypeMetadataData | undefined
+  raw: string
+  type: 'typeMetadata'
 }
 ```
 
-**TypeExpression** ([**Literal**](#literal)) represents a type defintion or constraint.
+**TypeMetadata** ([**Parent**](#parent)) represents an inlined type expression (e.g. `{number}`).
 
-**TypeExpression** can be used in [**block tag**](#blocktag) nodes. It cannot contain any children &mdash; it is a
-[*leaf*][unist-leaf].
+**TypeMetadata** can be used in [**block tag**](#blocktag) nodes. Its content model is [**type expresssion**](#typeexpression).
+
+A `raw` field must be present. Its value is the raw type expression (e.g. `number`).
 
 ## Mixins
 
@@ -301,7 +262,7 @@ falls into one or more categories of `Content`.
 ### `BlockTagContent`
 
 ```ts
-type BlockTagContent = PhrasingContent | TypeExpression
+type BlockTagContent = PhrasingContent | TypeMetadata
 ```
 
 **Block** content represents [**block tag**](#blocktag) text, and its markup.
@@ -338,6 +299,54 @@ type PhrasingContent = InlineTag | mdast.Code | mdast.PhrasingContent
 ```
 
 **Phrasing** content represents [**comment**](#comment) text, and its markup.
+
+### `TypeExpression`
+
+```ts
+type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
+```
+
+**TypeExpression** content is a type expression.
+
+When developing type expression parsers compatible with docast, the `TypeExpressionMap` map should be augmented (and
+exported! :wink:) to register custom nodes:
+
+```ts
+declare module '@flex-development/docast' {
+  interface TypeExpressionMap {
+    arrayType: ArrayType
+    assertionPredicate: AssertionPredicate
+    bigint: BigIntLiteral
+    boolean: BooleanLiteral
+    conditionalType: ConditionalType
+    constructorType: ConstructorType
+    functionType: FunctionType
+    genericType: GenericType
+    identifier: Identifier
+    inferType: InferType
+    intersectionType: IntersectionType
+    nonNullableType: NonNullableType
+    null: NullLiteral
+    nullableType: NullableType
+    number: NumberLiteral
+    objectLiteralType: ObjectLiteralType
+    optionalType: OptionalType
+    parenthesizedType: ParenthesizedType
+    propertyAccessType: PropertyAccessType
+    string: StringLiteral
+    super: Super
+    templateLiteral: TemplateLiteral
+    this: This
+    tupleType: TupleType
+    typeOperation: TypeOperation
+    typePredicate: TypePredicate
+    typeSymbol: TypeSymbol
+    undefined: UndefinedLiteral
+    unionType: UnionType
+    variadicType: VariadicType
+  }
+}
+```
 
 ## Glossary
 
@@ -382,7 +391,6 @@ community you agree to abide by its terms.
 [typescript]: https://typescriptlang.org
 [unist-child]: https://github.com/syntax-tree/unist#child
 [unist-file]: https://github.com/syntax-tree/unist#file
-[unist-generated]: https://github.com/syntax-tree/unist#generated
 [unist-glossary]: https://github.com/syntax-tree/unist#glossary
 [unist-leaf]: https://github.com/syntax-tree/unist#leaf
 [unist-node]: https://github.com/syntax-tree/unist#node
@@ -392,5 +400,4 @@ community you agree to abide by its terms.
 [unist-tree]: https://github.com/syntax-tree/unist#tree
 [unist-utilities]: https://github.com/syntax-tree/unist#list-of-utilities
 [unist]: https://github.com/syntax-tree/unist
-[webidl-spec]: https://webidl.spec.whatwg.org/
 [wiki-comment]: https://en.wikipedia.org/wiki/Comment_(computer_programming)

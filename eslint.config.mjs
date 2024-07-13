@@ -20,5 +20,11 @@ export default [
       '**/coverage/',
       '**/dist/'
     ]
+  },
+  {
+    files: ['src/content/content.ts'],
+    rules: {
+      '@typescript-eslint/no-redundant-type-constituents': 0
+    }
   }
 ]

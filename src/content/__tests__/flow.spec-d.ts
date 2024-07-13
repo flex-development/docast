@@ -15,7 +15,7 @@ describe('unit-d:content/flow', () => {
       type Expect = TestSubject.FlowContentMap[K]
 
       // Expect
-      expectTypeOf<TestSubject.FlowContent>().toEqualTypeOf<Expect>
+      expectTypeOf<TestSubject.FlowContent>().toEqualTypeOf<Expect>()
     })
   })
 
