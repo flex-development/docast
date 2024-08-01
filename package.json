@@ -125,7 +125,7 @@
     "remark-frontmatter": "5.0.0",
     "remark-gfm": "4.0.0",
     "sh-syntax": "0.4.2",
-    "trash-cli": "5.0.0",
+    "trash-cli": "6.0.0",
     "ts-dedent": "2.2.0",
     "typescript": "5.5.3",
     "typescript-eslint": "8.0.0",
