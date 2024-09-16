@@ -2677,21 +2677,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/spy@npm:2.1.1":
+"@vitest/spy@npm:2.1.1, @vitest/spy@npm:^2.1.0-beta.1":
   version: 2.1.1
   resolution: "@vitest/spy@npm:2.1.1"
   dependencies:
     tinyspy: "npm:^3.0.0"
   checksum: 10/47e83b4a3d091c4fdc2fbf861ccf2df697d3446a6c69d384b168f9c3e0fa1cabec03e52cc8bec1909735969176ac6272cc4dee8dda945ff059183a5c4568a488
-  languageName: node
-  linkType: hard
-
-"@vitest/spy@npm:^2.1.0-beta.1":
-  version: 2.1.0
-  resolution: "@vitest/spy@npm:2.1.0"
-  dependencies:
-    tinyspy: "npm:^3.0.0"
-  checksum: 10/5b1037a13c73828503b83c1dde0e48a2b148b1a5dea9ce71df56d48b859c17e1bc2fea47b8112132c4638aa7de7b09285515359fa1c3c1bb07e44fd929adbea9
   languageName: node
   linkType: hard
 
