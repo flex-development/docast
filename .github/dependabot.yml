@@ -40,6 +40,10 @@ updates:
       flex-development:
         patterns:
           - '@flex-development/*'
+      remark:
+        patterns:
+          - 'remark-*'
+          - remark
       typescript-eslint:
         patterns:
           - '@typescript-eslint/*'

@@ -1,41 +1,32 @@
 {
   "$schema": "https://dprint.dev/schemas/v0.json",
   "excludes": [
-    "!**/__fixtures__/**/dist/",
-    "!**/__fixtures__/**/node_modules/",
-    "!**/typings/**/dist/",
-    "!scratch.ts",
+    "!scratch.*",
     "**/*.patch",
     "**/*.snap",
-    "**/*config.*.timestamp*",
-    "**/.temp/",
-    "**/.vercel/",
-    "**/__fixtures__/git/**/*.txt",
-    "**/__tests__/benchmark.json",
-    "**/__tests__/report.json",
-    "**/__tests__/typecheck.json",
-    "**/coverage/",
-    "**/dist/",
-    "**/node_modules",
-    "**/tsconfig*temp.json",
+    "**/CHANGELOG.md",
+    "**/LICENSE.md",
+    "**/RELEASE_NOTES.md",
     ".git/",
     ".husky/_/",
     ".yarn/",
-    "CHANGELOG.md",
-    "LICENSE.md",
-    "RELEASE_NOTES.md",
     "yarn.lock"
   ],
   "exec": {
     "commands": [
       {
-        "command": "node ./dprint/prettier.mjs {{file_path}}",
+        "command": "node --experimental-strip-types --experimental-transform-types ./dprint/prettier.mts {{file_path}}",
         "exts": ["css", "html", "json5", "scss", "yaml", "yml"],
         "stdin": true
       },
       {
-        "command": "node ./dprint/shfmt.mjs {{file_path}}",
-        "exts": ["sh", "txt", "zsh"],
+        "command": "node --experimental-strip-types --experimental-transform-types ./dprint/remark.mts {{file_path}}",
+        "exts": ["md", "mdx"],
+        "stdin": true
+      },
+      {
+        "command": "node --experimental-strip-types --experimental-transform-types ./dprint/shfmt.mts {{file_path}}",
+        "exts": ["sh", "zsh"],
         "fileNames": [
           ".editorconfig",
           ".env",
@@ -46,7 +37,6 @@
           ".gitattributes",
           ".gitconfig",
           ".gitignore",
-          ".markdownlintignore",
           ".npmrc",
           ".nvmrc",
           "Brewfile",
@@ -56,9 +46,9 @@
         ],
         "stdin": true
       }
-    ]
+    ],
+    "cwd": "${configDir}"
   },
-  "incremental": true,
   "indentWidth": 2,
   "json": {
     "associations": ["**/*.{jsonc,json}"],
@@ -69,23 +59,11 @@
     "trailingCommas": "never"
   },
   "lineWidth": 80,
-  "markdown": {
-    "associations": ["**/*.{md,mdx}"],
-    "emphasisKind": "asterisks",
-    "ignoreDirective": "dprint-ignore",
-    "ignoreEndDirective": "dprint-ignore-end",
-    "ignoreFileDirective": "dprint-ignore-file",
-    "ignoreStartDirective": "dprint-ignore-start",
-    "lineWidth": 120,
-    "strongKind": "asterisks",
-    "textWrap": "maintain"
-  },
   "newLineKind": "lf",
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.91.3.wasm",
-    "https://plugins.dprint.dev/json-0.19.3.wasm",
-    "https://plugins.dprint.dev/markdown-0.17.1.wasm",
-    "https://plugins.dprint.dev/exec-0.5.0.json@8d9972eee71fa1590e04873540421f3eda7674d0f1aae3d7c788615e7b7413d0"
+    "https://plugins.dprint.dev/typescript-0.93.3.wasm",
+    "https://plugins.dprint.dev/json-0.19.4.wasm",
+    "https://plugins.dprint.dev/exec-0.5.1.json@492414e39dea4dccc07b4af796d2f4efdb89e84bae2bd4e1e924c0cc050855bf"
   ],
   "typescript": {
     "arrowFunction.useParentheses": "preferNone",

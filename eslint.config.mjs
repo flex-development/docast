@@ -7,22 +7,29 @@
 /**
  * Root eslint configuration object.
  *
- * @type {import('eslint').Linter.FlatConfig[]}
+ * @type {import('eslint').Linter.Config[]}
  */
 export default [
   ...(await import('./eslint.base.config.mjs')).default,
   {
     ignores: [
       '!**/__fixtures__/**/dist/',
-      '!**/__fixtures__/**/node_modules/',
+      '!**/__fixtures__/node_modules/',
       '!**/typings/**/dist/',
+      '**/*config.*.timestamp*',
+      '**/.vitest-reports/',
       '**/.yarn/',
+      '**/CHANGELOG.md',
+      '**/LICENSE.md',
+      '**/RELEASE_NOTES.md',
+      '**/__tests__/reports/',
       '**/coverage/',
-      '**/dist/'
+      '**/dist/',
+      '**/tsconfig*temp.json'
     ]
   },
   {
-    files: ['src/content/content.ts'],
+    files: ['src/content/content.mts'],
     rules: {
       '@typescript-eslint/no-redundant-type-constituents': 0
     }

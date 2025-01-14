@@ -32,10 +32,7 @@ branches:
           - context: gitguardian
           - context: lint
           - context: spelling
-          - context: typescript (5.3.3)
-          - context: typescript (5.4.5)
-          - context: typescript (5.5.3)
-          - context: typescript (latest)
+          - context: typescript (5.7.3)
         strict: true
       restrictions: null
 environments:

@@ -1,19 +1,20 @@
 # docast
 
-[![github release](https://img.shields.io/github/v/release/flex-development/docast.svg?include_prereleases&sort=semver)](https://github.com/flex-development/docast/releases/latest)
+[![github release](https://img.shields.io/github/v/release/flex-development/docast.svg?include_prereleases\&sort=semver)](https://github.com/flex-development/docast/releases/latest)
 [![npm](https://img.shields.io/npm/v/@flex-development/docast.svg)](https://npmjs.com/package/@flex-development/docast)
 [![module type: esm](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 [![license](https://img.shields.io/github/license/flex-development/docast.svg)](LICENSE.md)
-[![conventional commits](https://img.shields.io/badge/-conventional%20commits-fe5196?logo=conventional-commits&logoColor=ffffff)](https://conventionalcommits.org/)
-[![typescript](https://img.shields.io/badge/-typescript-3178c6?logo=typescript&logoColor=ffffff)](https://typescriptlang.org/)
-[![vitest](https://img.shields.io/badge/-vitest-6e9f18?style=flat&logo=vitest&logoColor=ffffff)](https://vitest.dev/)
-[![yarn](https://img.shields.io/badge/-yarn-2c8ebb?style=flat&logo=yarn&logoColor=ffffff)](https://yarnpkg.com/)
+[![conventional commits](https://img.shields.io/badge/-conventional%20commits-fe5196?logo=conventional-commits\&logoColor=ffffff)](https://conventionalcommits.org)
+[![typescript](https://img.shields.io/badge/-typescript-3178c6?logo=typescript\&logoColor=ffffff)](https://typescriptlang.org)
+[![vitest](https://img.shields.io/badge/-vitest-6e9f18?style=flat\&logo=vitest\&logoColor=ffffff)](https://vitest.dev)
+[![yarn](https://img.shields.io/badge/-yarn-2c8ebb?style=flat\&logo=yarn\&logoColor=ffffff)](https://yarnpkg.com)
 
 **Doc**block **A**bstract **S**yntax **T**ree.
 
 ---
 
-**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax trees][unist-syntax-tree].
+**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax
+trees][unist-syntax-tree].
 
 It implements the [**unist**][unist] spec.
 
@@ -49,22 +50,23 @@ It implements the [**unist**][unist] spec.
 
 ## Introduction
 
-This document defines a format for representing [docblock comments](#docblock-comment) as [abstract syntax trees][unist-syntax-tree].
-Development of docast started in October 2022. This specification is written in a [TypeScript][typescript]-like grammar.
+This document defines a format for representing [docblock comments](#docblock-comment) as [abstract syntax
+trees][unist-syntax-tree]. Development of docast started in October 2022. This specification is written in a
+[TypeScript][]-like grammar.
 
 ### Where this specification fits
 
-docast extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
-It also integrates with [mdast][mdast], a specification for representing markdown.
+docast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+It also integrates with [mdast][], a specification for representing markdown.
 
-docast relates to [JavaScript][javascript] and [TypeScript][typescript] in that both languages support docblock comments.
-docast is **language-agnostic**, however, and can be used with any programming language that supports docblock comments.
+docast relates to [JavaScript][] and [TypeScript][] in that both languages support docblock comments. docast is
+**language-agnostic**, however, and can be used with any programming language that supports docblock comments.
 
-docast relates to [JSDoc][jsdoc], [TSDoc][tsdoc], and [typedoc][typedoc] in that these tools parse docblock comments.
-These tools also have a limited set of tags that developers are allowed to use. If developers already have a set of tags
-they're using, they must spend additional time re-configuring those tags for their chosen tool. **docast does not
-enforce any tag semantics** &mdash; the user does. Tag specifications can be left to an [ESLint][eslint] rule, or a
-setting akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
+docast relates to [JSDoc][], [TSDoc][], and [typedoc][] in that these tools parse docblock comments. These tools also
+have a limited set of tags that developers are allowed to use. If developers already have a set of tags they're using,
+they must spend additional time re-configuring those tags for their chosen tool. **docast does not enforce any tag
+semantics** — the user does. Tag specifications can be left to an [ESLint][] rule, or a setting akin to
+[`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
 
 ## Types
 
@@ -143,7 +145,8 @@ interface Comment extends Parent {
 }
 ```
 
-**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment) in a source [*file*][unist-file].
+**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment) in a source
+[*file*][unist-file].
 
 The `code` field represents the segment of code documented by a comment. The value of the `code` field may be `null`,
 `undefined`, or implement the [`CodeSegment`](#codesegment) interface. The `code` field must not be present if a comment
@@ -195,7 +198,7 @@ Inline tags are denoted by wrapping a [tag name](#tagname) and any [*tag content
 and `}`).
 
 **InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes. It cannot contain any
-children &mdash; it is a [*leaf*][unist-leaf].
+children — it is a [*leaf*][unist-leaf].
 
 ### `Root`
 
@@ -309,7 +312,7 @@ type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
 **TypeExpression** content is a type expression.
 
 When developing type expression parsers compatible with docast, the `TypeExpressionMap` map should be augmented (and
-exported! :wink:) to register custom nodes:
+exported! \:wink:) to register custom nodes:
 
 ```ts
 declare module '@flex-development/docast' {
@@ -378,26 +381,49 @@ This project has a [code of conduct](CODE_OF_CONDUCT.md). By interacting with th
 community you agree to abide by its terms.
 
 [check-tag-names]: https://github.com/gajus/eslint-plugin-jsdoc-check-tag-names
+
 [docast-ideas]: https://github.com/flex-development/docast/discussions/new?category=idea
+
 [docast-util-from-docs]: https://github.com/flex-development/docast-util-from-docs
+
 [eslint]: https://eslint.org
+
 [javascript]: https://www.ecma-international.org/ecma-262/9.0/index.html
+
 [jsdoc]: https://jsdoc.app
+
 [mdast-content]: https://github.com/syntax-tree/mdast#content-model
+
 [mdast]: https://github.com/syntax-tree/mdast
+
 [structuredtags]: https://github.com/gajus/eslint-plugin-jsdoc-structuredtags
+
 [tsdoc]: https://tsdoc.org
+
 [typedoc]: https://github.com/TypeStrong/typedoc
+
 [typescript]: https://typescriptlang.org
+
 [unist-child]: https://github.com/syntax-tree/unist#child
+
 [unist-file]: https://github.com/syntax-tree/unist#file
+
 [unist-glossary]: https://github.com/syntax-tree/unist#glossary
+
 [unist-leaf]: https://github.com/syntax-tree/unist#leaf
+
 [unist-node]: https://github.com/syntax-tree/unist#node
+
 [unist-parent]: https://github.com/syntax-tree/unist#parent
+
 [unist-root]: https://github.com/syntax-tree/unist#root
+
 [unist-syntax-tree]: https://github.com/syntax-tree/unist#syntax-tree
+
 [unist-tree]: https://github.com/syntax-tree/unist#tree
+
 [unist-utilities]: https://github.com/syntax-tree/unist#list-of-utilities
+
 [unist]: https://github.com/syntax-tree/unist
-[wiki-comment]: https://en.wikipedia.org/wiki/Comment_(computer_programming)
+
+[wiki-comment]: https://en.wikipedia.org/wiki/Comment_\(computer_programming\)
