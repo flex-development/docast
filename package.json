@@ -132,7 +132,7 @@
     "@vates/toggle-scripts": "1.0.0",
     "@vitest/runner": "3.0.4",
     "cross-env": "7.0.3",
-    "cspell": "8.17.2",
+    "cspell": "8.17.3",
     "devlop": "1.1.0",
     "dprint": "0.48.0",
     "editorconfig": "2.0.0",
