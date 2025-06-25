@@ -1419,7 +1419,7 @@ __metadata:
     is-ci: "npm:4.1.0"
     jsonc-eslint-parser: "npm:2.4.0"
     node-notifier: "npm:10.0.1"
-    prettier: "npm:3.5.1"
+    prettier: "npm:3.6.1"
     remark: "npm:15.0.1"
     remark-cli: "npm:12.0.1"
     remark-directive: "npm:3.0.1"
@@ -8301,12 +8301,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.5.1":
-  version: 3.5.1
-  resolution: "prettier@npm:3.5.1"
+"prettier@npm:3.6.1":
+  version: 3.6.1
+  resolution: "prettier@npm:3.6.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/09ab168e651e50c2c79804d65f17a68129ce1c573830b2fb08c988b585add8076b8d995789034d66a14338d6b8835e8c591e0fc1bc90f4344af9645738636d01
+  checksum: 10/e2c4b47bf1bda4f932143e52e0f57239dd60cfef08296b56d4073426e2d310edc353a7daa5285a546bd3c1619c76894759cc98d82d4ac710f72a711ae2899bcc
   languageName: node
   linkType: hard
 
