@@ -2,6 +2,8 @@
 
 [![github release](https://img.shields.io/github/v/release/flex-development/docast.svg?include_prereleases\&sort=semver)](https://github.com/flex-development/docast/releases/latest)
 [![npm](https://img.shields.io/npm/v/@flex-development/docast.svg)](https://npmjs.com/package/@flex-development/docast)
+[![npm downloads](https://img.shields.io/npm/dm/@flex-development/docast.svg)](https://www.npmcharts.com/compare/@flex-development/docast?interval=30)
+[![install size](https://packagephobia.now.sh/badge?p=@flex-development/docast)](https://packagephobia.now.sh/result?p=@flex-development/docast)
 [![module type: esm](https://img.shields.io/badge/module%20type-esm-brightgreen)](https://github.com/voxpelli/badges-cjs-esm)
 [![license](https://img.shields.io/github/license/flex-development/docast.svg)](LICENSE.md)
 [![conventional commits](https://img.shields.io/badge/-conventional%20commits-fe5196?logo=conventional-commits\&logoColor=ffffff)](https://conventionalcommits.org)
@@ -13,8 +15,8 @@
 
 ---
 
-**docast** is a specification for representing [docblock comments](#docblock-comment) as [abstract syntax
-trees][unist-syntax-tree].
+**docast** is a specification for representing [docblock comments](#docblock-comment)
+as [abstract syntax trees][unist-syntax-tree].
 
 It implements the [**unist**][unist] spec.
 
@@ -50,23 +52,24 @@ It implements the [**unist**][unist] spec.
 
 ## Introduction
 
-This document defines a format for representing [docblock comments](#docblock-comment) as [abstract syntax
-trees][unist-syntax-tree]. Development of docast started in October 2022. This specification is written in a
-[TypeScript][]-like grammar.
+This document defines a format for representing [docblock comments](#docblock-comment)
+as [abstract syntax trees][unist-syntax-tree].\
+Development of docast started in October 2022. This specification is written in a [TypeScript][]-like grammar.
 
 ### Where this specification fits
 
 docast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
 It also integrates with [mdast][], a specification for representing markdown.
 
-docast relates to [JavaScript][] and [TypeScript][] in that both languages support docblock comments. docast is
-**language-agnostic**, however, and can be used with any programming language that supports docblock comments.
+docast relates to [JavaScript][] and [TypeScript][] in that both languages support docblock comments.
+docast is **language-agnostic**, however, and can be used with any programming language that supports docblock comments.
 
-docast relates to [JSDoc][], [TSDoc][], and [typedoc][] in that these tools parse docblock comments. These tools also
-have a limited set of tags that developers are allowed to use. If developers already have a set of tags they're using,
-they must spend additional time re-configuring those tags for their chosen tool. **docast does not enforce any tag
-semantics** — the user does. Tag specifications can be left to an [ESLint][] rule, or a setting akin to
-[`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
+docast relates to [JSDoc][], [TSDoc][], and [typedoc][] in that these tools parse docblock comments.
+These tools also have a limited set of tags that developers are allowed to use.
+If developers already have a set of tags they're using, they must spend additional time re-configuring those tags for
+their chosen tool.
+**docast does not enforce any tag semantics** — the user does. Tag specifications can be left to an [ESLint][] rule, or
+a setting akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
 
 ## Types
 
@@ -104,8 +107,8 @@ interface Parent extends unist.Parent {
 }
 ```
 
-**Parent** ([**unist.Parent**][unist-parent]) represents an abstract interface in docast containing other nodes (said to
-be [*children*][unist-child]).
+**Parent** ([**unist.Parent**][unist-parent]) represents an abstract interface in docast
+containing other nodes (said to be [*children*][unist-child]).
 
 Its content is limited to [docast content](#content-model) and [mdast content][mdast-content].
 
@@ -125,12 +128,13 @@ interface BlockTag extends Parent, Tag {
 
 **BlockTag** ([**Parent**](#parent)) represents top-level metadata.
 
-Block tags should be the only element on their line, except in cases where special meaning is assigned to succeeding
-text. All text following a block [tag name](#tagname), up until the start of the next block tag name, or comment closer
-(`*/`), is considered to be the block tag's [*tag content*](#tag-content).
+Block tags should be the only element on their line,
+except in cases where special meaning is assigned to succeeding text.
+All text following a block [tag name](#tagname), up until the start of the next block tag name,
+or comment closer (`*/`), is considered to be the block tag's [*tag content*](#tag-content).
 
-**BlockTag** can be used in [**comment**](#comment) nodes. Its content model is [**block tag**](#blocktagcontent)
-content.
+**BlockTag** can be used in [**comment**](#comment) nodes.
+Its content model is [**block tag**](#blocktagcontent) content.
 
 ### `Comment`
 
@@ -145,14 +149,15 @@ interface Comment extends Parent {
 }
 ```
 
-**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment) in a source
-[*file*][unist-file].
+**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment)
+in a source [*file*][unist-file].
 
-The `code` field represents the segment of code documented by a comment. The value of the `code` field may be `null`,
-`undefined`, or implement the [`CodeSegment`](#codesegment) interface. The `code` field must not be present if a comment
-is used only to provide additional information.
+The `code` field represents the segment of code documented by a comment.
+The value of the `code` field may be `null`, `undefined`, or implement the [`CodeSegment`](#codesegment) interface.
+The `code` field must not be present if a comment is used only to provide additional information.
 
-**Comment** can be used in [**root**](#root) nodes. Its content model is [**flow**](#flowcontent) content.
+**Comment** can be used in [**root**](#root) nodes.
+Its content model is [**flow**](#flowcontent) content.
 
 #### `CodeSegment`
 
@@ -177,10 +182,12 @@ interface Description extends Parent {
 }
 ```
 
-**Description** ([**Parent**](#parent)) represents the text of a [**comment**](#comment). It is located at the start of
-a comment, before any [**block tags**](#blocktag), and may contain [Markdown][mdast] content.
+**Description** ([**Parent**](#parent)) represents the text of a [**comment**](#comment).
+It is located at the start of a comment, before any [**block tags**](#blocktag),
+and may contain [Markdown][mdast] content.
 
-**Description** can be used in [**comment**](#comment) nodes. Its content model is [**description**](#descriptioncontent).
+**Description** can be used in [**comment**](#comment) nodes.
+Its content model is [**description**](#descriptioncontent).
 
 ### `InlineTag`
 
@@ -194,11 +201,11 @@ interface InlineTag extends Literal, Tag {
 
 **InlineTag** ([**Literal**](#literal)) represents inline metadata.
 
-Inline tags are denoted by wrapping a [tag name](#tagname) and any [*tag content*](#tag-content) in angle brackets (`{`
-and `}`).
+Inline tags are denoted by wrapping a [tag name](#tagname)
+and any [*tag content*](#tag-content) in angle brackets (`{` and `}`).
 
-**InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes. It cannot contain any
-children — it is a [*leaf*][unist-leaf].
+**InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes.
+It cannot contain any children — it is a [*leaf*][unist-leaf].
 
 ### `Root`
 
@@ -212,8 +219,8 @@ interface Root extends Parent {
 
 **Root** ([**Parent**](#parent)) represents a document.
 
-**Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child]. It can
-contain [**comment**](#comment) nodes.
+**Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child].
+It can contain [**comment**](#comment) nodes.
 
 ### `TypeMetadata`
 
@@ -228,7 +235,8 @@ interface TypeMetadata extends Parent {
 
 **TypeMetadata** ([**Parent**](#parent)) represents an inlined type expression (e.g. `{number}`).
 
-**TypeMetadata** can be used in [**block tag**](#blocktag) nodes. Its content model is [**type expresssion**](#typeexpression).
+**TypeMetadata** can be used in [**block tag**](#blocktag) nodes.
+Its content model is [**type expresssion**](#typeexpression).
 
 A `raw` field must be present. Its value is the raw type expression (e.g. `number`).
 
@@ -244,8 +252,8 @@ interface Tag {
 
 **Tag** represents metadata associated with a [**comment**](#comment).
 
-The `name` field represents the tag name. Tag names start with an at-sign (`@`) and may contain any ASCII letter after
-the at-sign.
+The `name` field represents the tag name.
+Tag names start with an at-sign (`@`) and may contain any ASCII letter after the at-sign.
 
 #### `TagName`
 
@@ -259,8 +267,8 @@ type TagName<T extends string = string> = `@${T}`
 type Content = BlockTagContent | DescriptionContent | FlowContent | PhrasingContent
 ```
 
-Nodes are grouped by content type, if applicable. Each node in docast, with the exception of [`Comment`](#comment),
-falls into one or more categories of `Content`.
+Nodes are grouped by content type, if applicable.
+Each node in docast, with the exception of [`Comment`](#comment), falls into one or more categories of `Content`.
 
 ### `BlockTagContent`
 
@@ -311,8 +319,8 @@ type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
 
 **TypeExpression** content is a type expression.
 
-When developing type expression parsers compatible with docast, the `TypeExpressionMap` map should be augmented (and
-exported! \:wink:) to register custom nodes:
+When developing type expression parsers compatible with docast,
+the `TypeExpressionMap` map should be augmented (and exported! \:wink:) to register custom nodes:
 
 ```ts
 declare module '@flex-development/docast' {
@@ -369,7 +377,8 @@ or comment closer (`*/`), or any text following an [inline tag](#inlinetag) name
 
 See the [unist list of utilities][unist-utilities] for more utilities.
 
-- [`docast-util-from-docs`][docast-util-from-docs] - parse docblocks
+- [`docast-util-from-docs`][docast-util-from-docs]
+  — parse docblocks
 
 ## Contribute
 
@@ -377,8 +386,8 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 Ideas for new utilities and tools can be posted in [docast/ideas][docast-ideas].
 
-This project has a [code of conduct](CODE_OF_CONDUCT.md). By interacting with this repository, organization, or
-community you agree to abide by its terms.
+This project has a [code of conduct](CODE_OF_CONDUCT.md).
+By interacting with this repository, organization, or community you agree to abide by its terms.
 
 [check-tag-names]: https://github.com/gajus/eslint-plugin-jsdoc-check-tag-names
 

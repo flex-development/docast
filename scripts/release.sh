@@ -7,7 +7,7 @@ set -e
 # 1. run typecheck
 # 2. pack project
 # 3. run postbuild typecheck
-# 5. analyze types
+# 4. analyze types
 # 5. create release chore commit
 # 6. cleanup
 #

@@ -1,217 +1,154 @@
 /**
- * @file Reporters - VerboseReporter
- * @module tests/reporters/VerboseReporter
+ * @file Reporters - Notifier
+ * @module tests/reporters/Notifier
  * @see https://vitest.dev/advanced/reporters#exported-reporters
  */
 
-import type { Task, TaskResultPack } from '@vitest/runner'
-import { getNames, getTests } from '@vitest/runner/utils'
-import colors, { type Colors } from 'tinyrainbow'
-import type { RunnerTask, RunnerTestFile } from 'vitest'
-import { DefaultReporter, type Reporter } from 'vitest/reporters'
+import ci from 'is-ci'
+import notifier from 'node-notifier'
+import type { Notification } from 'node-notifier/notifiers/notificationcenter'
+import { performance } from 'node:perf_hooks'
+import { promisify } from 'node:util'
+import type { SerializedError } from 'vitest'
+import type { TestCase, TestModule, Vitest } from 'vitest/node'
+import type { Reporter } from 'vitest/reporters'
 
 /**
- * Verbose reporter.
+ * Test report summary notifier.
  *
- * @see {@linkcode DefaultReporter}
- * @see {@linkcode Reporter}
- *
- * @extends {DefaultReporter}
  * @implements {Reporter}
  */
-class VerboseReporter extends DefaultReporter implements Reporter {
+class Notifier implements Reporter {
   /**
-   * Color functions map.
+   * The reporter context.
    *
-   * @public
-   * @instance
-   * @member {Colors} colors
-   */
-  public colors: Colors
-
-  /**
-   * Create a new verbose reporter.
-   */
-  constructor() {
-    super({ summary: true })
-
-    this.colors = colors
-    this.renderSucceed = true
-    this.verbose = true
-  }
-
-  /**
-   * Format a project `name`.
+   * @see {@linkcode Vitest}
    *
    * @protected
    * @instance
-   *
-   * @param {string | null | undefined} name
-   *  The project name to format
-   * @param {boolean | null | undefined} dim
-   *  Dim formattted project name?
-   * @return {string}
-   *  Formatted project name
+   * @member {Vitest} ctx
    */
-  protected formatProjectName(
-    name: string | null | undefined,
-    dim?: boolean | null | undefined
-  ): string {
-    if (name) {
-      name = this.colors.magenta(`[${name}]`)
-      if (dim) name = this.colors.dim(name)
-      return name
-    }
-
-    return ''
-  }
+  protected ctx!: Vitest
 
   /**
-   * Get a symbol representing `task`.
-   *
-   * @see {@linkcode RunnerTask}
+   * Map, where the first value is a timestamp indicating when all tests began
+   * running, and the last value is a timestamp indicating when those tests
+   * finished running.
    *
    * @protected
    * @instance
-   *
-   * @param {RunnerTask} task
-   *  The runner task to handle
-   * @return {string}
-   *  Task state symbol
+   * @member {[number, number]} timestamps
    */
-  protected getTaskSymbol(task: RunnerTask): string {
-    if (task.mode === 'skip') return this.colors.dim(this.colors.gray('↓'))
+  protected timestamps!: [start: number, end: number]
 
-    if (task.mode === 'todo') return this.colors.yellow('→')
-
-    if (!task.result) return this.colors.gray('.')
-
-    if (task.result.state === 'pass') {
-      return this.colors.green(task.meta.benchmark ? '·' : '✓')
-    }
-
-    if (task.result.state === 'fail') {
-      return this.colors.red(task.type === 'suite' ? '❯' : '✖')
-    }
-
-    return ''
+  /**
+   * Initialize the reporter.
+   *
+   * @see {@linkcode Vitest}
+   *
+   * @public
+   * @instance
+   *
+   * @param {Vitest} ctx
+   *  The reporter context
+   * @return {undefined}
+   */
+  public onInit(ctx: Vitest): undefined {
+    this.timestamps = [-1, -1]
+    if (!ci) this.timestamps[0] = performance.now()
+    return void (this.ctx = ctx)
   }
 
   /**
-   * Print tasks.
-   *
-   * @see {@linkcode RunnerTestFile}
+   * Send a notification after a test run.
    *
    * @public
-   * @override
    * @instance
+   * @async
    *
-   * @param {RunnerTestFile[] | undefined} [files]
-   *  List of test files
-   * @param {unknown[] | undefined} [errors]
+   * @param {ReadonlyArray<TestModule>} modules
+   *  List of test modules
+   * @param {ReadonlyArray<SerializedError>} errors
    *  List of unhandled errors
-   * @return {undefined}
+   * @return {Promise<undefined>}
    */
-  public override onFinished(
-    files?: RunnerTestFile[] | undefined,
-    errors?: unknown[] | undefined
-  ): undefined {
-    if (files) { for (const task of files) this.printTask(task, true) }
-    return void super.onFinished(files, errors)
-  }
+  public async onTestRunEnd(
+    modules: readonly TestModule[],
+    errors: readonly SerializedError[]
+  ): Promise<undefined> {
+    if (ci) return void this
+    this.timestamps[1] = performance.now()
 
-  /**
-   * Handle task updates.
-   *
-   * @see {@linkcode TaskResultPack}
-   *
-   * @public
-   * @override
-   * @instance
-   *
-   * @param {TaskResultPack[]} packs
-   *  List of task result packs
-   * @return {undefined}
-   */
-  public override onTaskUpdate(packs: TaskResultPack[]): undefined {
-    return void (this.isTTY && void super.onTaskUpdate(packs))
-  }
+    /**
+     * Map where each key is a test result state and each value is a list of
+     * test cases.
+     *
+     * @const {Record<'failed' | 'passed', TestCase[]>} tests
+     */
+    const tests: Record<'failed' | 'passed', TestCase[]> = {
+      failed: [],
+      passed: []
+    }
 
-  /**
-   * Print `task`.
-   *
-   * @see {@linkcode Task}
-   *
-   * @protected
-   * @override
-   * @instance
-   *
-   * @param {Task | null | undefined} task
-   *  The task to handle
-   * @param {boolean | null | undefined} [force]
-   *  Print `task` even when {@linkcode isTTY} is `false`?
-   * @return {undefined}
-   */
-  protected override printTask(
-    task: Task | null | undefined,
-    force?: boolean | null | undefined
-  ): undefined {
-    if (
-      (!this.isTTY || force) &&
-      task?.result?.state &&
-      task.result.state !== 'queued' &&
-      task.result.state !== 'run'
-    ) {
-      /**
-       * Task skipped?
-       *
-       * @const {boolean} skip
-       */
-      const skip: boolean = task.mode === 'skip'
-
-      /**
-       * Printed task.
-       *
-       * @var {string} state
-       */
-      let state: string = ''
-
-      state = ' '.repeat(getNames(task).length * 2)
-      state += this.getTaskSymbol(task) + ' '
-
-      if (task.type !== 'suite') {
-        this.log(state += skip ? this.colors.blackBright(task.name) : task.name)
-      } else {
-        /**
-         * Suite title.
-         *
-         * @var {string} suite
-         */
-        let suite: string = ''
-
-        if ('filepath' in task) {
-          suite = task.file.name
-
-          if (task.file.projectName) {
-            state += this.formatProjectName(task.file.projectName, skip) + ' '
-          }
-        } else {
-          suite = task.name
-        }
-
-        suite += ` (${getTests(task).length})`
-        state += skip ? this.colors.blackBright(suite) : suite
-
-        this.log(state)
-
-        if (!skip) {
-          for (const subtask of task.tasks) void this.printTask(subtask, force)
-        }
+    // collect passing and failing tests.
+    for (const module of modules) {
+      for (const test of module.children.allTests()) {
+        const { state } = test.result()
+        if (state === 'failed' || state === 'passed') tests[state].push(test)
       }
     }
 
-    return void task
+    /**
+     * Total number of tests.
+     *
+     * @const {number} total
+     */
+    const total: number = tests.failed.length + tests.passed.length
+
+    /**
+     * The notification message text.
+     *
+     * @var {string} message
+     */
+    let message: string = ''
+
+    /**
+     * The title of the notification.
+     *
+     * @var {string} title
+     */
+    let title: string = ''
+
+    if (tests.failed.length || errors.length > 0) {
+      title = '\u274C Failed'
+      message = `${tests.failed.length} of ${total} tests failed`
+      message += `\n${errors.length} unhandled errors`
+    } else {
+      /**
+       * Test run duration.
+       *
+       * @const {number} time
+       */
+      const time: number = this.timestamps[1] - this.timestamps[0]
+
+      message = String.raw`
+        ${tests.passed.length} tests passed in ${
+        time > 1000
+          ? `${(time / 1000).toFixed(2)}ms`
+          : `${Math.round(time)}ms`
+      }
+      `
+
+      title = '\u2705 Passed'
+    }
+
+    return void await promisify<Notification>(notifier.notify.bind(notifier))({
+      message,
+      sound: true,
+      timeout: 15,
+      title
+    })
   }
 }
 
-export default VerboseReporter
+export default Notifier

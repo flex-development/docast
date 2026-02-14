@@ -5,12 +5,17 @@
  */
 
 import Notifier from '#tests/reporters/notifier'
-import VerboseReporter from '#tests/reporters/verbose'
 import pathe from '@flex-development/pathe'
 import ci from 'is-ci'
-import type { ConfigEnv, ViteUserConfig } from 'vitest/config'
-import { BaseSequencer, type TestSpecification } from 'vitest/node'
+import {
+  defineConfig,
+  type ConfigEnv,
+  type ViteUserConfig
+} from 'vitest/config'
+import pkg from './package.json' with { type: 'json' }
 import tsconfig from './tsconfig.json' with { type: 'json' }
+
+export default defineConfig(config)
 
 /**
  * Create a vitest configuration.
@@ -18,75 +23,46 @@ import tsconfig from './tsconfig.json' with { type: 'json' }
  * @see {@linkcode ConfigEnv}
  * @see {@linkcode ViteUserConfig}
  *
+ * @this {void}
+ *
  * @param {ConfigEnv} env
  *  Configuration environment
  * @return {ViteUserConfig}
- *  Vitest configuration object
+ *  Root vitest configuration object
  */
-function config(env: ConfigEnv): ViteUserConfig {
+function config(this: void, env: ConfigEnv): ViteUserConfig {
   return {
-    ssr: {
-      resolve: { conditions: tsconfig.compilerOptions.customConditions }
+    resolve: {
+      conditions: tsconfig.compilerOptions.customConditions
     },
     test: {
       include: ['src/**/__tests__/*.spec-d.mts'],
       outputFile: {
-        blob: `.vitest-reports/${env.mode}.blob.json`,
-        json: pathe.join('__tests__', 'reports', env.mode + '.json')
+        blob: pathe.join('.vitest-reports', env.mode + '.blob.json'),
+        json: pathe.join('__tests__', 'reports', env.mode + '.json'),
+        junit: pathe.join('__tests__', 'reports', env.mode + '.junit.xml')
       },
       passWithNoTests: true,
       reporters: JSON.parse(process.env['VITEST_UI'] ?? '0')
-        ? [new Notifier(), new VerboseReporter()]
+        ? [new Notifier(), ['tree']]
         : env.mode === 'reports'
-        ? [new VerboseReporter()]
+        ? [['tree']]
         : [
           ci ? 'github-actions' : new Notifier(),
           'blob',
           'json',
-          new VerboseReporter()
+          ['junit', { suiteName: pkg.name }],
+          ['tree']
         ],
-      sequence: {
-        /**
-         * Sorting and sharding algorithm provider.
-         *
-         * @see {@linkcode BaseSequencer}
-         *
-         * @extends {BaseSequencer}
-         */
-        sequencer: class Sequencer extends BaseSequencer {
-          /**
-           * Determine test file execution order.
-           *
-           * @public
-           * @override
-           * @async
-           *
-           * @param {TestSpecification[]} specs
-           *  List of test file specifications
-           * @return {Promise<TestSpecification[]>}
-           *  Sorted test files
-           */
-          public override async sort(
-            specs: TestSpecification[]
-          ): Promise<TestSpecification[]> {
-            return new Promise(resolve => {
-              return void resolve(specs.sort((a, b) => {
-                return a.moduleId.localeCompare(b.moduleId)
-              }))
-            })
-          }
-        }
-      },
       typecheck: {
         allowJs: false,
         checker: 'tsc',
+        enabled: env.mode === 'typecheck',
         ignoreSourceErrors: false,
         include: ['**/__tests__/*.spec-d.mts'],
         only: true,
-        tsconfig: 'tsconfig.typecheck.json'
+        tsconfig: 'tsconfig.test.json'
       }
     }
   }
 }
-
-export default config
