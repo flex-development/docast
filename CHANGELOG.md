@@ -1,3 +1,9 @@
+## [1.0.0-beta.2](https://github.com/flex-development/docast/compare/1.0.0-beta.1...1.0.0-beta.2) (2026-02-13)
+
+### :package: Build
+
+- [[`e00fe4a`](https://github.com/flex-development/docast/commit/e00fe4a9d3b288794e1cbba372fa0d0f8e650e34)] **deps:** bump @types/unist from 3.0.2 to 3.0.3
+
 ## [1.0.0-beta.1](https://github.com/flex-development/docast/compare/1.0.0-alpha.18...1.0.0-beta.1) (2026-02-13)
 
 ### :package: Build
@@ -926,6 +932,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
