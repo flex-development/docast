@@ -118,7 +118,7 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@commitlint/cli": "21.2.3",
-    "@commitlint/types": "20.5.0",
+    "@commitlint/types": "21.2.3",
     "@flex-development/commitlint-config": "1.0.1",
     "@flex-development/eslint-config": "1.1.1",
     "@flex-development/export-regex": "2.0.0",
