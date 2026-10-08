@@ -53,7 +53,7 @@ jobs:
           exit 1
       - id: checkout
         name: Checkout ${{ github.ref_name }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           ref: ${{ github.ref }}
@@ -111,7 +111,7 @@ jobs:
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - id: checkout
         name: Checkout ${{ github.ref_name }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.ref }}
           token: ${{ steps.bot-token.outputs.token }}
@@ -134,7 +134,7 @@ jobs:
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - id: checkout
         name: Checkout ${{ needs.preflight.outputs.branch }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -204,7 +204,7 @@ jobs:
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - id: checkout
         name: Checkout ${{ needs.preflight.outputs.branch }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           ref: ${{ needs.preflight.outputs.branch }}

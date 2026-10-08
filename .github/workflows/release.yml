@@ -70,7 +70,7 @@ jobs:
           exit 1
       - id: checkout
         name: Checkout ${{ github.ref_name }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.sha }}
       - id: version
@@ -99,7 +99,7 @@ jobs:
     steps:
       - id: checkout
         name: Checkout ${{ github.ref_name }}
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: true
