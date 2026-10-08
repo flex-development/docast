@@ -6,6 +6,7 @@
 import type * as TestSubject from '#content/flow'
 import type NodeObject from '#tests/types/node-object'
 import type { BlockTag, Description } from '@flex-development/docast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/flow', () => {
   describe('FlowContent', () => {

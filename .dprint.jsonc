@@ -18,13 +18,13 @@
     "commands": [
       {
         "cacheKeyFiles": ["package.json"],
-        "command": "node --experimental-strip-types --experimental-transform-types ./dprint/remark.mts {{file_path}}",
+        "command": "node --experimental-strip-types ./dprint/remark.mts {{file_path}}",
         "exts": ["md", "mdx"],
         "stdin": true
       },
       {
         "cacheKeyFiles": [".editorconfig"],
-        "command": "node --experimental-strip-types --experimental-transform-types ./dprint/shfmt.mts {{file_path}}",
+        "command": "node --experimental-strip-types ./dprint/shfmt.mts {{file_path}}",
         "exts": ["sh", "zsh"],
         "fileNames": [
           ".editorconfig",
@@ -50,20 +50,21 @@
   },
   "indentWidth": 2,
   "json": {
-    "associations": ["**/*.{jsonc,json}"],
     "array.preferSingleLine": false,
+    "associations": ["**/*.{jsonc,json}"],
     "commentLine.forceSpaceAfterSlashes": true,
     "ignoreNodeCommentText": "dprint-ignore",
     "object.preferSingleLine": false,
+    "packageJson.applyConventions": false,
     "trailingCommas": "never"
   },
   "lineWidth": 80,
   "newLineKind": "lf",
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.95.12.wasm",
-    "https://plugins.dprint.dev/json-0.21.0.wasm",
-    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm",
-    "https://plugins.dprint.dev/exec-0.6.0.json@a054130d458f124f9b5c91484833828950723a5af3f8ff2bd1523bd47b83b364"
+    "npm:@dprint/typescript@0.96.1",
+    "npm:@dprint/json@0.25.2",
+    "npm:dprint-plugin-yaml@0.6.0",
+    "npm:@dprint/exec@0.7.3/plugin.json@704701df449dd7e942a71144773778ac529d68c2e4657bfc236d393b898b9a67"
   ],
   "typescript": {
     "arrowFunction.useParentheses": "preferNone",

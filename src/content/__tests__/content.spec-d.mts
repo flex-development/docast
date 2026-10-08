@@ -10,6 +10,7 @@ import type {
   FlowContent,
   PhrasingContent
 } from '@flex-development/docast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/content', () => {
   it('should allow BlockTagContent', () => {

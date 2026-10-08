@@ -10,6 +10,7 @@ import type {
   Type
 } from '@flex-development/unist-util-types'
 import type mdast from 'mdast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/node', () => {
   describe('DocastNode', () => {

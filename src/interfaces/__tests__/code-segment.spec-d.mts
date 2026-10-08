@@ -5,6 +5,7 @@
 
 import type TestSubject from '#interfaces/code-segment'
 import type unist from 'unist'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:interfaces/CodeSegment', () => {
   it('should match [position:unist.Position]', () => {

@@ -10,6 +10,7 @@ import type {
   TypeMetadata
 } from '@flex-development/docast'
 import type mdast from 'mdast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/blockTag', () => {
   describe('BlockTagContent', () => {

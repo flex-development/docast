@@ -4,6 +4,7 @@
  */
 
 import type * as TestSubject from '#content/type-expression'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/typeExpression', () => {
   describe('TypeExpression', () => {

@@ -6,6 +6,7 @@
 import type * as TestSubject from '@flex-development/docast'
 import type { Children } from '@flex-development/unist-util-types'
 import type { Node } from 'unist'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:docast', () => {
   describe('DocastNode', () => {

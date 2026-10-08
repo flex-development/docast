@@ -3,14 +3,18 @@
  * @module config/rollup
  */
 
-import nodeResolve from '@rollup/plugin-node-resolve'
+import { EXPORT_AGGREGATE_REGEX } from '@flex-development/export-regex'
+import { STATIC_IMPORT_REGEX } from '@flex-development/import-regex'
+import resolve from '@rollup/plugin-node-resolve'
+import { ok } from 'devlop'
 import type {
   NormalizedOutputOptions,
   OutputBundle,
+  Plugin,
   PluginContext,
   RollupOptions
 } from 'rollup'
-import { dts } from 'rollup-plugin-dts'
+import { dts as dtsBundle } from 'rollup-plugin-dts'
 import pkg from './package.json' with { type: 'json' }
 
 /**
@@ -31,14 +35,23 @@ export default {
   external: Object.keys(pkg.dependencies),
   input: file,
   output: [{ file, format: 'esm' }],
-  plugins: [
-    nodeResolve({ extensions: ['.d.mts', '.mts'] }),
-    dts(),
+  plugins: [resolve({ extensions: ['.d.mts', '.mts'] }), dts()]
+}
+
+/**
+ * Create a plugin pack to bundle declaration files and fix `type` modifiers.
+ *
+ * @this {void}
+ *
+ * @return {Plugin[]}
+ *  The plugin pack
+ */
+function dts(this: void): Plugin[] {
+  return [
+    dtsBundle(),
     {
       /**
        * Re-add lost `type` modifiers.
-       *
-       * The {@linkcode dts} plugin loses `type` modifiers during bundling.
        *
        * @see https://github.com/Swatinem/rollup-plugin-dts/issues/354
        *
@@ -57,14 +70,32 @@ export default {
       ): undefined {
         for (const output of Object.values(bundle)) {
           if (output.type === 'chunk') {
-            output.code = output.code
-              .replaceAll('export {', 'export type {')
-              .replaceAll('import', 'import type')
+            output.code = output.code.replace(EXPORT_AGGREGATE_REGEX, (
+              match: string,
+              type: string | undefined,
+              exports: string,
+              specifier: string | undefined
+            ) => {
+              ok(specifier, 'expected `specifier`')
+              return type ? match : match.replace('export {', 'export type {')
+            })
+
+            output.code = output.code.replace(STATIC_IMPORT_REGEX, (
+              match: string,
+              type: string | undefined
+            ) => {
+              return type ? match : match.replace('import', 'import type')
+            })
           }
         }
 
         return void this
-      }
+      },
+
+      /**
+       * The plugin name.
+       */
+      name: 'dts:fix-type-modifiers'
     }
   ]
 }

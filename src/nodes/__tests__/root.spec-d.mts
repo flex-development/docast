@@ -6,6 +6,7 @@
 import type * as TestSubject from '#nodes/root'
 import type { Comment, Data, Parent } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/Root', () => {
   type Subject = TestSubject.default

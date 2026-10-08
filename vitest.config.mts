@@ -26,9 +26,9 @@ export default defineConfig(config)
  * @this {void}
  *
  * @param {ConfigEnv} env
- *  Configuration environment
+ *  The configuration environment
  * @return {ViteUserConfig}
- *  Root vitest configuration object
+ *  The vitest configuration object
  */
 function config(this: void, env: ConfigEnv): ViteUserConfig {
   return {

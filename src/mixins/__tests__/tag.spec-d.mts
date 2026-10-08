@@ -5,6 +5,7 @@
 
 import type TestSubject from '#mixins/tag'
 import type { TagName } from '@flex-development/docast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:mixins/Tag', () => {
   it('should match [name: TagName]', () => {

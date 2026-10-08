@@ -10,6 +10,7 @@ import type {
   Parent
 } from '@flex-development/docast'
 import type { Nilable, Optional } from '@flex-development/tutils'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/Comment', () => {
   type Subject = TestSubject.default

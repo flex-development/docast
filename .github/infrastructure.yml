@@ -25,8 +25,10 @@ branches:
           - context: artifacts
           - context: auto-merge
           - context: auto-review
+          - context: build
           - context: commitlint
-          - context: dependabot-dedupe
+          - context: dedupe
+          - context: dprint
           - context: format
           - context: lint
           - context: spelling
@@ -174,7 +176,7 @@ repository:
   automated_security_fixes: true
   default_branch: main
   delete_branch_on_merge: true
-  description: Docblock Abstract Syntax Tree format
+  description: Documentation Abstract Syntax Tree format
   has_issues: true
   has_projects: true
   has_wiki: false
@@ -195,4 +197,3 @@ repository:
   visibility: public
   vulnerability_alerts: true
   web_commit_signoff_required: true
-teams: []

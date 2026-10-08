@@ -7,6 +7,7 @@ import type * as TestSubject from '#content/phrasing'
 import type NodeObject from '#tests/types/node-object'
 import type { InlineTag } from '@flex-development/docast'
 import type mdast from 'mdast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/phrasing', () => {
   describe('PhrasingContent', () => {

@@ -10,6 +10,7 @@ import type {
   Tag
 } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/BlockTag', () => {
   type Subject = TestSubject.default

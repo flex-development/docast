@@ -7,7 +7,7 @@
 import fldv from '@flex-development/eslint-config'
 
 /**
- * eslint configuration.
+ * The eslint configuration.
  *
  * @type {import('eslint').Linter.Config[]}
  * @const config

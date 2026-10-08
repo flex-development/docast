@@ -11,6 +11,7 @@ jchen
 kaisugi
 nvmrc
 shfmt
+umentation
 vates
 vitest
 yarnrc

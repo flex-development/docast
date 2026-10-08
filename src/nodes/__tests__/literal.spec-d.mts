@@ -6,6 +6,7 @@
 import type TestSubject from '#nodes/literal'
 import type { Node } from '@flex-development/docast'
 import type { JsonPrimitive, Optional } from '@flex-development/tutils'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/Literal', () => {
   it('should extend Node', () => {

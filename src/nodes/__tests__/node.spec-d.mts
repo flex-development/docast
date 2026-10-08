@@ -7,6 +7,7 @@ import type TestSubject from '#nodes/node'
 import type { Data } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
 import type unist from 'unist'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/Node', () => {
   it('should extend unist.Node', () => {

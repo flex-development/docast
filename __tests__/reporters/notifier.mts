@@ -10,8 +10,7 @@ import type { Notification } from 'node-notifier/notifiers/notificationcenter'
 import { performance } from 'node:perf_hooks'
 import { promisify } from 'node:util'
 import type { SerializedError } from 'vitest'
-import type { TestCase, TestModule, Vitest } from 'vitest/node'
-import type { Reporter } from 'vitest/reporters'
+import type { Reporter, TestCase, TestModule, Vitest } from 'vitest/node'
 
 /**
  * Test report summary notifier.

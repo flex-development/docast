@@ -6,6 +6,7 @@
 import type TestSubject from '#types/any-node'
 import type { Root } from '@flex-development/docast'
 import type { InclusiveDescendant } from '@flex-development/unist-util-types'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:types/AnyNode', () => {
   it('should equal InclusiveDescendant<Root>', () => {

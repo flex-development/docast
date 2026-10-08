@@ -5,6 +5,7 @@
 
 import type TestSubject from '#nodes/parent'
 import type { Child, Node } from '@flex-development/docast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/Parent', () => {
   it('should extend Node', () => {

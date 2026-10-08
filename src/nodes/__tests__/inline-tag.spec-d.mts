@@ -6,6 +6,7 @@
 import type * as TestSubject from '#nodes/inline-tag'
 import type { Data, Literal, Tag } from '@flex-development/docast'
 import type { Optional } from '@flex-development/tutils'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:nodes/InlineTag', () => {
   type Subject = TestSubject.default

@@ -4,6 +4,7 @@
  */
 
 import type TestSubject from '#types/tag-name'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:types/TagName', () => {
   it('should equal `@${T}`', () => {

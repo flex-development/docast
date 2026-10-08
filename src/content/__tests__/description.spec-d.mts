@@ -7,6 +7,7 @@ import type * as TestSubject from '#content/description'
 import type NodeObject from '#tests/types/node-object'
 import type { PhrasingContentMap } from '@flex-development/docast'
 import type mdast from 'mdast'
+import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:content/description', () => {
   describe('DescriptionContent', () => {
