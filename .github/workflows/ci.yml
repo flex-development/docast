@@ -153,7 +153,7 @@ jobs:
           filter: .devDependencies.dprint
       - id: check
         name: Check formatting
-        uses: dprint/check@v2.3
+        uses: dprint/check@v2.5
         with:
           args: --config-discovery=false --incremental=false --log-level=info
           config-path: .dprint.jsonc
