@@ -15,10 +15,7 @@ import type { Data, Parent, TypeExpression } from '@flex-development/docast'
 interface TypeMetadataData extends Data {}
 
 /**
- * An inlined type expression.
- *
- * @example
- *  {number}
+ * An inline type expression.
  *
  * @see {@linkcode Parent}
  *
@@ -26,26 +23,32 @@ interface TypeMetadataData extends Data {}
  */
 interface TypeMetadata extends Parent {
   /**
-   * List of children.
+   * The list of children.
    *
    * @see {@linkcode TypeExpression}
+   *
+   * @override
    */
-  children: [type: TypeExpression]
+  children: [expression: TypeExpression]
 
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode TypeMetadataData}
+   *
+   * @override
    */
   data?: TypeMetadataData | undefined
 
   /**
-   * Raw type expression.
+   * The raw type expression.
    */
   raw: string
 
   /**
-   * Node type.
+   * The node type.
+   *
+   * @override
    */
   type: 'typeMetadata'
 }

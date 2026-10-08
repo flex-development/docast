@@ -6,7 +6,7 @@
 import type { Node } from '@flex-development/docast'
 
 /**
- * Abstract docast node containing the smallest possible value.
+ * An abstract docast node containing a scalar value.
  *
  * @see {@linkcode Node}
  *
@@ -14,7 +14,7 @@ import type { Node } from '@flex-development/docast'
  */
 interface Literal extends Node {
   /**
-   * Plain value.
+   * The plain value.
    */
   value: bigint | boolean | number | string | null | undefined
 }

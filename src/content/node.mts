@@ -4,11 +4,16 @@
  */
 
 import type {
-  BlockTag,
+  CodeSegment,
   Comment,
-  Description,
+  Identifier,
   InlineTag,
+  Namepath,
+  NamepathConnector,
   Root,
+  Summary,
+  Tag,
+  TagName,
   TypeExpressionMap,
   TypeMetadata
 } from '@flex-development/docast'
@@ -16,8 +21,8 @@ import type {
 /**
  * Union of registered docast nodes.
  *
- * To register custom docast nodes, augment {@linkcode NodeMap}. They will be
- * added to this union automatically.
+ * To register custom docast nodes, augment {@linkcode NodeMap}.\
+ * They will be added to this union automatically.
  */
 type DocastNode = NodeMap[keyof NodeMap]
 
@@ -36,11 +41,16 @@ type DocastNode = NodeMap[keyof NodeMap]
  * @extends {TypeExpressionMap}
  */
 interface NodeMap extends TypeExpressionMap {
-  blockTag: BlockTag
+  codeSegment: CodeSegment
   comment: Comment
-  description: Description
+  identifier: Identifier
   inlineTag: InlineTag
+  namepath: Namepath
+  namepathConnector: NamepathConnector
   root: Root
+  summary: Summary
+  tag: Tag
+  tagName: TagName
   typeMetadata: TypeMetadata
 }
 

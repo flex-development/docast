@@ -9,6 +9,6 @@ import { describe, expectTypeOf, it } from 'vitest'
 
 describe('unit-d:interfaces/Data', () => {
   it('should extend unist.Data', () => {
-    expectTypeOf<TestSubject>().toMatchTypeOf<unist.Data>()
+    expectTypeOf<TestSubject>().toExtend<unist.Data>()
   })
 })

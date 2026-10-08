@@ -1,6 +1,6 @@
 # docast
 
-[![github release](https://img.shields.io/github/v/release/flex-development/docast.svg?include_prereleases\&sort=semver)](https://github.com/flex-development/docast/releases/latest)
+[![github release](https://img.shields.io/github/v/release/flex-development/docast.svg?include_prereleases\&sort=date)](https://github.com/flex-development/docast/releases/latest)
 [![npm](https://img.shields.io/npm/v/@flex-development/docast.svg)](https://npmjs.com/package/@flex-development/docast)
 [![npm downloads](https://img.shields.io/npm/dm/@flex-development/docast.svg)](https://www.npmcharts.com/compare/@flex-development/docast?interval=30)
 [![install size](https://packagephobia.now.sh/badge?p=@flex-development/docast)](https://packagephobia.now.sh/result?p=@flex-development/docast)
@@ -15,7 +15,7 @@
 
 ---
 
-**docast** is a specification for representing [docblock comments](#docblock-comment)
+**docast** is a specification for representing [comments][glossary-comment]
 as [abstract syntax trees][unist-syntax-tree].
 
 It implements the [**unist**][unist] spec.
@@ -24,37 +24,47 @@ It implements the [**unist**][unist] spec.
 
 - [Introduction](#introduction)
   - [Where this specification fits](#where-this-specification-fits)
-- [Types](#types)
+- [Integration](#integration)
 - [Nodes (abstract)](#nodes-abstract)
-  - [`Node`](#node)
-  - [`Literal`](#literal)
-  - [`Parent`](#parent)
+  - [`Node`][nodes-node]
+  - [`Literal`][nodes-literal]
+  - [`Parent`][nodes-parent]
 - [Nodes](#nodes)
-  - [`BlockTag`](#blocktag)
-  - [`Comment`](#comment)
-    - [`CodeSegment`](#codesegment)
-  - [`Description`](#description)
-  - [`InlineTag`](#inlinetag)
-  - [`Root`](#root)
-  - [`TypeMetadata`](#typemetadata)
-- [Mixins](#mixins)
-  - [`Tag`](#tag)
-    - [`TagName`](#tagname)
-- [Content model](#content-model)
-  - [`BlockTagContent`](#blocktagcontent)
-  - [`DescriptionContent`](#descriptioncontent)
-  - [`FlowContent`](#flowcontent)
-  - [`PhrasingContent`](#phrasingcontent)
-  - [`TypeExpression`](#typeexpression)
+  - [`CodeSegment`][nodes-code-segment]
+    - [`CodeSegmentName`][types-code-segment-name]
+  - [`Comment`][nodes-comment]
+  - [`Identifier`][nodes-identifier]
+  - [`InlineTag`][nodes-inline-tag]
+  - [`Namepath`][nodes-namepath]
+  - [`NamepathConnector`][nodes-namepath-connector]
+    - [`SerializedNamepathConnector`][types-serialized-namepath-connector]
+  - [`Root`][nodes-root]
+  - [`Summary`][nodes-summary]
+  - [`Tag`][nodes-tag]
+  - [`TagName`][nodes-tag-name]
+    - [`SerializedTagName`][types-serialized-tag-name]
+  - [`TypeMetadata`][nodes-type-metadata]
+- [Content model][content-model]
+  - [`CommentContent`][content-comment]
+  - [`InlineTagContent`][content-tag]
+  - [`PhrasingContent`][content-phrasing]
+  - [`RootContent`][content-root]
+  - [`SummaryContent`][content-summary]
+  - [`TagContent`][content-inline-tag]
+  - [`TypeExpression`][content-type-expression]
 - [Glossary](#glossary)
 - [List of utilities](#list-of-utilities)
-- [Contribute](#contribute)
+- [Project](#project)
+  - [Version](#version)
+  - [Contribute](#contribute)
+  - [Sponsor](#sponsor)
 
 ## Introduction
 
-This document defines a format for representing [docblock comments](#docblock-comment)
-as [abstract syntax trees][unist-syntax-tree].\
-Development of docast started in October 2022. This specification is written in a [TypeScript][]-like grammar.
+This document defines a format for representing [comments][glossary-comment]
+as [abstract syntax trees][unist-syntax-tree].
+Development of docast started in October 2022.
+This specification is written in a [TypeScript][]-like grammar.
 
 ### Where this specification fits
 
@@ -62,18 +72,18 @@ docast extends [unist][], a format for syntax trees, to benefit from its [ecosys
 It also integrates with [mdast][], a specification for representing markdown.
 
 docast relates to [JavaScript][] and [TypeScript][] in that both languages support docblock comments.
-docast is **language-agnostic**, however, and can be used with any programming language that supports docblock comments.
+docast is **language-agnostic**, however, and can be used with any source language that supports comments.
 
 docast relates to [JSDoc][], [TSDoc][], and [typedoc][] in that these tools parse docblock comments.
-These tools also have a limited set of tags that developers are allowed to use.
-If developers already have a set of tags they're using, they must spend additional time re-configuring those tags for
-their chosen tool.
-**docast does not enforce any tag semantics** — the user does. Tag specifications can be left to an [ESLint][] rule, or
-a setting akin to [`jsdoc/check-tag-names`][check-tag-names] or [`jsdoc.structuredTags`][structuredtags].
+These tools also define or recognize sets of tags with established semantics. If developers already have a set of tags
+they're using, they must spend additional time configuring those tags for their chosen tool.
+docast, however, **does not enforce any tag semantics** — the user does.
+Tag specifications can be left to an [ESLint][] rule, or a setting akin to [`jsdoc/check-tag-names`][check-tag-names]
+or [`jsdoc.structuredTags`][structuredtags].
 
-## Types
+## Integration
 
-TypeScript users can integrate `docast` type definitions into their project by installing the appropriate packages:
+[TypeScript][] users can integrate `docast` type definitions into their project by installing the appropriate packages:
 
 ```sh
 yarn add @flex-development/docast
@@ -97,7 +107,7 @@ interface Literal extends Node {
 }
 ```
 
-**Literal** represents an abstract interface in docast containing the smallest possible value.
+**Literal** is an abstract interface in docast containing a scalar value.
 
 ### `Parent`
 
@@ -107,209 +117,354 @@ interface Parent extends unist.Parent {
 }
 ```
 
-**Parent** ([**unist.Parent**][unist-parent]) represents an abstract interface in docast
+**Parent** ([**unist.Parent**][unist-parent]) is an abstract interface in docast
 containing other nodes (said to be [*children*][unist-child]).
 
-Its content is limited to [docast content](#content-model) and [mdast content][mdast-content].
+Its content is limited to [docast content][content-model] and [mdast content][mdast-content].
 
 ## Nodes
 
-### `BlockTag`
+### `CodeSegment`
 
 ```ts
-interface BlockTag extends Parent, Tag {
-  children:
-    | Exclude<BlockTagContent, TypeMetadata>[]
-    | [TypeMetadata, ...Exclude<BlockTagContent, TypeMetadata>[]]
-  data?: BlockTagData | undefined
-  type: 'blockTag'
+interface CodeSegment extends Parent {
+  children: [CodeSegment | Comment, ...(CodeSegment | Comment)[]]
+  data?: CodeSegmentData | undefined
+  name?: CodeSegmentName extends never ? string : CodeSegmentName | undefined
+  type: 'codeSegment'
 }
 ```
 
-**BlockTag** ([**Parent**](#parent)) represents top-level metadata.
+**CodeSegment** ([**Parent**][nodes-parent]) is an abstract representation of a source language AST (or CST) node that a
+[`Comment`][nodes-comment] documents.
 
-Block tags should be the only element on their line,
-except in cases where special meaning is assigned to succeeding text.
-All text following a block [tag name](#tagname), up until the start of the next block tag name,
-or comment closer (`*/`), is considered to be the block tag's [*tag content*](#tag-content).
+#### `CodeSegmentName`
 
-**BlockTag** can be used in [**comment**](#comment) nodes.
-Its content model is [**block tag**](#blocktagcontent) content.
+```ts
+type CodeSegmentName = CodeSegmentNameMap[keyof CodeSegmentNameMap]
+```
+
+Union of registered source language AST or CST node types.
+
+When developing source language parsers compatible with docast,
+the `CodeSegmentNameMap` should be augmented (and exported! \:wink:) to register custom node types:
+
+```ts
+declare module '@flex-development/docast' {
+  interface CodeSegmentNameMap {
+    arrayType: ArrayType['type']
+    assertionPredicate: AssertionPredicate['type']
+    bigint: BigIntLiteral['type']
+    boolean: BooleanLiteral['type']
+    conditionalType: ConditionalType['type']
+    constructorType: ConstructorType['type']
+    functionType: FunctionType['type']
+    genericType: GenericType['type']
+    identifier: Identifier['type']
+    inferType: InferType['type']
+    intersectionType: IntersectionType['type']
+    nonNullableType: NonNullableType['type']
+    null: NullLiteral['type']
+    nullableType: NullableType['type']
+    number: NumberLiteral['type']
+    objectLiteralType: ObjectLiteralType['type']
+    optionalType: OptionalType['type']
+    parenthesizedType: ParenthesizedType['type']
+    propertyAccessType: PropertyAccessType['type']
+    string: StringLiteral['type']
+    super: Super['type']
+    templateLiteral: TemplateLiteral['type']
+    this: This['type']
+    tupleType: TupleType['type']
+    typeOperation: TypeOperation['type']
+    typePredicate: TypePredicate['type']
+    typeSymbol: TypeSymbol['type']
+    undefined: UndefinedLiteral['type']
+    unionType: UnionType['type']
+    variadicType: VariadicType['type']
+  }
+}
+```
 
 ### `Comment`
 
 ```ts
 interface Comment extends Parent {
   children:
-    | Exclude<FlowContent, Description>[]
-    | [summary: Description, ...Exclude<FlowContent, Description>[]]
-  code?: CodeSegment | null | undefined
+    | FreeformCommentContent[]
+    | [summary: Summary, ...FreeformCommentContent[]]
   data?: CommentData | undefined
   type: 'comment'
 }
 ```
 
-**Comment** ([**Parent**](#parent)) represents a [*docblock comment*](#docblock-comment)
-in a source [*file*][unist-file].
+**Comment** ([**Parent**][nodes-parent]) represents a [comment][wiki-comment] in source content.
 
-The `code` field represents the segment of code documented by a comment.
-The value of the `code` field may be `null`, `undefined`, or implement the [`CodeSegment`](#codesegment) interface.
-The `code` field must not be present if a comment is used only to provide additional information.
+**Comment** can be used in [**root**][nodes-root] nodes.\
+Its content model is [**comment**][content-comment] content.
 
-**Comment** can be used in [**root**](#root) nodes.
-Its content model is [**flow**](#flowcontent) content.
-
-#### `CodeSegment`
+### `Identifier`
 
 ```ts
-interface CodeSegment {
-  position: unist.Position
-  type: string
-}
-```
-
-**CodeSegment** represents the code segment in a [*file*][unist-file] that is documented by a [**comment**](#comment).
-
-The value of the `type` field is the node type of the code segment.
-
-### `Description`
-
-```ts
-interface Description extends Parent {
-  children: DescriptionContent[]
-  data?: DescriptionData | undefined
-  type: 'description'
-}
-```
-
-**Description** ([**Parent**](#parent)) represents the text of a [**comment**](#comment).
-It is located at the start of a comment, before any [**block tags**](#blocktag),
-and may contain [Markdown][mdast] content.
-
-**Description** can be used in [**comment**](#comment) nodes.
-Its content model is [**description**](#descriptioncontent).
-
-### `InlineTag`
-
-```ts
-interface InlineTag extends Literal, Tag {
-  data?: InlineTagData | undefined
-  type: 'inlineTag'
+interface Identifier extends Literal {
+  data?: IdentifierData | undefined
+  type: 'identifier'
   value: string
 }
 ```
 
-**InlineTag** ([**Literal**](#literal)) represents inline metadata.
-
-Inline tags are denoted by wrapping a [tag name](#tagname)
-and any [*tag content*](#tag-content) in angle brackets (`{` and `}`).
-
-**InlineTag** can be used in [**block tag**](#blocktag) and [**description**](#description) nodes.
+**Identifier** ([**Literal**][nodes-literal]) represents an identifier.\
 It cannot contain any children — it is a [*leaf*][unist-leaf].
+
+**Identifier** can be used in [**tag name**][nodes-tag-name] and [**namepath**][nodes-namepath] nodes.
+
+### `InlineTag`
+
+```ts
+interface InlineTag extends Parent {
+  children: [name: TagName, ...InlineTagContent[]]
+  data?: InlineTagData | undefined
+  name: string
+  type: 'inlineTag'
+}
+```
+
+**InlineTag** ([**Parent**][nodes-parent]) represents inline metadata.
+
+Inline tags are denoted by wrapping a [`TagName`][nodes-tag-name] and any [*tag content*][glossary-tag-content]
+in curly braces (`{` and `}`).
+
+**InlineTag** can be used in [**comment**][nodes-comment], [**summary**][nodes-summary] and [**tag**][nodes-tag] nodes.
+
+### `Namepath`
+
+```ts
+interface Namepath extends Parent {
+  children: [identifier: Identifier, ...(Identifier | NamepathConnector)[]]
+  data?: NamepathData | undefined
+  type: 'namepath'
+}
+```
+
+**Namepath** ([**Parent**][nodes-parent]) represents a source language namepath.
+
+A namepath consists of one or more [**identifier**][nodes-identifier] nodes
+separated by [**namepath connectors**][nodes-namepath-connector].
+
+**Namepath** can be used in [**tag**][nodes-tag] nodes.
+
+### `NamepathConnector`
+
+```ts
+interface NamepathConnector extends Literal {
+  data?: NamepathConnectorData | undefined
+  type: 'namepathConnector'
+  value: SerializedNamepathConnector
+}
+```
+
+**NamepathConnector** ([**Literal**][nodes-literal]) represents a connector between [**identifier**][nodes-identifier]
+nodes in a [**namepath**][nodes-namepath].
+
+It cannot contain any children — it is a [*leaf*][unist-leaf].
+
+#### `SerializedNamepathConnector`
+
+```ts
+type SerializedNamepathConnector = '#' | '.' | '~'
+```
+
+The serialized form of a [**namepath connector**][nodes-namepath-connector].\
+Its value is one of `#`, `.`, or `~`.
 
 ### `Root`
 
 ```ts
 interface Root extends Parent {
-  children: Comment[]
+  children: RootContent[]
   data?: RootData | undefined
   type: 'root'
 }
 ```
 
-**Root** ([**Parent**](#parent)) represents a document.
+**Root** ([**Parent**][nodes-parent]) represents a documentation fragment or an entire documented file.
 
-**Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child].
-It can contain [**comment**](#comment) nodes.
+A documented file, also known as a documentation root, is any source file containing comments.\
+In docast, all comments are considered documentation, with `info` comments being comments identified as documentation
+by the surrounding source language.\
+Parser extensions and other tools can be used to differentiate between `info` comments and their counterpart,
+petty comments.
+
+**Root** can be used as the [*root*][unist-root] of a [*tree*][unist-tree], never as a [*child*][unist-child].\
+It can contain [**code segment**][nodes-code-segment] and [**comment**][nodes-comment] nodes.
+
+### `Summary`
+
+```ts
+interface Summary extends Parent {
+  children: SummaryContent[]
+  data?: SummaryData | undefined
+  type: 'summary'
+}
+```
+
+**Summary** ([**Parent**][nodes-parent]) represents text at the **beginning** of a [**comment**][nodes-comment].\
+It starts and ends before any other comment syntax, and may contain [markdown][mdast] content.
+
+**Summary** can be used in [**comment**][nodes-comment] nodes.\
+Its content model is [**summary**][content-summary].
+
+### `Tag`
+
+```ts
+interface Tag extends Parent {
+  children:
+    | [name: TagName, ...UntypedTagContent[]]
+    | [name: TagName, Namepath | TypeMetadata, ...UntypedTagContent[]]
+    | [name: TagName, type: TypeMetadata, namepath: Namepath, ...UntypedTagContent[]]
+  data?: TagData | undefined
+  type: 'tag'
+}
+```
+
+**Tag** ([**Parent**][nodes-parent]) represents top-level metadata.
+
+Tags should be the only element on their line, except in cases where special meaning is assigned to succeeding text.
+All text following the [tag name][nodes-tag-name], up until the start of the next tag name or a comment closer, is
+considered to be [*tag content*][glossary-tag-content].
+
+**Tag** can be used in [**comment**][nodes-comment] nodes.
+Its content model is [**tag**][content-tag] content.
+
+### `TagName`
+
+```ts
+interface TagName extends Parent {
+  children: [identifier: Identifier]
+  data?: TagNameData | undefined
+  type: 'tagName'
+}
+```
+
+**TagName** ([**Parent**][nodes-parent]) represents a tag name.
+
+A tag name consists of an at-sign (`@`) followed by an [**identifier**][nodes-identifier].
+
+**TagName** can be used in [**tag**][nodes-tag] and [**inline tag**][nodes-inline-tag] nodes.
+
+#### `SerializedTagName`
+
+```ts
+type SerializedTagName<Identifier extends string = string> = `@${Identifier}`
+```
+
+The serialized form of a [**tag name**][nodes-tag-name].
 
 ### `TypeMetadata`
 
 ```ts
 interface TypeMetadata extends Parent {
-  children: TypeExpression[]
+  children: [expression: TypeExpression]
   data?: TypeMetadataData | undefined
   raw: string
   type: 'typeMetadata'
 }
 ```
 
-**TypeMetadata** ([**Parent**](#parent)) represents an inlined type expression (e.g. `{number}`).
+**TypeMetadata** ([**Parent**][nodes-parent]) represents an inline type expression (e.g. `{number}`).
 
-**TypeMetadata** can be used in [**block tag**](#blocktag) nodes.
-Its content model is [**type expresssion**](#typeexpression).
+A `raw` field must be present.\
+Its value is the raw type expression (e.g. `number`).
 
-A `raw` field must be present. Its value is the raw type expression (e.g. `number`).
-
-## Mixins
-
-### `Tag`
-
-```ts
-interface Tag {
-  name: TagName
-}
-```
-
-**Tag** represents metadata associated with a [**comment**](#comment).
-
-The `name` field represents the tag name.
-Tag names start with an at-sign (`@`) and may contain any ASCII letter after the at-sign.
-
-#### `TagName`
-
-```ts
-type TagName<T extends string = string> = `@${T}`
-```
+**TypeMetadata** can be used in [**tag**][nodes-tag] nodes.\
+Its content model is [**type expression**][content-type-expression].
 
 ## Content model
 
 ```ts
-type Content = BlockTagContent | DescriptionContent | FlowContent | PhrasingContent
-```
-
-Nodes are grouped by content type, if applicable.
-Each node in docast, with the exception of [`Comment`](#comment), falls into one or more categories of `Content`.
-
-### `BlockTagContent`
-
-```ts
-type BlockTagContent = PhrasingContent | TypeMetadata
-```
-
-**Block** content represents [**block tag**](#blocktag) text, and its markup.
-
-### `DescriptionContent`
-
-```ts
-type DescriptionContent =
-  | mdast.Blockquote
-  | mdast.Definition
-  | mdast.FootnoteDefinition
-  | mdast.List
-  | mdast.ListItem
-  | mdast.Paragraph
-  | mdast.Table
-  | mdast.ThematicBreak
+type Content =
+  | CommentContent
+  | InlineTagContent
   | PhrasingContent
+  | RootContent
+  | SummaryContent
+  | TagContent
+  | TypeExpression
 ```
 
-**Description** content represents [**description**](#description) text, and its markup.
+Nodes are grouped by content type, if applicable.\
+Each node in docast falls into one or more categories of `Content`.
 
-### `FlowContent`
+### `CommentContent`
 
 ```ts
-type FlowContent = BlockTag | Description
+type CommentContent = Summary | SummaryContent | Tag
 ```
 
-**Flow** content represents the sections of [**comment**](#comment).
+**Comment** content represents content that can occur in a [**comment**][nodes-comment].
+
+#### `FreeformCommentContent`
+
+```ts
+type FreeformCommentContent = Exclude<CommentContent, Summary>
+```
+
+**FreeformComment** content represents content that can occur in a
+[**comment**][nodes-comment] without a [**summary**][nodes-summary].
+
+### `InlineTagContent`
+
+```ts
+type InlineTagContent = Exclude<PhrasingContent, InlineTag> | Identifier
+```
+
+**InlineTag** content represents content that can occur inside an [**inline tag**][nodes-inline-tag].
+
+It consists of [*phrasing*][content-phrasing] content and [**identifier**][nodes-identifier] nodes, but cannot contain
+nested [**inline tags**][nodes-inline-tag].
 
 ### `PhrasingContent`
 
 ```ts
-type PhrasingContent = InlineTag | mdast.Code | mdast.PhrasingContent
+type PhrasingContent = InlineTag | mdast.PhrasingContent
 ```
 
-**Phrasing** content represents [**comment**](#comment) text, and its markup.
+**Phrasing** content represents inline text and markup.
+
+### `RootContent`
+
+```ts
+type RootContent = CodeSegment | Comment
+```
+
+**Root** content represents content that can occur in at the [**root**][nodes-root] of a [*tree*][unist-tree].
+
+It consists of [**code segment**][nodes-code-segment] and [**comment**][nodes-comment] nodes.
+
+### `SummaryContent`
+
+```ts
+type SummaryContent = PhrasingContent | mdast.RootContent
+```
+
+**Summary** content represents summary text and its markup.
+
+### `TagContent`
+
+```ts
+type TagContent = PhrasingContent | TypeMetadata
+```
+
+**Tag** content represents [**tag**][nodes-tag] text and its markup.
+
+#### `UntypedTagContent`
+
+```ts
+type UntypedTagContent = Exclude<TagContent, TypeMetadata>
+```
+
+**UntypedTag** content represents [**tag**][nodes-tag] content
+that does not contain [**type metadata**][nodes-type-metadata].
 
 ### `TypeExpression`
 
@@ -320,7 +475,7 @@ type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
 **TypeExpression** content is a type expression.
 
 When developing type expression parsers compatible with docast,
-the `TypeExpressionMap` map should be augmented (and exported! \:wink:) to register custom nodes:
+the `TypeExpressionMap` should be augmented (and exported! \:wink:) to register custom nodes:
 
 ```ts
 declare module '@flex-development/docast' {
@@ -363,39 +518,69 @@ declare module '@flex-development/docast' {
 
 See the [unist glossary][unist-glossary] for more terms.
 
-### Docblock comment
+### Comment
 
-A specially formatted [comment][wiki-comment] in a source [*file*][unist-file] used to document a segment of code or
-provide additional information.
+A region of source content used to provide additional information.
 
 ### Tag content
 
-Any text following a [block tag](#blocktag) name (e.g. `@example`, `@param`), up until the start of the next block tag
-or comment closer (`*/`), or any text following an [inline tag](#inlinetag) name, up until the closing punctuator (`}`).
+Text following a [**tag name**][nodes-tag-name] (e.g. `@example`, `@param`) up until the start of the next tag or
+comment closer, or text following an [**inline tag**][nodes-inline-tag] name up until the closing punctuator (`}`).
 
 ## List of utilities
 
 See the [unist list of utilities][unist-utilities] for more utilities.
 
-- [`docast-util-from-docs`][docast-util-from-docs]
-  — parse docblocks
+- [`docast-util-from-comments`][docast-util-from-comments]
+  — parse comments
 
-## Contribute
+## Project
+
+### Version
+
+docast adheres to [semver][].
+
+### Contribute
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 Ideas for new utilities and tools can be posted in [docast/ideas][docast-ideas].
 
-This project has a [code of conduct](CODE_OF_CONDUCT.md).
+This project has a [code of conduct](CODE_OF_CONDUCT.md).\
 By interacting with this repository, organization, or community you agree to abide by its terms.
+
+### Sponsor
+
+Small primitives power larger systems.
+Support long-term stability by sponsoring Flex Development.
 
 [check-tag-names]: https://github.com/gajus/eslint-plugin-jsdoc-check-tag-names
 
+[content-comment]: #commentcontent
+
+[content-inline-tag]: #inlinetagcontent
+
+[content-model]: #content-model
+
+[content-phrasing]: #phrasingcontent
+
+[content-root]: #rootcontent
+
+[content-summary]: #summarycontent
+
+[content-tag]: #tagcontent
+
+[content-type-expression]: #typeexpression
+
 [docast-ideas]: https://github.com/flex-development/docast/discussions/new?category=idea
 
-[docast-util-from-docs]: https://github.com/flex-development/docast-util-from-docs
+[docast-util-from-comments]: https://github.com/flex-development/docast-util-from-comments
 
 [eslint]: https://eslint.org
+
+[glossary-comment]: #comment-1
+
+[glossary-tag-content]: #tag-content
 
 [javascript]: https://www.ecma-international.org/ecma-262/9.0/index.html
 
@@ -405,17 +590,51 @@ By interacting with this repository, organization, or community you agree to abi
 
 [mdast]: https://github.com/syntax-tree/mdast
 
+[nodes-code-segment]: #codesegment
+
+[nodes-comment]: #comment
+
+[nodes-identifier]: #identifier
+
+[nodes-inline-tag]: #inlinetag
+
+[nodes-literal]: #literal
+
+[nodes-namepath-connector]: #namepathconnector
+
+[nodes-namepath]: #namepath
+
+[nodes-node]: #node
+
+[nodes-parent]: #parent
+
+[nodes-root]: #root
+
+[nodes-summary]: #summary
+
+[nodes-tag-name]: #tagname
+
+[nodes-tag]: #tag
+
+[nodes-type-metadata]: #typemetadata
+
+[semver]: https://semver.org
+
 [structuredtags]: https://github.com/gajus/eslint-plugin-jsdoc-structuredtags
 
 [tsdoc]: https://tsdoc.org
 
 [typedoc]: https://github.com/TypeStrong/typedoc
 
+[types-code-segment-name]: #codesegmentname
+
+[types-serialized-namepath-connector]: #serializednamepathconnector
+
+[types-serialized-tag-name]: #serializedtagname
+
 [typescript]: https://typescriptlang.org
 
 [unist-child]: https://github.com/syntax-tree/unist#child
-
-[unist-file]: https://github.com/syntax-tree/unist#file
 
 [unist-glossary]: https://github.com/syntax-tree/unist#glossary
 

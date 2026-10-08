@@ -7,11 +7,11 @@ import type { Root } from '@flex-development/docast'
 import type { Parents } from '@flex-development/unist-util-types'
 
 /**
- * Union of [*parents*][1] that are [*inclusive descendants*][2] of
- * {@linkcode Root}.
+ * Union of [*parents*][parent] that are [*inclusive descendants*][descendant]
+ * of {@linkcode Root}.
  *
- * [1]: https://github.com/syntax-tree/unist#parent
- * [2]: https://github.com/syntax-tree/unist#descendant
+ * [descendant]: https://github.com/syntax-tree/unist#descendant
+ * [parent]: https://github.com/syntax-tree/unist#parent
  */
 type AnyParent = Parents<Root>
 

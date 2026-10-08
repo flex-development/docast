@@ -3,7 +3,11 @@
  * @module docast/types
  */
 
-export type { default as AnyNode } from '#types/any-node'
-export type { default as AnyParent } from '#types/any-parent'
-export type { default as Child } from '#types/child'
-export type { default as TagName } from '#types/tag-name'
+export type { default as AnyNode } from './any-node.mts'
+export type { default as AnyParent } from './any-parent.mts'
+export type { default as Child } from './child.mts'
+export type { default as CodeSegmentName } from './code-segment-name.mts'
+export type {
+  default as SerializedNamepathConnector
+} from './serialized-namepath-connector.mts'
+export type { default as SerializedTagName } from './serialized-tag-name.mts'

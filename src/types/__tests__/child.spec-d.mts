@@ -3,10 +3,10 @@
  * @module docast/types/tests/unit-d/Child
  */
 
-import type TestSubject from '#types/child'
 import type { AnyParent } from '@flex-development/docast'
 import type { Children } from '@flex-development/unist-util-types'
 import { describe, expectTypeOf, it } from 'vitest'
+import type TestSubject from '../child.mts'
 
 describe('unit-d:types/Child', () => {
   it('should equal Children<AnyParent>[number]', () => {

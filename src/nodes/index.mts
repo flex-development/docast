@@ -5,26 +5,29 @@
  */
 
 export type {
-  default as BlockTag,
-  BlockTagData
-} from '#nodes/block-tag'
+  default as CodeSegment,
+  CodeSegmentData
+} from './code-segment.mts'
+export type { default as Comment, CommentData } from './comment.mts'
+export type { default as Identifier, IdentifierData } from './identifier.mts'
+export type { default as InlineTag, InlineTagData } from './inline-tag.mts'
+export type { default as Literal } from './literal.mts'
 export type {
-  default as Comment,
-  CommentData
-} from '#nodes/comment'
-export type {
-  default as Description,
-  DescriptionData
-} from '#nodes/description'
-export type { default as InlineTag, InlineTagData } from '#nodes/inline-tag'
-export type { default as Literal } from '#nodes/literal'
-export type { default as Node } from '#nodes/node'
-export type { default as Parent } from '#nodes/parent'
-export type { default as Root, RootData } from '#nodes/root'
+  default as NamepathConnector,
+  NamepathConnectorData
+} from './namepath-connector.mts'
+export type { default as Namepath, NamepathData } from './namepath.mts'
+export type { default as Node } from './node.mts'
+export type { default as Parent } from './parent.mts'
+export type { default as Root, RootData } from './root.mts'
+export type { default as Summary, SummaryData } from './summary.mts'
+export type { default as TagName, TagNameData } from './tag-name.mts'
+export type { default as Tag, TagData } from './tag.mts'
 export type {
   default as TypeMetadata,
   TypeMetadataData
-} from '#nodes/type-metadata'
+} from './type-metadata.mts'
+
 export type {
   AlignType,
   Alternative,

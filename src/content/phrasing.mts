@@ -16,14 +16,14 @@ declare module 'mdast' {
  * Union of registered docast nodes that can occur where phrasing content is
  * expected.
  *
- * To register custom docast nodes, augment {@linkcode PhrasingContentMap}. They
- * will be added to this union automatically.
+ * To register custom docast nodes, augment {@linkcode PhrasingContentMap}.\
+ * They will be added to this union automatically.
  */
 type PhrasingContent = PhrasingContentMap[keyof PhrasingContentMap]
 
 /**
- * Registry of docast nodes that can occur where {@linkcode PhrasingContent} is
- * expected.
+ * Registry of docast nodes that can occur where {@linkcode PhrasingContent}
+ * is expected.
  *
  * This interface can be augmented to register custom nodes.
  *

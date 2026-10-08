@@ -6,7 +6,7 @@
 import type { Child, Node } from '@flex-development/docast'
 
 /**
- * Abstract docast node that contains other docast or mdast nodes.
+ * An abstract docast node containing other docast or mdast nodes.
  *
  * @see {@linkcode Node}
  *
@@ -14,7 +14,7 @@ import type { Child, Node } from '@flex-development/docast'
  */
 interface Parent extends Node {
   /**
-   * List of children.
+   * The list of children.
    *
    * @see {@linkcode Child}
    */

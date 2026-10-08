@@ -4,17 +4,17 @@
  */
 
 /**
- * Union of registered docast nodes that can occur where a type expression is
- * expected.
+ * Union of registered docast nodes that can occur where a type expression
+ * is expected.
  *
- * To register custom docast nodes, augment {@linkcode TypeExpressionMap}. They
- * will be added to this union automatically.
+ * To register custom docast nodes, augment {@linkcode TypeExpressionMap}.\
+ * They will be added to this union automatically.
  */
 type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
 
 /**
- * Registry of nodes that can occur where a {@linkcode TypeExpression} is
- * expected.
+ * Registry of nodes that can occur where a {@linkcode TypeExpression}
+ * is expected.
  *
  * This interface can be augmented to register custom nodes.
  *

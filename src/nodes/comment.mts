@@ -4,12 +4,12 @@
  */
 
 import type {
-  CodeSegment,
   Data,
-  Description,
-  FlowContent,
-  Parent
+  FreeformCommentContent,
+  Parent,
+  Summary
 } from '@flex-development/docast'
+import type { CommentKind } from '@flex-development/docmark-util-types'
 
 /**
  * Info associated with comments.
@@ -18,14 +18,23 @@ import type {
  *
  * @extends {Data}
  */
-interface CommentData extends Data {}
+interface CommentData extends Data {
+  /**
+   * Whether indented syntax was detected.
+   */
+  indented?: boolean | null | undefined
+
+  /**
+   * Whether the comment was deemed a documentation comment by the surrounding
+   * source language.
+   */
+  info?: boolean | null | undefined
+}
 
 /**
- * A specially formatted [comment][1] within a source file that is used to
- * document a particular segment of code. These kinds of comments are also
- * known as docblock comments.
+ * A [comment][] in the source content.
  *
- * [1]: https://en.wikipedia.org/wiki/Comment_(computer_programming)
+ * [comment]: https://en.wikipedia.org/wiki/Comment_(computer_programming)
  *
  * @see {@linkcode Parent}
  *
@@ -33,31 +42,37 @@ interface CommentData extends Data {}
  */
 interface Comment extends Parent {
   /**
-   * List of children.
+   * The list of children.
    *
-   * @see {@linkcode Description}
-   * @see {@linkcode FlowContent}
+   * @see {@linkcode FreeformCommentContent}
+   * @see {@linkcode Summary}
+   *
+   * @override
    */
   children:
-    | Exclude<FlowContent, Description>[]
-    | [summary: Description, ...Exclude<FlowContent, Description>[]]
-
-  /**
-   * Code segment documented by comment.
-   *
-   * @see {@linkcode CodeSegment}
-   */
-  code?: CodeSegment | null | undefined
+    | FreeformCommentContent[]
+    | [summary: Summary, ...FreeformCommentContent[]]
 
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode CommentData}
+   *
+   * @override
    */
   data?: CommentData | undefined
 
   /**
-   * Node type.
+   * The comment kind.
+   *
+   * @see {@linkcode CommentKind}
+   */
+  kind: CommentKind
+
+  /**
+   * The node type.
+   *
+   * @override
    */
   type: 'comment'
 }

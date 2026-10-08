@@ -3,10 +3,12 @@
  * @module docast/content
  */
 
-export type * from '#content/block-tag'
-export type { default as Content } from '#content/content'
-export type * from '#content/description'
-export type * from '#content/flow'
-export type * from '#content/node'
-export type * from '#content/phrasing'
-export type * from '#content/type-expression'
+export type * from './comment.mts'
+export type { default as Content } from './content.mts'
+export type * from './inline-tag.mts'
+export type * from './node.mts'
+export type * from './phrasing.mts'
+export type * from './root.mts'
+export type * from './summary.mts'
+export type * from './tag.mts'
+export type * from './type-expression.mts'

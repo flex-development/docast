@@ -3,8 +3,8 @@
  * @module docast
  */
 
-export type * from '#content/index'
-export type * from '#interfaces/index'
-export type * from '#mixins/index'
-export type * from '#nodes/index'
-export type * from '#types/index'
+export type * from './content/index.mts'
+export type * from './interfaces/index.mts'
+export type * from './mixins/index.mts'
+export type * from './nodes/index.mts'
+export type * from './types/index.mts'

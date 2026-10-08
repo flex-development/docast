@@ -3,14 +3,14 @@
  * @module docast/content/tests/unit-d/node
  */
 
-import type * as TestSubject from '#content/node'
-import type { InlineTag, Root } from '@flex-development/docast'
+import type { Root } from '@flex-development/docast'
 import type {
   InclusiveDescendant,
   Type
 } from '@flex-development/unist-util-types'
 import type mdast from 'mdast'
 import { describe, expectTypeOf, it } from 'vitest'
+import type * as TestSubject from '../node.mts'
 
 describe('unit-d:content/node', () => {
   describe('DocastNode', () => {
@@ -25,8 +25,7 @@ describe('unit-d:content/node', () => {
   })
 
   describe('NodeMap', () => {
-    type Skip = InclusiveDescendant<mdast.Root>
-    type Test = Exclude<InclusiveDescendant<Root>, Skip> | InlineTag
+    type Test = Exclude<InclusiveDescendant<Root>, mdast.RootContent>
 
     it('should register all docast nodes', () => {
       // Arrange

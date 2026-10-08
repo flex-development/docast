@@ -3,7 +3,12 @@
  * @module docast/nodes/InlineTag
  */
 
-import type { Data, Literal, Tag } from '@flex-development/docast'
+import type {
+  Data,
+  InlineTagContent,
+  Parent,
+  TagName
+} from '@flex-development/docast'
 
 /**
  * Info associated with inline tags.
@@ -18,31 +23,43 @@ interface InlineTagData extends Data {}
  * Inline metadata.
  *
  * Inline tags are denoted by wrapping a tag name and any **tag content** in
- * angle brackets (`{` and `}`).
+ * curly braces (`{` and `}`).
  *
- * @see {@linkcode Literal}
- * @see {@linkcode Tag}
+ * @see {@linkcode Parent}
  *
- * @extends {Literal}
- * @extends {Tag}
+ * @extends {Parent}
  */
-interface InlineTag extends Literal, Tag {
+interface InlineTag extends Parent {
+  /**
+   * The list of children.
+   *
+   * @see {@linkcode InlineTagContent}
+   * @see {@linkcode TagName}
+   *
+   * @override
+   */
+  children: [name: TagName, ...InlineTagContent[]]
+
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode InlineTagData}
+   *
+   * @override
    */
   data?: InlineTagData | undefined
 
   /**
-   * Node type.
+   * The tag name identifier.
    */
-  type: 'inlineTag'
+  name: string
 
   /**
-   * Plain-text value.
+   * The node type.
+   *
+   * @override
    */
-  value: string
+  type: 'inlineTag'
 }
 
 export type { InlineTag as default, InlineTagData }

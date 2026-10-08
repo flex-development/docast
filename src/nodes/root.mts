@@ -3,10 +3,10 @@
  * @module docast/nodes/Root
  */
 
-import type { Comment, Data, Parent } from '@flex-development/docast'
+import type { Data, Parent, RootContent } from '@flex-development/docast'
 
 /**
- * Info associated with documents.
+ * Info associated with documentation fragments and roots.
  *
  * @see {@linkcode Data}
  *
@@ -15,9 +15,20 @@ import type { Comment, Data, Parent } from '@flex-development/docast'
 interface RootData extends Data {}
 
 /**
- * A document fragment or whole document.
+ * A documentation fragment or an entire documented file.
  *
- * Should be used as the root of a tree; must not be used as a child.
+ * A documented file, also known as a documentation root, is any source file
+ * containing comments.\
+ * In docast, all comments are considered documentation, with `info` comments
+ * being those identified as documentation by the surrounding source language.\
+ * Parser extensions and other tools can be used to differentiate between `info`
+ * comments and their counterpart, petty comments.
+ *
+ * > 👉 **Note**: Should be used as the root of a [*tree*][tree].\
+ * > Must not be used as a [*child*][child].
+ *
+ * [child]: https://github.com/syntax-tree/unist#child
+ * [tree]: https://github.com/syntax-tree/unist#tree
  *
  * @see {@linkcode Parent}
  *
@@ -25,21 +36,27 @@ interface RootData extends Data {}
  */
 interface Root extends Parent {
   /**
-   * List of children.
+   * The list of children.
    *
-   * @see {@linkcode Comment}
+   * @see {@linkcode RootContent}
+   *
+   * @override
    */
-  children: Comment[]
+  children: RootContent[]
 
   /**
    * Info from the ecosystem.
    *
    * @see {@linkcode RootData}
+   *
+   * @override
    */
   data?: RootData | undefined
 
   /**
-   * Node type.
+   * The node type.
+   *
+   * @override
    */
   type: 'root'
 }

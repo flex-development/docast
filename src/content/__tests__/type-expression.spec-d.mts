@@ -3,8 +3,8 @@
  * @module docast/content/tests/unit-d/typeExpression
  */
 
-import type * as TestSubject from '#content/type-expression'
 import { describe, expectTypeOf, it } from 'vitest'
+import type * as TestSubject from '../type-expression.mts'
 
 describe('unit-d:content/typeExpression', () => {
   describe('TypeExpression', () => {
@@ -20,11 +20,7 @@ describe('unit-d:content/typeExpression', () => {
 
   describe('TypeExpressionMap', () => {
     it('should not register any nodes', () => {
-      // Arrange
-      type K = keyof TestSubject.TypeExpressionMap
-
-      // Expect
-      expectTypeOf<TestSubject.TypeExpressionMap[K]>().toEqualTypeOf<never>()
+      expectTypeOf<keyof TestSubject.TypeExpressionMap>().toEqualTypeOf<never>()
     })
   })
 })

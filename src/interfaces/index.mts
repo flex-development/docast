@@ -3,5 +3,5 @@
  * @module docast/interfaces
  */
 
-export type { default as CodeSegment } from '#interfaces/code-segment'
-export type { default as Data } from '#interfaces/data'
+export type { default as CodeSegmentNameMap } from './code-segment-name-map.mts'
+export type { default as Data } from './data.mts'

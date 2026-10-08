@@ -15,7 +15,7 @@ import fldv from '@flex-development/eslint-config'
 const config = [
   ...fldv.configs.node,
   {
-    files: ['src/content/content.mts'],
+    files: ['src/content/content.mts', 'src/nodes/code-segment.mts'],
     rules: {
       '@typescript-eslint/no-redundant-type-constituents': 0
     }

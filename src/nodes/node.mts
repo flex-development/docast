@@ -7,7 +7,7 @@ import type { Data } from '@flex-development/docast'
 import type unist from 'unist'
 
 /**
- * Abstract docast node.
+ * An abstract docast node.
  *
  * @see {@linkcode unist.Node}
  *
@@ -18,11 +18,13 @@ interface Node extends unist.Node {
    * Info from the ecosystem.
    *
    * @see {@linkcode Data}
+   *
+   * @override
    */
   data?: Data | undefined
 
   /**
-   * Location of node in source document.
+   * The location of the node in the source content.
    *
    * > 👉 Nodes that are [*generated*][generated] must not have a position.
    *

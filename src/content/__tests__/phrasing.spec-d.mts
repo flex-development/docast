@@ -3,11 +3,11 @@
  * @module docast/content/tests/unit-d/phrasing
  */
 
-import type * as TestSubject from '#content/phrasing'
 import type NodeObject from '#tests/types/node-object'
 import type { InlineTag } from '@flex-development/docast'
 import type mdast from 'mdast'
 import { describe, expectTypeOf, it } from 'vitest'
+import type * as TestSubject from '../phrasing.mts'
 
 describe('unit-d:content/phrasing', () => {
   describe('PhrasingContent', () => {
@@ -24,12 +24,12 @@ describe('unit-d:content/phrasing', () => {
   describe('PhrasingContentMap', () => {
     it('should extend mdast.PhrasingContentMap', () => {
       expectTypeOf<TestSubject.PhrasingContentMap>()
-        .toMatchTypeOf<mdast.PhrasingContentMap>()
+        .toExtend<mdast.PhrasingContentMap>()
     })
 
     it('should match NodeObject<InlineTag>', () => {
       expectTypeOf<TestSubject.PhrasingContentMap>()
-        .toMatchTypeOf<NodeObject<InlineTag>>()
+        .toExtend<NodeObject<InlineTag>>()
     })
   })
 })

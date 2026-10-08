@@ -3,4 +3,4 @@
  * @module docast/mixins
  */
 
-export type { default as Tag } from '#mixins/tag'
+export type {}
