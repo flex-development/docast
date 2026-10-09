@@ -154,7 +154,7 @@
     "rollup-plugin-dts": "6.5.1",
     "sh-syntax": "0.7.0",
     "trash-cli": "7.2.0",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "unified": "11.0.5",
     "vfile": "6.0.3",
     "vite": "8.3.4",
