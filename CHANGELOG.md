@@ -1,3 +1,82 @@
+## [1.0.0-beta.3](https://github.com/flex-development/docast/compare/1.0.0-beta.2...1.0.0-beta.3) (2026-10-08)
+
+### ⚠ BREAKING CHANGES
+
+- api
+
+### :package: Build
+
+- [[`0d74c50`](https://github.com/flex-development/docast/commit/0d74c501784d1b82490c63f8a2c879bce2330a3c)] **deps-dev:** Bump @commitlint/cli from 20.4.1 to 20.4.2 in the commitlint group ([#847](https://github.com/flex-development/docast/issues/847))
+- [[`e508b77`](https://github.com/flex-development/docast/commit/e508b77484bd5eecf928133a8f7f66915f028089)] **deps-dev:** Bump @commitlint/cli from 20.5.0 to 20.5.2 in the commitlint group ([#896](https://github.com/flex-development/docast/issues/896))
+- [[`3855df4`](https://github.com/flex-development/docast/commit/3855df4ad09d0bc1e39e9ec5fef91c5a952af0b8)] **deps-dev:** Bump @commitlint/cli from 20.5.2 to 20.5.3 in the commitlint group ([#898](https://github.com/flex-development/docast/issues/898))
+- [[`df1a6fe`](https://github.com/flex-development/docast/commit/df1a6fe848cc2445d8893345eb3465a6e00dd9fa)] **deps-dev:** Bump @commitlint/types from 20.5.0 to 21.2.3 in the commitlint group across 1 directory ([#922](https://github.com/flex-development/docast/issues/922))
+- [[`7cd4017`](https://github.com/flex-development/docast/commit/7cd401776fdc857c15d28706377a70ffa960d1be)] **deps-dev:** Bump cspell from 9.6.4 to 9.7.0 ([#851](https://github.com/flex-development/docast/issues/851))
+- [[`cf39fde`](https://github.com/flex-development/docast/commit/cf39fde5bf3ddc027867a8e6a7228cfe3aeb4131)] **deps-dev:** Bump cspell from 9.7.0 to 10.0.0 ([#882](https://github.com/flex-development/docast/issues/882))
+- [[`77529d3`](https://github.com/flex-development/docast/commit/77529d369acc6c77281c7dfec208bb952f4ff199)] **deps-dev:** Bump dprint from 0.51.1 to 0.52.0 ([#853](https://github.com/flex-development/docast/issues/853))
+- [[`2f32dda`](https://github.com/flex-development/docast/commit/2f32dda336dac6587fd1ace56ab8dfbce0289a93)] **deps-dev:** Bump dprint from 0.52.0 to 0.53.0 ([#868](https://github.com/flex-development/docast/issues/868))
+- [[`8c7955c`](https://github.com/flex-development/docast/commit/8c7955c8474003e2f61cddac06ddcd04b39a6732)] **deps-dev:** Bump dprint from 0.53.0 to 0.53.1 ([#877](https://github.com/flex-development/docast/issues/877))
+- [[`b880429`](https://github.com/flex-development/docast/commit/b8804292034c7c60848f3508e2c123ac1ac75d7b)] **deps-dev:** Bump dprint from 0.53.1 to 0.53.2 ([#879](https://github.com/flex-development/docast/issues/879))
+- [[`d2ab0c9`](https://github.com/flex-development/docast/commit/d2ab0c94066bd38a265813ecfb1a02839a2a3087)] **deps-dev:** Bump dprint from 0.53.2 to 0.54.0 ([#887](https://github.com/flex-development/docast/issues/887))
+- [[`60dbd4a`](https://github.com/flex-development/docast/commit/60dbd4a925388e02dc80a41deed66ba2d35f9353)] **deps-dev:** Bump editorconfig from 3.0.1 to 3.0.2 ([#855](https://github.com/flex-development/docast/issues/855))
+- [[`554dd78`](https://github.com/flex-development/docast/commit/554dd78d90c80af68c89758e8b8766cf39c9e7af)] **deps-dev:** Bump rollup from 4.57.1 to 4.59.0 ([#848](https://github.com/flex-development/docast/issues/848))
+- [[`67bf9b9`](https://github.com/flex-development/docast/commit/67bf9b95fdbd87007be44ecf9fef03f782e90e5d)] **deps-dev:** Bump rollup from 4.59.0 to 4.60.0 ([#870](https://github.com/flex-development/docast/issues/870))
+- [[`814345b`](https://github.com/flex-development/docast/commit/814345b334e590cc26c07d8213a4020da356b00a)] **deps-dev:** Bump rollup from 4.60.0 to 4.60.1 ([#878](https://github.com/flex-development/docast/issues/878))
+- [[`e26dda9`](https://github.com/flex-development/docast/commit/e26dda9711f8ed277fefb1a91469d51bf728943f)] **deps-dev:** Bump rollup from 4.60.1 to 4.60.2 ([#893](https://github.com/flex-development/docast/issues/893))
+- [[`cc5d73a`](https://github.com/flex-development/docast/commit/cc5d73a69d74d6c76957e0cc8cf2e25c4ac1941d)] **deps-dev:** Bump rollup-plugin-dts from 6.3.0 to 6.4.0 ([#865](https://github.com/flex-development/docast/issues/865))
+- [[`937a0c9`](https://github.com/flex-development/docast/commit/937a0c9d8a09d8d15df1f2673add3d2a5ec73e97)] **deps-dev:** Bump rollup-plugin-dts from 6.4.0 to 6.4.1 ([#871](https://github.com/flex-development/docast/issues/871))
+- [[`f06bb69`](https://github.com/flex-development/docast/commit/f06bb696760bcdafe436fba9553d2bf4bbd17bcf)] **deps-dev:** Bump the commitlint group with 2 updates ([#859](https://github.com/flex-development/docast/issues/859))
+- [[`ead53b9`](https://github.com/flex-development/docast/commit/ead53b9b3cb2313801c3f6cc36c027c5d4bc318b)] **deps-dev:** Bump the commitlint group with 2 updates ([#863](https://github.com/flex-development/docast/issues/863))
+- [[`bb2b0e2`](https://github.com/flex-development/docast/commit/bb2b0e2f25090f24e0d941c7cd2901deca7191c7)] **deps-dev:** Bump the commitlint group with 2 updates ([#867](https://github.com/flex-development/docast/issues/867))
+- [[`0cac5bb`](https://github.com/flex-development/docast/commit/0cac5bbddd238fbdc1063a1f6a5a33952d6d8c3d)] **deps-dev:** Bump the vitest group with 3 updates ([#864](https://github.com/flex-development/docast/issues/864))
+- [[`732dc18`](https://github.com/flex-development/docast/commit/732dc18b86d4fa81f1c30717172cd6a4aa78e63a)] **deps-dev:** Bump the vitest group with 3 updates ([#873](https://github.com/flex-development/docast/issues/873))
+- [[`7290d8a`](https://github.com/flex-development/docast/commit/7290d8a956b7bd160b06e59914b0af52edb53ceb)] **deps-dev:** Bump the vitest group with 3 updates ([#876](https://github.com/flex-development/docast/issues/876))
+- [[`feab41f`](https://github.com/flex-development/docast/commit/feab41fb06724e32560ad9c3bf815cfe1bd87c51)] **deps-dev:** Bump the vitest group with 3 updates ([#885](https://github.com/flex-development/docast/issues/885))
+- [[`6cd6f1e`](https://github.com/flex-development/docast/commit/6cd6f1e8a234ccbaa76914e2d29b2170b133ddcf)] **deps-dev:** Bump the vitest group with 3 updates ([#886](https://github.com/flex-development/docast/issues/886))
+- [[`44e94b5`](https://github.com/flex-development/docast/commit/44e94b539edac3b90dc5094c232d2c8b6c46f72a)] **deps-dev:** Bump the vitest group with 3 updates ([#895](https://github.com/flex-development/docast/issues/895))
+- [[`d6e57c0`](https://github.com/flex-development/docast/commit/d6e57c09841c56fdd1eee1ba475d52da135d0320)] **deps-dev:** Bump typescript from 5.9.3 to 6.0.2 ([#874](https://github.com/flex-development/docast/issues/874))
+- [[`27d9582`](https://github.com/flex-development/docast/commit/27d95825cb9177792ebc521b8f21d88bfe01f402)] **deps-dev:** Bump typescript from 6.0.2 to 6.0.3 ([#891](https://github.com/flex-development/docast/issues/891))
+- [[`40ccc67`](https://github.com/flex-development/docast/commit/40ccc67b4e3551229564dbb3285287f15a833214)] **deps:** Bump @humanfs/node from 0.16.7 to 0.16.8 ([#927](https://github.com/flex-development/docast/issues/927))
+- [[`195037f`](https://github.com/flex-development/docast/commit/195037ff73c4126ef73ce611d870dcb9b5f12780)] **deps:** Bump baseline-browser-mapping from 2.9.19 to 2.11.27 ([#923](https://github.com/flex-development/docast/issues/923))
+- [[`61f32e2`](https://github.com/flex-development/docast/commit/61f32e2ff22414955b48556ce997b39b2e4edb62)] **deps:** Bump browserslist from 4.28.1 to 4.29.3 ([#926](https://github.com/flex-development/docast/issues/926))
+- [[`1ad70d1`](https://github.com/flex-development/docast/commit/1ad70d122642fffb8500035809716ee488d0ffb2)] **deps:** Bump fast-uri from 3.1.0 to 3.1.8 ([#925](https://github.com/flex-development/docast/issues/925))
+- [[`ca021a8`](https://github.com/flex-development/docast/commit/ca021a8d033b6aa0a8dbacf7e9aed2041113b7dc)] **deps:** Bump ip-address from 10.1.0 to 10.7.3 ([#924](https://github.com/flex-development/docast/issues/924))
+- [[`837a829`](https://github.com/flex-development/docast/commit/837a8294d15a88c731051bb4e25a9c791c1fd550)] **deps:** Bump lodash from 4.17.23 to 4.18.1 ([#880](https://github.com/flex-development/docast/issues/880))
+- [[`21a31b3`](https://github.com/flex-development/docast/commit/21a31b372a75903ed6042d588b8102f3f5b5e4be)] **deps:** Bump minimatch from 3.1.2 to 3.1.5 ([#856](https://github.com/flex-development/docast/issues/856))
+- [[`251b926`](https://github.com/flex-development/docast/commit/251b926147d4de47c63387ae324c7f75cf8e8f00)] **deps:** Bump picomatch from 2.3.1 to 2.3.2 ([#875](https://github.com/flex-development/docast/issues/875))
+- [[`c34a295`](https://github.com/flex-development/docast/commit/c34a2959a0c1ad1b982a3385f2e47ec6fac7f502)] **deps:** Bump postcss from 8.5.8 to 8.5.12 ([#897](https://github.com/flex-development/docast/issues/897))
+- [[`d447f09`](https://github.com/flex-development/docast/commit/d447f094e65a263d78c79d98307d727444c5a897)] **deps:** Bump tar from 7.5.11 to 7.5.22 ([#917](https://github.com/flex-development/docast/issues/917))
+- [[`ca7d4cb`](https://github.com/flex-development/docast/commit/ca7d4cb35eefe22c2121fd8568cedd4994d178bb)] **deps:** Bump tar from 7.5.7 to 7.5.9 ([#846](https://github.com/flex-development/docast/issues/846))
+- [[`55dc3c5`](https://github.com/flex-development/docast/commit/55dc3c5b6a576f27089e3718d8b632638752cd71)] **deps:** Bump tar from 7.5.9 to 7.5.11 ([#862](https://github.com/flex-development/docast/issues/862))
+- [[`ef9d041`](https://github.com/flex-development/docast/commit/ef9d041dca62f80d20aadd9bc39aeca72e36a5e6)] **deps:** Bump vite from 8.0.2 to 8.0.5 ([#884](https://github.com/flex-development/docast/issues/884))
+
+### :robot: Continuous Integration
+
+- [[`d3f598b`](https://github.com/flex-development/docast/commit/d3f598bc6dbbd90a3e0b41c04ce4b1cd12e77c98)] **deps:** Bump actions/add-to-project from 1.0.2 to 2.0.0 ([#900](https://github.com/flex-development/docast/issues/900))
+- [[`893311d`](https://github.com/flex-development/docast/commit/893311de8c38ae17acbc6b8f044344779781e008)] **deps:** Bump actions/cache from 5.0.3 to 5.0.4 ([#869](https://github.com/flex-development/docast/issues/869))
+- [[`ddc2c99`](https://github.com/flex-development/docast/commit/ddc2c99587f77911b6f8647cd512d89381280de7)] **deps:** Bump actions/cache from 5.0.4 to 5.0.5 ([#890](https://github.com/flex-development/docast/issues/890))
+- [[`0ddd03d`](https://github.com/flex-development/docast/commit/0ddd03d9934e95f5c561658fdd010d03e2c83be6)] **deps:** bump actions/cache from 5.0.5 to 6.1.0
+- [[`684c258`](https://github.com/flex-development/docast/commit/684c2589941a308b863c4d68cd1b7fae39641417)] **deps:** bump actions/checkout from 6.0.2 to 7.0.1
+- [[`6fdda00`](https://github.com/flex-development/docast/commit/6fdda005dc4731b798c7c080d21da0887c756fd1)] **deps:** Bump actions/create-github-app-token from 2.2.1 to 3.0.0 ([#866](https://github.com/flex-development/docast/issues/866))
+- [[`3e17eb6`](https://github.com/flex-development/docast/commit/3e17eb686475075d959459aa28d632347951733f)] **deps:** Bump actions/create-github-app-token from 3.0.0 to 3.1.1 ([#889](https://github.com/flex-development/docast/issues/889))
+- [[`53e6e3a`](https://github.com/flex-development/docast/commit/53e6e3a35849c41ed77162a4950634610582a2e9)] **deps:** bump actions/create-github-app-token from 3.1.1 to 3.2.0
+- [[`db114a9`](https://github.com/flex-development/docast/commit/db114a962eb24b753f37138bc6ec44e0fd27bc91)] **deps:** Bump actions/setup-node from 6.2.0 to 6.3.0 ([#858](https://github.com/flex-development/docast/issues/858))
+- [[`2846854`](https://github.com/flex-development/docast/commit/28468541a79714c4bedff75b63f5c1cd70854809)] **deps:** Bump actions/setup-node from 6.3.0 to 6.4.0 ([#892](https://github.com/flex-development/docast/issues/892))
+- [[`9e1856e`](https://github.com/flex-development/docast/commit/9e1856ec0b5ba0f7036e41e09721ca4bdb0da5dd)] **deps:** bump actions/setup-node from 6.4.0 to 7.0.0
+- [[`a92dec4`](https://github.com/flex-development/docast/commit/a92dec45a260820c36815d23dffd9b6994eacb92)] **deps:** Bump actions/upload-artifact from 6.0.0 to 7.0.0 ([#854](https://github.com/flex-development/docast/issues/854))
+- [[`e3d52f3`](https://github.com/flex-development/docast/commit/e3d52f38894e036ec677e2391f83805876174779)] **deps:** Bump actions/upload-artifact from 7.0.0 to 7.0.1 ([#888](https://github.com/flex-development/docast/issues/888))
+- [[`53d4eef`](https://github.com/flex-development/docast/commit/53d4eef637590d8e071335263870bbf2713093d8)] **deps:** Bump crazy-max/ghaction-import-gpg from 6.3.0 to 7.0.0 ([#857](https://github.com/flex-development/docast/issues/857))
+- [[`50bd34d`](https://github.com/flex-development/docast/commit/50bd34d6a89150c9f33b43c6b2196542298afd85)] **deps:** Bump dprint/check from 2.3 to 2.5 ([#921](https://github.com/flex-development/docast/issues/921))
+- [[`c025e8a`](https://github.com/flex-development/docast/commit/c025e8afa41622f75d6577c116c50498e2b5e913)] **deps:** Bump streetsidesoftware/cspell-action from 8.2.0 to 8.3.0 ([#850](https://github.com/flex-development/docast/issues/850))
+- [[`54085df`](https://github.com/flex-development/docast/commit/54085df9d01351f5fcb2a955d38a2c9e141d534d)] **deps:** Bump streetsidesoftware/cspell-action from 8.3.0 to 8.4.0 ([#881](https://github.com/flex-development/docast/issues/881))
+
+### :house_with_garden: Housekeeping
+
+- [[`d5b2657`](https://github.com/flex-development/docast/commit/d5b2657b33eaf14934a64fc176872b45fbbc8914)] update project architecture
+
+### :mechanical_arm: Refactors
+
+- [[`4011996`](https://github.com/flex-development/docast/commit/40119966a1dda7bc34f2ce6b1ba26380b61cf751)] api
+
 ## [1.0.0-beta.2](https://github.com/flex-development/docast/compare/1.0.0-beta.1...1.0.0-beta.2) (2026-02-13)
 
 ### :package: Build
@@ -932,6 +1011,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
