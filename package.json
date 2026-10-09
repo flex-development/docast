@@ -1,7 +1,7 @@
 {
   "name": "@flex-development/docast",
   "description": "Documentation Abstract Syntax Tree format",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "keywords": [
     "ast",
     "comment",
