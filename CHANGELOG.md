@@ -1,3 +1,27 @@
+## [1.0.0-beta.4](https://github.com/flex-development/docast/compare/1.0.0-beta.3...1.0.0-beta.4) (2026-10-15)
+
+### ⚠ BREAKING CHANGES
+
+- comment syntax nodes
+
+### :package: Build
+
+- [[`ee0425a`](https://github.com/flex-development/docast/commit/ee0425aab041ebe043a00b7b0fd0594e7d3b22ec)] **deps-dev:** Bump dprint from 0.61.1 to 0.62.0 ([#936](https://github.com/flex-development/docast/issues/936))
+- [[`ee65e4c`](https://github.com/flex-development/docast/commit/ee65e4c7e4e73b70174752f11b678d2f34a940cd)] **deps-dev:** bump dprint from 0.62.0 to 0.63.0
+- [[`58d2577`](https://github.com/flex-development/docast/commit/58d257702cbc8b1577d12bf0bb28e64722452aa7)] **deps-dev:** Bump node-notifier from 10.0.1 to 11.0.0 ([#935](https://github.com/flex-development/docast/issues/935))
+- [[`c743448`](https://github.com/flex-development/docast/commit/c7434489dfbac3b0e2940af330d5766a202e8e74)] **deps-dev:** Bump rollup from 4.64.3 to 4.64.5 ([#937](https://github.com/flex-development/docast/issues/937))
+
+### :robot: Continuous Integration
+
+- [[`e5a9d06`](https://github.com/flex-development/docast/commit/e5a9d0671463c84f20041062e80f81d951097517)] **deps:** Bump actions/create-github-app-token from 3.2.0 to 3.3.0 ([#938](https://github.com/flex-development/docast/issues/938))
+- [[`4020b86`](https://github.com/flex-development/docast/commit/4020b86f92b294c72bc8cc165651ef50239960b2)] **deps:** Bump actions/setup-node from 7.0.0 to 7.1.0 ([#934](https://github.com/flex-development/docast/issues/934))
+- [[`37d0e66`](https://github.com/flex-development/docast/commit/37d0e6629e0be4d05971128fb60a21d84774490e)] **deps:** Bump actions/upload-artifact from 7.0.1 to 7.0.2 ([#933](https://github.com/flex-development/docast/issues/933))
+- [[`dd892ea`](https://github.com/flex-development/docast/commit/dd892eabcd4a3ca245f96d408cd361433db1fdb8)] **deps:** Bump streetsidesoftware/cspell-action from 8.4.0 to 9.1.0 ([#930](https://github.com/flex-development/docast/issues/930))
+
+### :sparkles: Features
+
+- [[`4473d5e`](https://github.com/flex-development/docast/commit/4473d5e48a0e3121197005f3f4c5eb6647ed0d10)] comment syntax nodes
+
 ## [1.0.0-beta.3](https://github.com/flex-development/docast/compare/1.0.0-beta.2...1.0.0-beta.3) (2026-10-08)
 
 ### ⚠ BREAKING CHANGES
@@ -1011,6 +1035,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
