@@ -33,6 +33,14 @@ It implements the [**unist**][unist] spec.
   - [`CodeSegment`][nodes-code-segment]
     - [`CodeSegmentName`][types-code-segment-name]
   - [`Comment`][nodes-comment]
+  - [`CommentCloser`][nodes-comment-closer]
+  - [`CommentLinePrefix`][nodes-comment-line-prefix]
+  - [`CommentMarker`][nodes-comment-marker]
+    - [`CommentMarkers`][types-comment-markers]
+    - [`SerializedCommentMarker`][types-serialized-comment-marker]
+    - [`SerializedMarker`][types-serialized-marker]
+  - [`CommentOpener`][nodes-comment-opener]
+  - [`CommentPadding`][nodes-comment-padding]
   - [`Identifier`][nodes-identifier]
   - [`InlineTag`][nodes-inline-tag]
   - [`Namepath`][nodes-namepath]
@@ -191,8 +199,8 @@ declare module '@flex-development/docast' {
 ```ts
 interface Comment extends Parent {
   children:
-    | FreeformCommentContent[]
-    | [summary: Summary, ...FreeformCommentContent[]]
+    | [open: CommentOpener, ...content: CommentContent[]]
+    | [open: CommentOpener, ...content: CommentContent[], close: CommentCloser]
   data?: CommentData | undefined
   type: 'comment'
 }
@@ -202,6 +210,125 @@ interface Comment extends Parent {
 
 **Comment** can be used in [**root**][nodes-root] nodes.\
 Its content model is [**comment**][content-comment] content.
+
+### `CommentCloser`
+
+```ts
+interface CommentCloser extends Parent {
+  children: CommentMarkers
+  data?: CommentCloserData | undefined
+  type: 'commentCloser'
+}
+```
+
+**CommentCloser** ([**Parent**][nodes-parent]) represents the closing syntax of a [**comment**][nodes-comment].
+
+It consists of one or more [**comment marker**][types-comment-markers] nodes.
+
+**CommentCloser** can be used as the final child of [**comment**][nodes-comment] nodes.
+
+### `CommentLinePrefix`
+
+```ts
+interface CommentLinePrefix extends Parent {
+  children:
+    | CommentMarkers
+    | [...markers: CommentMarkers, right: CommentPadding]
+    | [left: CommentPadding, ...markers: CommentMarkers]
+    | [left: CommentPadding, ...markers: CommentMarkers, right: CommentPadding]
+  data?: CommentLinePrefixData | undefined
+  type: 'commentLinePrefix'
+}
+```
+
+**CommentLinePrefix** ([**Parent**][nodes-parent]) represents syntax
+preceding the content of a line within a [**comment**][nodes-comment].
+
+It consists of one or more [**comment marker**][nodes-comment-marker] nodes,
+optionally surrounded by [**comment padding**][nodes-comment-padding].
+
+**CommentLinePrefix** can be used in [**comment**][nodes-comment] nodes.
+
+### `CommentMarker`
+
+```ts
+interface CommentMarker extends Literal {
+  data?: CommentMarkerData | undefined
+  value: SerializedCommentMarker extends never ? SerializedMarker : SerializedCommentMarker
+}
+```
+
+**CommentMarker** ([**Literal**][nodes-literal]) represents a marker in comment syntax.
+
+Its value is the serialized marker.
+
+**CommentMarker** can be used in [**comment opener**][nodes-comment-opener],
+[**comment closer**][nodes-comment-closer], and [**comment line prefix**][nodes-comment-line-prefix] nodes.
+
+#### `CommentMarkers`
+
+```ts
+type CommentMarkers = [marker: CommentMarker, ...markers: CommentMarker[]]
+```
+
+A list of [`CommentMarker`][nodes-comment-marker] [*child*][unist-child] nodes.
+
+At least one child is required.
+
+#### `SerializedCommentMarker`
+
+```ts
+type SerializedCommentMarker = CommentMarkerMap[keyof CommentMarkerMap]
+```
+
+Union of registered serialized comment markers.
+
+When developing compilers and utilities compatible with docast,
+the `CommentMarkerMap` should be augmented (and exported! \:wink:) to register custom comment markers:
+
+```ts
+declare module '@flex-development/docast' {
+  interface CommentMarkerMap {
+    sass: '*' | '/' | ' '
+  }
+}
+```
+
+#### `SerializedMarker`
+
+```ts
+type SerializedMarker = string
+```
+
+Any serialized marker.
+
+### `CommentOpener`
+
+```ts
+interface CommentOpener extends Parent {
+  children: CommentMarkers
+  data?: CommentOpenerData | undefined
+  type: 'commentOpener'
+}
+```
+
+**CommentOpener** ([**Parent**][nodes-parent]) represents the opening syntax of a [**comment**][nodes-comment].
+
+It consists of one or more [**comment marker**][nodes-comment-marker] nodes.
+
+**CommentOpener** can be used as the first child of [**comment**][nodes-comment] nodes.
+
+### `CommentPadding`
+
+```ts
+interface CommentPadding extends Node {
+  data?: CommentPaddingData | undefined
+  type: 'commentPadding'
+}
+```
+
+**CommentPadding** ([**Node**][nodes-node]) represents
+paddingwithin a [**comment line prefix**][nodes-comment-line-prefix].
 
 ### `Identifier`
 
@@ -398,7 +525,7 @@ Each node in docast falls into one or more categories of `Content`.
 ### `CommentContent`
 
 ```ts
-type CommentContent = Summary | SummaryContent | Tag
+type CommentContent = CommentLinePrefix | Summary | SummaryContent | Tag
 ```
 
 **Comment** content represents content that can occur in a [**comment**][nodes-comment].
@@ -474,7 +601,7 @@ type TypeExpression = TypeExpressionMap[keyof TypeExpressionMap]
 
 **TypeExpression** content is a type expression.
 
-When developing type expression parsers compatible with docast,
+When developing compilers and utilities compatible with docast,
 the `TypeExpressionMap` should be augmented (and exported! \:wink:) to register custom nodes:
 
 ```ts
@@ -594,6 +721,16 @@ Support long-term stability by sponsoring Flex Development.
 
 [nodes-comment]: #comment
 
+[nodes-comment-closer]: #commentcloser
+
+[nodes-comment-line-prefix]: #commentlineprefix
+
+[nodes-comment-marker]: #commentmarker
+
+[nodes-comment-opener]: #commentopener
+
+[nodes-comment-padding]: #commentpadding
+
 [nodes-identifier]: #identifier
 
 [nodes-inline-tag]: #inlinetag
@@ -627,6 +764,12 @@ Support long-term stability by sponsoring Flex Development.
 [typedoc]: https://github.com/TypeStrong/typedoc
 
 [types-code-segment-name]: #codesegmentname
+
+[types-comment-markers]: #commentmarkers
+
+[types-serialized-comment-marker]: #serializedcommentmarker
+
+[types-serialized-marker]: #serializedmarker
 
 [types-serialized-namepath-connector]: #serializednamepathconnector
 

@@ -4,4 +4,5 @@
  */
 
 export type { default as CodeSegmentNameMap } from './code-segment-name-map.mts'
+export type { default as CommentMarkerMap } from './comment-marker-map.mts'
 export type { default as Data } from './data.mts'

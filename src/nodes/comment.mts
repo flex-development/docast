@@ -4,10 +4,11 @@
  */
 
 import type {
+  CommentCloser,
+  CommentContent,
+  CommentOpener,
   Data,
-  FreeformCommentContent,
-  Parent,
-  Summary
+  Parent
 } from '@flex-development/docast'
 import type { CommentKind } from '@flex-development/docmark-util-types'
 
@@ -44,14 +45,15 @@ interface Comment extends Parent {
   /**
    * The list of children.
    *
-   * @see {@linkcode FreeformCommentContent}
-   * @see {@linkcode Summary}
+   * @see {@linkcode CommentCloser}
+   * @see {@linkcode CommentContent}
+   * @see {@linkcode CommentOpener}
    *
    * @override
    */
   children:
-    | FreeformCommentContent[]
-    | [summary: Summary, ...FreeformCommentContent[]]
+    | [open: CommentOpener, ...content: CommentContent[]]
+    | [open: CommentOpener, ...content: CommentContent[], close: CommentCloser]
 
   /**
    * Info from the ecosystem.

@@ -6,6 +6,11 @@
 import type {
   CodeSegment,
   Comment,
+  CommentCloser,
+  CommentLinePrefix,
+  CommentMarker,
+  CommentOpener,
+  CommentPadding,
   Identifier,
   InlineTag,
   Namepath,
@@ -43,6 +48,11 @@ type DocastNode = NodeMap[keyof NodeMap]
 interface NodeMap extends TypeExpressionMap {
   codeSegment: CodeSegment
   comment: Comment
+  commentCloser: CommentCloser
+  commentLinePrefix: CommentLinePrefix
+  commentMarker: CommentMarker
+  commentOpener: CommentOpener
+  commentPadding: CommentPadding
   identifier: Identifier
   inlineTag: InlineTag
   namepath: Namepath

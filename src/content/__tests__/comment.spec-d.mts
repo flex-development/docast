@@ -4,7 +4,7 @@
  */
 
 import type NodeObject from '#tests/types/node-object'
-import type { Summary, Tag } from '@flex-development/docast'
+import type { CommentLinePrefix, Summary, Tag } from '@flex-development/docast'
 import { describe, expectTypeOf, it } from 'vitest'
 import type * as TestSubject from '../comment.mts'
 
@@ -21,6 +21,11 @@ describe('unit-d:content/comment', () => {
   })
 
   describe('CommentContentMap', () => {
+    it('should extend NodeObject<CommentLinePrefix>', () => {
+      expectTypeOf<TestSubject.CommentContentMap>()
+        .toExtend<NodeObject<CommentLinePrefix>>()
+    })
+
     it('should extend NodeObject<Summary>', () => {
       expectTypeOf<TestSubject.CommentContentMap>()
         .toExtend<NodeObject<Summary>>()

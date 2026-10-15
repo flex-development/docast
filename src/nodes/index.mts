@@ -8,6 +8,26 @@ export type {
   default as CodeSegment,
   CodeSegmentData
 } from './code-segment.mts'
+export type {
+  default as CommentCloser,
+  CommentCloserData
+} from './comment-closer.mts'
+export type {
+  default as CommentLinePrefix,
+  CommentLinePrefixData
+} from './comment-line-prefix.mts'
+export type {
+  default as CommentMarker,
+  CommentMarkerData
+} from './comment-marker.mts'
+export type {
+  default as CommentOpener,
+  CommentOpenerData
+} from './comment-opener.mts'
+export type {
+  default as CommentPadding,
+  CommentPaddingData
+} from './comment-padding.mts'
 export type { default as Comment, CommentData } from './comment.mts'
 export type { default as Identifier, IdentifierData } from './identifier.mts'
 export type { default as InlineTag, InlineTagData } from './inline-tag.mts'

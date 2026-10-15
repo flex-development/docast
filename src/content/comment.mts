@@ -4,6 +4,7 @@
  */
 
 import type {
+  CommentLinePrefix,
   Summary,
   SummaryContentMap,
   Tag
@@ -20,7 +21,7 @@ type CommentContent = CommentContentMap[keyof CommentContentMap]
 
 /**
  * Union of registered docast nodes that can occur where freeform comment
- * content is expected. This content does include a {@linkcode Summary}.
+ * content is expected. This content does not include a {@linkcode Summary}.
  *
  * To register custom docast nodes, augment {@linkcode CommentContentMap}.\
  * They will be added to this union automatically.
@@ -43,6 +44,7 @@ type FreeformCommentContent = Exclude<CommentContent, Summary>
  * @extends {SummaryContentMap}
  */
 interface CommentContentMap extends SummaryContentMap {
+  commentLinePrefix: CommentLinePrefix
   summary: Summary
   tag: Tag
 }

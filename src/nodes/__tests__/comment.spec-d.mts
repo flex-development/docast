@@ -4,10 +4,11 @@
  */
 
 import type {
+  CommentCloser,
+  CommentContent,
+  CommentOpener,
   Data,
-  FreeformCommentContent,
-  Parent,
-  Summary
+  Parent
 } from '@flex-development/docast'
 import type { CommentKind } from '@flex-development/docmark-util-types'
 import type {
@@ -29,12 +30,13 @@ describe('unit-d:nodes/Comment', () => {
     expectTypeOf<Subject>().toExtend<Parent>()
   })
 
-  it('should match [children: FreeformCommentContent[] | [Summary, ...FreeformCommentContent[]]]', () => {
+  it('should match [children: [CommentOpener, ...CommentContent[]] | [CommentOpener, ...CommentContent[], CommentCloser]]', () => {
     // Arrange
     type Expect =
-      | FreeformCommentContent[]
-      | [Summary, ...FreeformCommentContent[]]
+      | [CommentOpener, ...CommentContent[]]
+      | [CommentOpener, ...CommentContent[], CommentCloser]
 
+    // Expect
     expectTypeOf<Required>().extract<'children'>().not.toBeNever()
     expectTypeOf<Subject>().toHaveProperty('children').toEqualTypeOf<Expect>()
   })
