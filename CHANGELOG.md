@@ -1,3 +1,13 @@
+## [1.0.0-beta.5](https://github.com/flex-development/docast/compare/1.0.0-beta.4...1.0.0-beta.5) (2026-10-16)
+
+### :package: Build
+
+- [[`c4ff502`](https://github.com/flex-development/docast/commit/c4ff502752888321d4771cdfe47a1243ef6daefe)] **deps-dev:** Bump the vitest group with 3 updates ([#942](https://github.com/flex-development/docast/issues/942))
+
+### :sparkles: Features
+
+- [[`4b5a07d`](https://github.com/flex-development/docast/commit/4b5a07dcef128303e3abb408cd7f21825fce1033)] **content:** [comment] add `CommentPadding`
+
 ## [1.0.0-beta.4](https://github.com/flex-development/docast/compare/1.0.0-beta.3...1.0.0-beta.4) (2026-10-15)
 
 ### ⚠ BREAKING CHANGES
@@ -1035,6 +1045,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
