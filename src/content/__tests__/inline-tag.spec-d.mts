@@ -26,6 +26,12 @@ describe('unit-d:content/inlineTag', () => {
         .toExtend<PhrasingContentMap>()
     })
 
+    it('should match [commentLinePrefix: never]', () => {
+      expectTypeOf<TestSubject.InlineTagContentMap>()
+        .toHaveProperty('commentLinePrefix')
+        .toEqualTypeOf<never>()
+    })
+
     it('should match [inlineTag: never]', () => {
       expectTypeOf<TestSubject.InlineTagContentMap>()
         .toHaveProperty('inlineTag')

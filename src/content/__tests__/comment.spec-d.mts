@@ -5,7 +5,6 @@
 
 import type NodeObject from '#tests/types/node-object'
 import type {
-  CommentLinePrefix,
   CommentPadding,
   Summary,
   Tag
@@ -26,11 +25,6 @@ describe('unit-d:content/comment', () => {
   })
 
   describe('CommentContentMap', () => {
-    it('should extend NodeObject<CommentLinePrefix>', () => {
-      expectTypeOf<TestSubject.CommentContentMap>()
-        .toExtend<NodeObject<CommentLinePrefix>>()
-    })
-
     it('should extend NodeObject<CommentPadding>', () => {
       expectTypeOf<TestSubject.CommentContentMap>()
         .toExtend<NodeObject<CommentPadding>>()

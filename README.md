@@ -525,7 +525,7 @@ Each node in docast falls into one or more categories of `Content`.
 ### `CommentContent`
 
 ```ts
-type CommentContent = CommentLinePrefix | Summary | SummaryContent | Tag
+type CommentContent = Summary | SummaryContent | Tag
 ```
 
 **Comment** content represents content that can occur in a [**comment**][nodes-comment].
@@ -542,18 +542,18 @@ type FreeformCommentContent = Exclude<CommentContent, Summary>
 ### `InlineTagContent`
 
 ```ts
-type InlineTagContent = Exclude<PhrasingContent, InlineTag> | Identifier
+type InlineTagContent = Exclude<PhrasingContent, CommentLinePrefix | InlineTag> | Identifier
 ```
 
 **InlineTag** content represents content that can occur inside an [**inline tag**][nodes-inline-tag].
 
-It consists of [*phrasing*][content-phrasing] content and [**identifier**][nodes-identifier] nodes, but cannot contain
-nested [**inline tags**][nodes-inline-tag].
+It consists of [*phrasing*][content-phrasing] content and [**identifier**][nodes-identifier] nodes,
+but cannot contain [**comment line prefixes**][nodes-comment-line-prefix] or nested [**inline tags**][nodes-inline-tag].
 
 ### `PhrasingContent`
 
 ```ts
-type PhrasingContent = InlineTag | mdast.PhrasingContent
+type PhrasingContent = CommentLinePrefix | InlineTag | mdast.PhrasingContent
 ```
 
 **Phrasing** content represents inline text and markup.

@@ -18,25 +18,20 @@ import { dts as dtsBundle } from 'rollup-plugin-dts'
 import pkg from './package.json' with { type: 'json' }
 
 /**
- * The target file.
- *
- * @const {string} file
- */
-const file: string = './dist/index.d.mts'
-
-/**
  * The rollup configuration.
  *
  * @see {@linkcode RollupOptions}
  *
- * @type {RollupOptions}
+ * @const {RollupOptions} config
  */
-export default {
-  external: Object.keys(pkg.dependencies),
-  input: file,
-  output: [{ file, format: 'esm' }],
+const config: RollupOptions = {
+  external,
+  input: { index: './dist/index.d.mts' },
+  output: { dir: 'dist', entryFileNames: '[name].d.mts', format: 'esm' },
   plugins: [resolve({ extensions: ['.d.mts', '.mts'] }), dts()]
 }
+
+export default config
 
 /**
  * Create a plugin pack to bundle declaration files and fix `type` modifiers.
@@ -98,4 +93,18 @@ function dts(this: void): Plugin[] {
       name: 'dts:fix-type-modifiers'
     }
   ]
+}
+
+/**
+ * Check if `source` is external.
+ *
+ * @this {void}
+ *
+ * @param {string} source
+ *  The path to the imported module
+ * @return {boolean}
+ *  Whether `source` should be marked as external
+ */
+function external(this: void, source: string): boolean {
+  return Object.keys(pkg.dependencies).includes(source)
 }

@@ -3,11 +3,12 @@
  * @module docast/content/phrasing
  */
 
-import type { InlineTag } from '@flex-development/docast'
+import type { CommentLinePrefix, InlineTag } from '@flex-development/docast'
 import type mdast from 'mdast'
 
 declare module 'mdast' {
   interface PhrasingContentMap {
+    commentLinePrefix: CommentLinePrefix
     inlineTag: InlineTag
   }
 }

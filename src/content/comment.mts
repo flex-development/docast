@@ -4,7 +4,6 @@
  */
 
 import type {
-  CommentLinePrefix,
   CommentPadding,
   Summary,
   SummaryContentMap,
@@ -45,7 +44,6 @@ type FreeformCommentContent = Exclude<CommentContent, Summary>
  * @extends {SummaryContentMap}
  */
 interface CommentContentMap extends SummaryContentMap {
-  commentLinePrefix: CommentLinePrefix
   commentPadding: CommentPadding
   summary: Summary
   tag: Tag

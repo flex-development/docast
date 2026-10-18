@@ -30,6 +30,7 @@ type InlineTagContent = InlineTagContentMap[keyof InlineTagContentMap]
  * @extends {PhrasingContentMap}
  */
 interface InlineTagContentMap extends PhrasingContentMap {
+  commentLinePrefix: never
   identifier: Identifier
   inlineTag: never
 }
