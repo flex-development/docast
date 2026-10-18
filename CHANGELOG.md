@@ -1,3 +1,9 @@
+## [1.0.0-beta.6](https://github.com/flex-development/docast/compare/1.0.0-beta.5...1.0.0-beta.6) (2026-10-17)
+
+### :sparkles: Features
+
+- [[`658d918`](https://github.com/flex-development/docast/commit/658d91818f4816b15ad180cbb4a3353928e28780)] **content:** [phrasing] add `CommentLinePrefix`
+
 ## [1.0.0-beta.5](https://github.com/flex-development/docast/compare/1.0.0-beta.4...1.0.0-beta.5) (2026-10-16)
 
 ### :package: Build
@@ -1045,6 +1051,7 @@
 ### :sparkles: Features
 
 - [[`b801fe8`](https://github.com/flex-development/docast/commit/b801fe8462e39c460c0de44fdef263b03ea7d0b4)] **ts:** implement specification in typescript
+
 
 
 
