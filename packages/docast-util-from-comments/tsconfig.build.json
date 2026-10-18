@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": false,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.build.json",
+  "include": ["src/**/**.mts"],
+  "references": [
+    {
+      "path": "../docast/tsconfig.build.json"
+    },
+    {
+      "path": "../docast-compiler-types/tsconfig.build.json"
+    },
+    {
+      "path": "../docast-util-symbol/tsconfig.build.json"
+    }
+  ]
+}

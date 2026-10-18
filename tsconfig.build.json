@@ -3,17 +3,20 @@
     "allowImportingTsExtensions": false,
     "allowJs": false,
     "checkJs": false,
-    "customConditions": [],
-    "declaration": true,
+    "customConditions": ["docast"],
     "declarationMap": false,
-    "emitDeclarationOnly": true,
     "noEmitOnError": true,
-    "outDir": "dist",
-    "rootDir": "src",
+    "rewriteRelativeImportExtensions": true,
     "sourceMap": false,
-    "target": "es2024"
+    "target": "es2025"
   },
-  "exclude": ["**/__tests__/**"],
+  "exclude": ["**/__mocks__/**", "**/__tests__/**"],
   "extends": "./tsconfig.json",
-  "include": ["dist/**/*", "src/**/**.mts"]
+  "files": [],
+  "include": ["dist/**/*", "src/**/**.mts"],
+  "references": [
+    {
+      "path": "packages/docast-util-from-comments/tsconfig.build.json"
+    }
+  ]
 }

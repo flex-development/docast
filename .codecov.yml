@@ -1,0 +1,103 @@
+# CODECOV CONFIGURATION
+# https://docs.codecov.com/docs/codecovyml-reference
+
+---
+codecov:
+  notify:
+    after_n_builds: 6
+    wait_for_ci: true
+  require_ci_to_pass: true
+
+comment:
+  after_n_builds: 6
+  behavior: default
+  layout: header,diff,flags,components,tree,footer
+  require_base: false
+  require_changes: false
+  require_head: true
+  show_carryforward_flags: true
+  show_critical_paths: true
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: 100%
+  individual_components:
+    - component_id: docast-util-from-comments
+      name: docast-util-from-comments
+      paths:
+        - packages/docast-util-from-comments/**/*.mts
+    - component_id: docast-util-symbol
+      name: docast-util-symbol
+      paths:
+        - packages/docast-util-symbol/**/*.mts
+
+coverage:
+  precision: 2
+  range: 90..100
+  round: nearest
+  status:
+    changes:
+      default:
+        branches:
+          - dependabot/*
+          - feat/*
+          - hotfix/*
+          - main
+          - release/*
+        if_ci_failed: error
+        if_not_found: success
+        informational: false
+        only_pulls: false
+    patch:
+      default:
+        branches:
+          - dependabot/*
+          - feat/*
+          - hotfix/*
+          - main
+          - release/*
+        if_ci_failed: error
+        if_not_found: success
+        informational: false
+        only_pulls: false
+        target: 100%
+        threshold: 0%
+    project:
+      default:
+        branches:
+          - dependabot/*
+          - feat/*
+          - hotfix/*
+          - main
+          - release/*
+        if_ci_failed: error
+        if_not_found: success
+        informational: false
+        only_pulls: false
+        target: 100%
+        threshold: 0%
+
+flags:
+  bun-canary: {}
+  bun-latest: {}
+  node26: {}
+  node25: {}
+  node24: {}
+  node22: {}
+
+github_checks:
+  annotations: true
+
+ignore:
+  - '**/*.d.mts'
+  - '**/__mocks__/**'
+  - '**/__tests__/**'
+  - '**/interfaces/**'
+  - '**/types/**'
+  - packages/docast/**
+  - packages/docast-compiler-types/**
+
+profiling:
+  critical_files_paths: []

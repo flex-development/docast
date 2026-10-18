@@ -119,7 +119,7 @@ jobs:
           YARN_ENABLE_IMMUTABLE_INSTALLS: false
         run: yarn
       - id: local-binaries
-        name: Add local binaries to $PATH
+        name: Add local binaries to path
         run: echo "${{ github.workspace }}/node_modules/.bin" >> ${{ github.path }}
       - id: dprint
         name: Update dprint config

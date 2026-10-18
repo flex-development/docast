@@ -1,0 +1,59 @@
+{
+  "name": "@flex-development/docast-compiler-types",
+  "description": "core docast compiler types",
+  "version": "0.0.0",
+  "keywords": [
+    "ast",
+    "compiler",
+    "docast",
+    "syntax-tree",
+    "unified",
+    "unist"
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/flex-development/docast/tree/main/packages/docast-compiler-types",
+  "repository": {
+    "directory": "packages/docast-compiler-types",
+    "type": "git",
+    "url": "git+https://github.com/flex-development/docast.git"
+  },
+  "bugs": "https://github.com/flex-development/docast/issues",
+  "author": {
+    "name": "Lexus Drumgold",
+    "url": "https://github.com/unicornware"
+  },
+  "publishConfig": {
+    "access": "public",
+    "diff-dst-prefix": "docast-compiler-types",
+    "diff-src-prefix": "docast-compiler-types",
+    "directory": "./",
+    "executableFiles": [],
+    "node-options": null,
+    "pack-destination": ".",
+    "parseable": true,
+    "prefer-dedupe": true,
+    "provenance": true,
+    "tag-version-prefix": "docast-compiler-types@"
+  },
+  "type": "module",
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "docast": "./src/index.mts",
+      "default": "./dist/index.d.mts"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.mts",
+  "dependencies": {
+    "@flex-development/docast": "workspace:1.0.0-beta.6"
+  },
+  "devDependencies": {
+    "@flex-development/mark": "1.0.0-alpha.12"
+  },
+  "sideEffects": false
+}

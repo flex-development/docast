@@ -1,6 +1,6 @@
 # Release
 #
-# Publish a GitHub release after a release is merged.
+# Publish GitHub releases after a release is merged.
 #
 # References:
 #
@@ -18,11 +18,13 @@
 # - https://github.com/flex-development/dist-tag-action
 # - https://github.com/flex-development/gh-release-url-action
 # - https://github.com/flex-development/grease
+# - https://github.com/flex-development/jq-action
 # - https://github.com/flex-development/manver-action
 # - https://github.com/hmarr/debug-action
 # - https://github.com/kaisugi/action-regex-match
 # - https://regex101.com/r/wu576x
 # - https://yarnpkg.com/cli/pack
+# - https://yarnpkg.com/cli/workspace
 
 ---
 name: release
@@ -30,6 +32,11 @@ on:
   push:
     branches:
       - main
+env:
+  CACHE_PATH_DEPS: |
+    node_modules
+    packages/*/node_modules
+  CACHE_PATH_BUILD: packages/*/dist
 jobs:
   preflight:
     if: ${{ startsWith(github.event.head_commit.message, 'release:') }}
@@ -37,9 +44,10 @@ jobs:
       contents: read
     runs-on: ubuntu-latest
     outputs:
-      environment: ${{ steps.environment.outputs.url }}
-      prerelease: ${{ steps.dist.outputs.prerelease }}
-      version: ${{ steps.version.outputs.manifest }}
+      cache-build: ${{ steps.cache-key-build.outputs.result }}
+      cache-deps: ${{ steps.cache-key-deps.outputs.result }}
+      pr: ${{ steps.metadata.outputs.group8 }}
+      workspaces: ${{ steps.workspaces.outputs.result }}
     steps:
       - id: debug
         name: Print environment variables and event payload
@@ -50,8 +58,13 @@ jobs:
         run: |
           echo '**Unauthorized actor: ${{ github.actor }}**' >>$GITHUB_STEP_SUMMARY
           exit 1
+      - id: checkout
+        name: Checkout ${{ github.ref_name }}
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.sha }}
       - id: metadata
-        name: Check head commit message
+        name: Extract release metadata
         uses: kaisugi/action-regex-match@v1.0.2
         with:
           flags: u
@@ -59,7 +72,7 @@ jobs:
           text: ${{ github.event.head_commit.message }}
       - id: fail-metadata
         if: steps.metadata.outputs.match == ''
-        name: Fail on invalid release merge message
+        name: Fail on invalid head commit message
         run: |
           err='**Invalid release merge message**
           ```sh
@@ -68,30 +81,45 @@ jobs:
           Message must match [`${{ vars.RELEASE_MERGED_REGEX }}`](https://regex101.com/r/wu576x)'
           echo "$err" >>$GITHUB_STEP_SUMMARY
           exit 1
-      - id: checkout
-        name: Checkout ${{ github.ref_name }}
-        uses: actions/checkout@v7.0.1
+      - id: dependencies
+        name: Install dependencies
+        run: yarn --immutable
+      - id: build
+        name: Build workspaces
+        run: yarn build
+      - id: cache-key-deps
+        name: Get dependencies cache key
+        run: echo "result=${{ hashFiles('yarn.lock') }}" >>$GITHUB_OUTPUT
+      - id: cache-key-build
+        name: Get build cache key
+        run: echo "result=${{ hashFiles(env.CACHE_PATH_BUILD) }}" >>$GITHUB_OUTPUT
+      - id: cache-deps
+        name: Cache dependencies
+        uses: actions/cache@v6.1.0
         with:
-          ref: ${{ github.sha }}
-      - id: version
-        name: Get release version
-        uses: flex-development/manver-action@1.1.0
-      - id: environment
-        name: Get release url
-        uses: flex-development/gh-release-url-action@2.1.0
+          key: ${{ steps.cache-key-deps.outputs.result }}
+          path: ${{ env.CACHE_PATH_DEPS }}
+      - id: cache-build
+        name: Cache build
+        uses: actions/cache@v6.1.0
         with:
-          version: ${{ steps.version.outputs.tag }}
-      - id: dist
-        name: Get dist tag
-        uses: flex-development/dist-tag-action@1.1.2
+          key: ${{ steps.cache-key-build.outputs.result }}
+          path: ${{ env.CACHE_PATH_BUILD }}
+      - id: workspaces
+        name: Get workspace matrix
+        uses: flex-development/jq-action@1.0.0
         with:
-          target: ${{ steps.version.outputs.manifest }}
+          data: ./versions/${{ steps.metadata.outputs.group2 }}.json
+          filter: keys
   publish:
     needs: preflight
     runs-on: ubuntu-latest
     environment:
       name: release
-      url: ${{ needs.preflight.outputs.environment }}
+      url: ${{ steps.environment.outputs.url }}
+    strategy:
+      matrix:
+        workspace: ${{ fromJson(needs.preflight.outputs.workspaces) }}
     env:
       GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
       HUSKY: 0
@@ -123,32 +151,84 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
           node-version-file: .nvmrc
-      - id: dependencies
-        name: Install dependencies
-        run: yarn --immutable
+      - id: restore-dep-cache
+        name: Restore dependencies cache
+        uses: actions/cache@v6.1.0
+        with:
+          fail-on-cache-miss: true
+          key: ${{ needs.preflight.outputs.cache-deps }}
+          path: ${{ env.CACHE_PATH_DEPS }}
+      - id: restore-build-cache
+        name: Restore build cache
+        uses: actions/cache@v6.1.0
+        with:
+          fail-on-cache-miss: true
+          key: ${{ needs.preflight.outputs.cache-build }}
+          path: ${{ env.CACHE_PATH_BUILD }}
       - id: local-binaries
-        name: Add local binaries to $PATH
+        name: Add local binaries to path
         run: echo "${{ github.workspace }}/node_modules/.bin" >> ${{ github.path }}
-      - id: build
-        name: Add build metadata to package.json
+      - id: package
+        name: Get unscoped package name
+        run: |
+          workspace=${{ matrix.workspace }}
+          echo "result=${workspace#@*/}" >>$GITHUB_OUTPUT
+      - id: workspace-directory
+        if: matrix.workspace != steps.package.outputs.result
+        name: Get workspace directory
+        run: echo "result=$(yarn workspace ${{ matrix.workspace }} exec pwd)" >>$GITHUB_OUTPUT
+      - id: version
+        name: Get release version
+        uses: flex-development/jq-action@1.0.0
+        with:
+          data: ${{ steps.workspace-directory.outputs.result || github.workspace }}/package.json
+          filter: .version
+      - id: dist
+        if: matrix.workspace != steps.package.outputs.result
+        name: Get dist tag
+        uses: flex-development/dist-tag-action@1.1.2
+        with:
+          target: ${{ steps.version.outputs.result }}
+      - id: environment
+        name: Get release url
+        uses: flex-development/gh-release-url-action@2.1.0
+        with:
+          tag-prefix: ${{ matrix.workspace != steps.package.outputs.result && format('{0}@', steps.package.outputs.result) || '' }}
+          version: ${{ steps.version.outputs.result }}
+      - id: dev-deps
+        if: matrix.workspace != steps.package.outputs.result
+        name: Remove `devDependencies` from manifest
+        run: yq 'del(.devDependencies)' -i package.json
+        working-directory: ${{ steps.workspace-directory.outputs.result }}
+      - id: build-metadata
+        if: matrix.workspace != steps.package.outputs.result
+        name: Add build metadata to manifest
         run: yq '.build="${{ github.sha }}"' -i package.json
+        working-directory: ${{ steps.workspace-directory.outputs.result }}
       - id: pack
+        if: matrix.workspace != steps.package.outputs.result
         name: Pack project
         run: |
           mv CHANGELOG.md _CHANGELOG.md
           yarn pack --out %s-%v.tgz
           mv _CHANGELOG.md CHANGELOG.md
+        working-directory: ${{ steps.workspace-directory.outputs.result }}
       - id: notes
+        if: matrix.workspace != steps.package.outputs.result
         name: Generate release notes
         env:
           TZ: ${{ vars.TZ }}
         run: |
           grease changelog -wo $NOTES_FILE
           echo "$(cat $NOTES_FILE)" >>$GITHUB_STEP_SUMMARY
+        working-directory: ${{ steps.workspace-directory.outputs.result }}
       - id: tag
         name: Create annotated tag
-        run: 'grease tag -ps -m "release: {tag}" ${{ needs.preflight.outputs.version }}'
+        run: 'grease tag -ps -m="release: {tag}" ${{ steps.version.outputs.result }}'
+        working-directory: ${{ steps.workspace-directory.outputs.result }}
       - id: publish
+        if: matrix.workspace != steps.package.outputs.result
         name: Publish release
         run: |
-          gh release create ${{ needs.preflight.outputs.version }} *.tgz --title=${{ needs.preflight.outputs.version }} --notes-file=${{ env.NOTES_FILE }} --prerelease=${{ needs.preflight.outputs.prerelease }} --verify-tag --discussion-category=releases
+          gh release create ${{ steps.environment.outputs.tag }} *.tgz --title=${{ steps.environment.outputs.tag }} --notes-file=${{ env.NOTES_FILE }} --prerelease=${{ steps.dist.outputs.prerelease }} --verify-tag --discussion-category=releases
+        working-directory: ${{ steps.workspace-directory.outputs.result }}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/flex-development/grease/refs/tags/grease@3.0.0-alpha.9/grease.schema.json",
+  "tag": {
+    "message": "release: {tag}",
+    "sign": true
+  },
+  "tagprefix": "docast-compiler-types@"
+}

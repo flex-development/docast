@@ -12,6 +12,7 @@ kaisugi
 nvmrc
 shfmt
 umentation
+unstub
 vates
 vitest
 yarnrc

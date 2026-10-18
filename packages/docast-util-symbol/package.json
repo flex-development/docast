@@ -1,0 +1,53 @@
+{
+  "name": "@flex-development/docast-util-symbol",
+  "description": "docast utility with symbols",
+  "version": "0.0.0",
+  "keywords": [
+    "ast",
+    "docast",
+    "symbol",
+    "syntax-tree",
+    "unist",
+    "util"
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/flex-development/docast/tree/main/packages/docast-util-symbol",
+  "repository": {
+    "directory": "packages/docast-util-symbol",
+    "type": "git",
+    "url": "git+https://github.com/flex-development/docast.git"
+  },
+  "bugs": "https://github.com/flex-development/docast/issues",
+  "author": {
+    "name": "Lexus Drumgold",
+    "url": "https://github.com/unicornware"
+  },
+  "publishConfig": {
+    "access": "public",
+    "diff-dst-prefix": "docast-util-symbol",
+    "diff-src-prefix": "docast-util-symbol",
+    "directory": "./",
+    "executableFiles": [],
+    "node-options": null,
+    "pack-destination": ".",
+    "parseable": true,
+    "prefer-dedupe": true,
+    "provenance": true,
+    "tag-version-prefix": "docast-util-symbol@"
+  },
+  "type": "module",
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "docast": "./src/index.mts",
+      "default": "./dist/index.d.mts"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.mts",
+  "sideEffects": false
+}

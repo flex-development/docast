@@ -5,6 +5,7 @@
  */
 
 import fldv from '@flex-development/eslint-config'
+import pathe from '@flex-development/pathe'
 
 /**
  * The eslint configuration.
@@ -15,7 +16,18 @@ import fldv from '@flex-development/eslint-config'
 const config = [
   ...fldv.configs.node,
   {
-    files: ['src/content/content.mts', 'src/nodes/code-segment.mts'],
+    files: ['**/*.+(cjs|cts|js|jsx|mjs|mts|ts|tsx)'],
+    languageOptions: {
+      parserOptions: {
+        project: pathe.resolve('tsconfig.eslint.json')
+      }
+    }
+  },
+  {
+    files: [
+      'packages/docast/src/content/content.mts',
+      'packages/docast/src/nodes/code-segment.mts'
+    ],
     rules: {
       '@typescript-eslint/no-redundant-type-constituents': 0
     }

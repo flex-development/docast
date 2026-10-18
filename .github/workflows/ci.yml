@@ -27,7 +27,9 @@
 # - https://github.com/hmarr/debug-action
 # - https://github.com/shaneapowell/github-tweak-the-json
 # - https://github.com/streetsidesoftware/cspell-action
+# - https://jqlang.org/manual
 # - https://yarnpkg.com/cli/pack
+# - https://yarnpkg.com/cli/workspaces/list
 
 ---
 name: ci
@@ -42,8 +44,12 @@ on:
 permissions:
   contents: read
 env:
-  CACHE_PATH_DEPS: node_modules
-  CACHE_PATH_BUILD: dist
+  CACHE_PATH: |
+    node_modules
+    examples/*/node_modules
+    packages/*/node_modules
+  CACHE_PATH_BUILD: packages/*/dist
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   COVERAGE_SUMMARY: ./coverage/coverage-summary.json
   HUSKY: 0
   PCT: .total.branches.pct + .total.functions.pct + .total.lines.pct + .total.statements.pct
@@ -61,6 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       cache-key: ${{ steps.cache-key.outputs.result }}
+      packages: ${{ steps.packages.outputs.result }}
     steps:
       - id: debug
         name: Print environment variables and event payload
@@ -91,7 +98,11 @@ jobs:
         uses: actions/cache@v6.1.0
         with:
           key: ${{ steps.cache-key.outputs.result }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
+      - id: packages
+        name: Get package matrix
+        run: |
+          echo "result=$(yarn workspaces list --json | jq -rcs 'map(select(.location != "."))')" >>$GITHUB_OUTPUT
   commitlint:
     needs: preflight
     runs-on: ubuntu-latest
@@ -116,7 +127,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: lint
         name: Check commitlint status
         if: github.run_number != '1'
@@ -144,7 +155,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: version
         name: Get dprint version
         uses: flex-development/jq-action@1.0.0
@@ -181,7 +192,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: remark
         name: Check markdown files
         run: yarn remark
@@ -232,7 +243,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: typecheck
         name: Run typecheck
         run: yarn typecheck
@@ -242,6 +253,184 @@ jobs:
         with:
           name: ${{ format('{0}.typecheck.blob.json', env.SHA) }}
           path: ./.vitest-reports/typecheck.blob.json
+  test:
+    needs: preflight
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 26
+          - 25
+          - 24
+          - 22
+    steps:
+      - id: checkout
+        name: Checkout ${{ env.REF_NAME }}
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ env.REF }}
+      - id: node
+        name: Setup Node.js v${{ matrix.node-version }}
+        uses: actions/setup-node@v7.1.0
+        with:
+          cache: yarn
+          cache-dependency-path: yarn.lock
+          check-latest: true
+          node-version: ${{ matrix.node-version }}
+      - id: restore-dep-cache
+        name: Restore dependencies cache
+        uses: actions/cache@v6.1.0
+        with:
+          fail-on-cache-miss: true
+          key: ${{ needs.preflight.outputs.cache-key }}
+          path: ${{ env.CACHE_PATH }}
+      - id: test
+        name: Run tests
+        run: yarn test:cov --coverage.thresholds.100=false
+      - id: coverage
+        name: Get coverage points
+        uses: flex-development/jq-action@1.0.0
+        with:
+          data: ${{ env.COVERAGE_SUMMARY }}
+          filter: "'${{ env.PCT }}'"
+      - id: report
+        name: Upload report
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.node{1}.blob.json', env.SHA, matrix.node-version) }}
+          path: ./.vitest-reports/test.blob.json
+      - id: coverage-summary
+        name: Upload coverage summary
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.node{1}.coverage.json', env.SHA, matrix.node-version) }}
+          path: ${{ env.COVERAGE_SUMMARY }}
+      - id: coverage-lcov
+        name: Upload lcov.info
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.node{1}.lcov.info', env.SHA, matrix.node-version) }}
+          path: ./coverage/lcov.info
+      - id: codecov-results
+        if: ${{ !cancelled() }}
+        name: Upload test results to Codecov
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          disable_search: true
+          env_vars: GITHUB_JOB,GITHUB_REF_TYPE
+          fail_ci_if_error: true
+          files: ./__tests__/reports/test.junit.xml
+          flags: ${{ format('node{0}', matrix.node-version) }}
+          name: ${{ format('{0}.node{1}', env.SHA, matrix.node-version) }}
+          report_type: test_results
+          verbose: true
+      - id: codecov-coverage
+        name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          disable_search: true
+          env_vars: GITHUB_JOB,GITHUB_REF_TYPE
+          fail_ci_if_error: true
+          files: ./coverage/lcov.info
+          flags: ${{ format('node{0}', matrix.node-version) }}
+          name: ${{ format('{0}.node{1}', env.SHA, matrix.node-version) }}
+          root_dir: ./
+          slug: ${{ github.repository }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+      - id: coverage-failure
+        if: fromJson(steps.coverage.outputs.result) != 400
+        name: Coverage threshold failure (${{ steps.coverage.outputs.result }})
+        run: yarn test:cov:reports
+  test-bun:
+    needs: preflight
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        bun-version:
+          - canary
+          - latest
+    steps:
+      - id: checkout
+        name: Checkout ${{ env.REF_NAME }}
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ env.REF }}
+      - id: bun
+        name: Setup Bun (${{ matrix.bun-version }})
+        continue-on-error: ${{ matrix.bun-version == 'canary' }}
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ matrix.bun-version }}
+      - id: restore-dep-cache
+        name: Restore dependencies cache
+        uses: actions/cache@v6.1.0
+        with:
+          fail-on-cache-miss: true
+          key: ${{ needs.preflight.outputs.cache-key }}
+          path: ${{ env.CACHE_PATH }}
+      - id: test
+        name: Run tests
+        run: yarn test:cov --coverage.thresholds.100=false
+      - id: coverage
+        name: Get coverage points
+        uses: flex-development/jq-action@1.0.0
+        with:
+          data: ${{ env.COVERAGE_SUMMARY }}
+          filter: "'${{ env.PCT }}'"
+      - id: report
+        name: Upload report
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.bun-{1}.blob.json', env.SHA, matrix.bun-version) }}
+          path: ./.vitest-reports/test.blob.json
+      - id: coverage-summary
+        name: Upload coverage summary
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.bun-{1}.coverage.json', env.SHA, matrix.bun-version) }}
+          path: ${{ env.COVERAGE_SUMMARY }}
+      - id: coverage-lcov
+        name: Upload lcov.info
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ${{ format('{0}.bun-{1}.lcov.info', env.SHA, matrix.bun-version) }}
+          path: ./coverage/lcov.info
+      - id: codecov-results
+        if: ${{ !cancelled() }}
+        name: Upload test results to Codecov
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          disable_search: true
+          env_vars: GITHUB_JOB,GITHUB_REF_TYPE
+          fail_ci_if_error: true
+          files: ./__tests__/reports/test.junit.xml
+          flags: ${{ format('bun-{0}', matrix.bun-version) }}
+          name: ${{ format('{0}.bun-{1}', env.SHA, matrix.bun-version) }}
+          report_type: test_results
+          verbose: true
+      - id: codecov-coverage
+        name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          disable_search: true
+          env_vars: GITHUB_JOB,GITHUB_REF_TYPE
+          fail_ci_if_error: true
+          files: ./coverage/lcov.info
+          flags: ${{ format('bun-{0}', matrix.bun-version) }}
+          name: ${{ format('{0}.bun-{1}', env.SHA, matrix.bun-version) }}
+          root_dir: ./
+          slug: ${{ github.repository }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
+      - id: coverage-failure
+        if: fromJson(steps.coverage.outputs.result) != 400
+        name: Coverage threshold failure (${{ steps.coverage.outputs.result }})
+        run: yarn test:cov:reports
   build:
     needs:
       - preflight
@@ -268,7 +457,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: build
         name: Build project
         run: yarn build
@@ -289,8 +478,15 @@ jobs:
       - lint
       - preflight
       - spelling
+      - test
+      - test-bun
       - typescript
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.preflight.outputs.packages) }}
+    name: artifacts (${{ matrix.package.name }})
     steps:
       - id: checkout
         name: Checkout ${{ env.REF_NAME }}
@@ -312,7 +508,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           key: ${{ needs.preflight.outputs.cache-key }}
-          path: ${{ env.CACHE_PATH_DEPS }}
+          path: ${{ env.CACHE_PATH }}
       - id: restore-build-cache
         name: Restore build cache
         uses: actions/cache@v6.1.0
@@ -321,26 +517,33 @@ jobs:
           key: ${{ needs.build.outputs.cache-key }}
           path: ${{ env.CACHE_PATH_BUILD }}
       - id: local-binaries
-        name: Add local binaries to $PATH
+        name: Add local binaries to path
         run: echo "${{ github.workspace }}/node_modules/.bin" >> ${{ github.path }}
+      - id: manifest
+        name: Get package manifest path
+        run: echo "result=${{ matrix.package.location }}/package.json" >>$GITHUB_OUTPUT
       - id: version
         name: Extract version metadata
         uses: flex-development/manver-action@1.1.0
+        with:
+          manifest: ${{ steps.manifest.outputs.result }}
       - id: version-update
         name: Update package.json version
         uses: shaneapowell/github-tweak-the-json@v1
         with:
           action: write
-          filename: ./package.json
+          filename: ${{ steps.manifest.outputs.result }}
           field: version
           value: ${{ steps.version.outputs.build }}
       - id: tarball
         name: Get tarball path
         run: |
-          echo "result=${{ format('{0}-{1}-{2}.tgz', github.repository_owner, github.event.repository.name, steps.version.outputs.build) }}" >>$GITHUB_OUTPUT
+          tarball=${{ format('{0}-{1}', matrix.package.name, steps.version.outputs.build) }}
+          echo "result=${tarball////-}.tgz" >>$GITHUB_OUTPUT
       - id: pack
         name: Pack project
-        run: npm pack
+        run: yarn pack --out ../../${{ steps.tarball.outputs.result }}
+        working-directory: ${{ matrix.package.location }}
       - id: attw
         name: Analyze types distribution
         run: attw ${{ steps.tarball.outputs.result }}
@@ -349,6 +552,7 @@ jobs:
         env:
           TZ: ${{ vars.TZ }}
         run: echo "$(grease changelog)" >>$GITHUB_STEP_SUMMARY
+        working-directory: ${{ matrix.package.location }}
       - id: archive
         name: Archive production artifact
         uses: actions/upload-artifact@v7.0.2

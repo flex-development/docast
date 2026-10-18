@@ -1,18 +1,7 @@
 {
-  "name": "@flex-development/docast",
-  "description": "Documentation Abstract Syntax Tree format",
+  "name": "docast",
   "version": "1.0.0-beta.6",
-  "keywords": [
-    "ast",
-    "comment",
-    "doc",
-    "docblock",
-    "markdown",
-    "mdast",
-    "syntax-tree",
-    "unist",
-    "unist-spec"
-  ],
+  "keywords": [],
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/flex-development/docast",
   "repository": "https://github.com/flex-development/docast.git",
@@ -21,19 +10,6 @@
     "name": "Lexus Drumgold",
     "url": "https://github.com/unicornware"
   },
-  "publishConfig": {
-    "access": "public",
-    "diff-dst-prefix": "docast",
-    "diff-src-prefix": "docast",
-    "directory": "./",
-    "executableFiles": [],
-    "node-options": null,
-    "pack-destination": ".",
-    "parseable": true,
-    "prefer-dedupe": true,
-    "provenance": true,
-    "tag-version-prefix": ""
-  },
   "type": "module",
   "files": [
     "CHANGELOG.md",
@@ -41,91 +17,69 @@
     "README.md",
     "dist"
   ],
-  "exports": {
-    ".": {
-      "docast": "./src/index.mts",
-      "default": "./dist/index.d.mts"
-    },
-    "./package.json": "./package.json"
-  },
   "imports": {
-    "#content/*": {
-      "docast": "./src/content/*.mts",
-      "default": "./dist/content/*.d.mts"
-    },
-    "#interfaces/*": {
-      "docast": "./src/interfaces/*.mts",
-      "default": "./dist/interfaces/*.d.mts"
-    },
-    "#mixins/*": {
-      "docast": "./src/mixins/*.mts",
-      "default": "./dist/mixins/*.d.mts"
-    },
-    "#nodes/*": {
-      "docast": "./src/nodes/*.mts",
-      "default": "./dist/nodes/*.d.mts"
-    },
+    "#build/*": "./build/*.mts",
+    "#fixtures/*": "./__fixtures__/*.mts",
     "#tests/*": "./__tests__/*.mts",
-    "#types/*": {
-      "docast": "./src/types/*.mts",
-      "default": "./dist/types/*.d.mts"
-    }
+    "#utils/*": "./utils/*.mts"
   },
-  "types": "./dist/index.d.mts",
   "remarkConfig": {
     "plugins": [
       "@flex-development/remark-preset"
     ]
   },
   "scripts": {
-    "build": "yarn clean:build && yarn build:tsc && yarn build:bundle",
-    "build:bundle": "rollup --config=rollup.config.mts && trash ./dist/*/",
-    "build:tsc": "tsc -p tsconfig.build.json --noEmit false",
-    "check:ci": "yarn dedupe --check && yarn check:format && yarn check:lint && yarn check:spelling && yarn typecheck && yarn check:types && yarn pack && yarn check:types:build && attw --pack && yarn clean:pack",
+    "build": "yarn build:tsc && yarn bundle && yarn workspaces foreach --all run post:build",
+    "build:tsc": "yarn clean:build:tsc --dry && yarn clean:build:tsc && yarn clean:build && tsc --build tsconfig.build.json --verbose --noEmit false",
+    "bundle": "rollup --config=rollup.config.mts && trash \"packages/*/dist/**/*.{d.mts,mjs}\" \"!packages/*/dist/index.{d.mts,mjs}\" && bash ./scripts/delete-empty.sh",
+    "check:ci": "yarn dedupe --check && yarn check:format && yarn check:lint && yarn check:spelling && yarn typecheck && yarn check:types && yarn test:cov && yarn build && yarn check:types:attw && yarn clean:pack",
     "check:format": "dprint check --incremental=false",
     "check:lint": "eslint --exit-on-fatal-error --max-warnings 0 .",
     "check:spelling": "cspell lint --color --no-progress --relative $@ \"**\"",
-    "check:types": "tsc -p tsconfig.test.json",
-    "check:types:build": "tsc -p tsconfig.build.json",
+    "check:types": "tsc -p tsconfig.typecheck.json",
+    "check:types:attw": "bash ./scripts/attw.sh",
     "check:upgrades": "yarn upgrade-interactive",
-    "clean:build": "trash \"./{dist,*.tgz}\" || exit 0",
-    "clean:modules": "trash ./.yarn/{cache,*.gz} ./node_modules",
-    "clean:pack": "trash \"./*.tgz\"",
-    "clean:test": "trash ./coverage && trash __tests__/reports",
+    "clean:build": "trash \"{examples,packages}/*/dist\"",
+    "clean:build:tsc": "tsc --build tsconfig.build.json --clean",
+    "clean:modules": "trash .yarn/{cache/,*.gz} node_modules \"{examples,packages}/*/node_modules\"",
+    "clean:pack": "trash \"*.tgz\" \"packages/*/*.tgz\"",
+    "clean:test": "trash  __tests__/reports .vitest-reports coverage",
+    "codecov:validate": "cat .codecov.yml | curl --data-binary @- https://codecov.io/validate",
     "commitlint": "commitlint -V",
     "fix:cg": "yarn fix:format && yarn fix:lint",
     "fix:dedupe": "yarn dedupe --strategy=highest",
     "fix:format": "dprint fmt",
     "fix:lint": "yarn check:lint --cache --fix",
+    "minify:build": "esbuild packages/*/dist/**/*.mjs --allow-overwrite --minify --keep-names --outdir=packages --entry-names=\"[dir]/[name]\" --format=esm --out-extension:.js=.mjs --log-level=warning",
     "postinstall": "[ -f ./.git ] && [ -f ./node_modules/.bin/husky ] && chmod +x .husky/_/* && husky || exit 0",
-    "postpack": "toggle-scripts +postinstall",
-    "postpublish": "toggle-scripts +prepack",
-    "prepack": "toggle-scripts -postinstall && yarn build",
-    "prepublishOnly": "toggle-scripts -prepack",
+    "prepack": "yarn build",
     "release": "bash ./scripts/release.sh",
     "remark": "remark .",
-    "test": "yarn typecheck",
+    "test": "yarn clean:build; NODE_NO_WARNINGS=1 vitest run",
+    "test:cov": "yarn test --coverage",
+    "test:cov:reports": "yarn test:cov --merge-reports --mode=reports",
+    "test:cov:ui": "yarn test:ui --coverage",
+    "test:cov:upload": "./codecov -t $CODECOV_TOKEN -f ./coverage/lcov.info",
     "test:reports": "yarn test --merge-reports --mode=reports",
     "test:ui": "cross-env VITEST_UI=1 vitest --ui",
-    "typecheck": "yarn clean:build; vitest run --typecheck --mode=typecheck",
-    "typecheck:ui": "yarn clean:build; yarn test:ui --typecheck --mode=typecheck"
-  },
-  "dependencies": {
-    "@flex-development/docmark-util-types": "1.0.0-alpha.20",
-    "@flex-development/unist-util-types": "1.6.1",
-    "@types/mdast": "4.0.4",
-    "@types/unist": "3.0.3"
+    "typecheck": "yarn test --typecheck --mode=typecheck",
+    "typecheck:ui": "yarn test:ui --typecheck --mode=typecheck"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@commitlint/cli": "21.2.3",
+    "@codecov/rollup-plugin": "2.0.1",
+    "@commitlint/cli": "21.2.4",
     "@commitlint/types": "21.2.3",
+    "@edge-runtime/vm": "5.0.0",
+    "@flex-development/colors": "2.0.0",
     "@flex-development/commitlint-config": "1.0.1",
     "@flex-development/eslint-config": "1.1.1",
     "@flex-development/export-regex": "2.0.0",
     "@flex-development/grease": "3.0.0-alpha.9",
     "@flex-development/import-regex": "3.0.0",
+    "@flex-development/mlly": "1.0.0-beta.7",
     "@flex-development/pathe": "4.0.2",
+    "@flex-development/pkg-types": "4.1.0",
     "@flex-development/remark-preset": "1.0.0",
     "@flex-development/tutils": "6.0.0-alpha.25",
     "@rollup/plugin-node-resolve": "16.0.3",
@@ -133,33 +87,49 @@
     "@types/concat-stream": "2.0.3",
     "@types/is-ci": "3.0.4",
     "@types/node-notifier": "8.0.5",
+    "@types/rollup": "0.54.0",
     "@vates/toggle-scripts": "1.0.0",
-    "@vitest/coverage-v8": "5.0.4",
-    "@vitest/ui": "5.0.4",
+    "@vitest/coverage-v8": "5.0.5",
+    "@vitest/runner": "5.0.0-beta.4",
+    "@vitest/ui": "5.0.5",
+    "clean-modules": "4.0.0",
     "concat-stream": "2.0.0",
+    "convert-hrtime": "5.0.0",
     "cross-env": "10.1.0",
-    "cspell": "10.3.6",
+    "cspell": "10.4.0",
+    "delete-empty": "3.0.0",
     "devlop": "1.1.0",
-    "dprint": "0.63.0",
+    "dprint": "0.64.0",
     "editorconfig": "3.0.2",
+    "esbuild": "0.28.2",
     "eslint": "9.39.5",
     "growl": "1.10.5",
+    "happy-dom": "21.0.3",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
     "node-notifier": "11.0.0",
     "pkg-size": "2.4.0",
     "remark": "15.0.1",
     "remark-cli": "12.0.1",
-    "rollup": "4.64.5",
+    "rolldown": "1.2.14",
+    "rollup": "4.64.10",
+    "rollup-plugin-cleanup": "3.2.1",
     "rollup-plugin-dts": "6.5.1",
     "sh-syntax": "0.7.0",
+    "to-vfile": "8.0.0",
     "trash-cli": "7.2.0",
+    "tsx": "4.23.15",
     "typescript": "6.0.3",
     "unified": "11.0.5",
     "vfile": "6.0.3",
     "vite": "8.3.4",
-    "vitest": "5.0.4"
+    "vitest": "5.0.5"
   },
-  "packageManager": "yarn@4.18.1",
-  "sideEffects": false
+  "packageManager": "yarn@4.18.0",
+  "sideEffects": false,
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ]
 }

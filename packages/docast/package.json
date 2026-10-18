@@ -1,0 +1,65 @@
+{
+  "name": "@flex-development/docast",
+  "description": "Documentation Abstract Syntax Tree format",
+  "version": "1.0.0-beta.6",
+  "keywords": [
+    "ast",
+    "comment",
+    "doc",
+    "docblock",
+    "markdown",
+    "mdast",
+    "syntax-tree",
+    "unist",
+    "unist-spec"
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/flex-development/docast/tree/main/packages/docast",
+  "repository": {
+    "directory": "packages/docast",
+    "type": "git",
+    "url": "git+https://github.com/flex-development/docast.git"
+  },
+  "bugs": "https://github.com/flex-development/docast/issues",
+  "author": {
+    "name": "Lexus Drumgold",
+    "url": "https://github.com/unicornware"
+  },
+  "publishConfig": {
+    "access": "public",
+    "diff-dst-prefix": "docast",
+    "diff-src-prefix": "docast",
+    "directory": "./",
+    "executableFiles": [],
+    "node-options": null,
+    "pack-destination": ".",
+    "parseable": true,
+    "prefer-dedupe": true,
+    "provenance": true,
+    "tag-version-prefix": "docast@"
+  },
+  "type": "module",
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "docast": "./src/index.mts",
+      "default": "./dist/index.d.mts"
+    },
+    "./package.json": "./package.json"
+  },
+  "imports": {
+    "#tests/*": "./__tests__/*.mts"
+  },
+  "types": "./dist/index.d.mts",
+  "dependencies": {
+    "@flex-development/docmark-util-types": "1.0.0-alpha.20",
+    "@flex-development/unist-util-types": "1.6.1",
+    "@types/mdast": "4.0.4",
+    "@types/unist": "3.0.3"
+  },
+  "sideEffects": false
+}

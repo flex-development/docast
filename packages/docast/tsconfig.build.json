@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.build.json",
+  "include": ["src/**/**.mts"]
+}

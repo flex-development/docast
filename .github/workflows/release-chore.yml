@@ -30,6 +30,8 @@ on:
   push:
     branches:
       - main
+env:
+  VER_FILTER: to_entries|.[]|[.key,.value]|@tsv
 concurrency:
   cancel-in-progress: true
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,7 +42,10 @@ jobs:
     outputs:
       branch: ${{ steps.branch.outputs.result }}
       message: ${{ steps.message.outputs.result }}
+      tag: ${{ steps.environment.outputs.tag }}
+      tag-prefix: ${{ steps.metadata.outputs.group1 }}
       version: ${{ steps.metadata.outputs.group2 }}
+      version-manifest: ./versions/${{ steps.environment.outputs.tag }}.json
     steps:
       - id: debug
         name: Print environment variables and event payload
@@ -92,13 +97,24 @@ jobs:
         name: Get release tag
         uses: flex-development/gh-release-url-action@2.1.0
         with:
+          tag-prefix: |
+            ${{ steps.metadata.outputs.group1 && format('{0}@', steps.metadata.outputs.group1) || steps.metadata.outputs.group1 }}
           version: ${{ steps.metadata.outputs.group2 }}
       - id: message
         name: Get release message
         run: 'echo "result=release: ${{ steps.environment.outputs.tag }}" >>$GITHUB_OUTPUT'
       - id: branch
         name: Get release branch name
-        run: echo "result=release/${{ steps.metadata.outputs.group2 }}" >>$GITHUB_OUTPUT
+        run: |
+          result=release
+
+          # add package name to release branch name.
+          if [[ -n "${{ steps.metadata.outputs.group1 }}" ]]; then
+            result=$result/${{ steps.metadata.outputs.group1 }}
+          fi
+
+          # add release version to branch name and output final branch name.
+          echo "result=$result/${{ steps.metadata.outputs.group2 }}" >>$GITHUB_OUTPUT
   branch:
     needs: preflight
     runs-on: ubuntu-latest
@@ -153,16 +169,16 @@ jobs:
           HUSKY: 0
         run: yarn --immutable
       - id: local-binaries
-        name: Add local binaries to $PATH
+        name: Add local binaries to path
         run: echo "${{ github.workspace }}/node_modules/.bin" >> ${{ github.path }}
       - id: versions
-        name: Upload version manifest
-        uses: actions/upload-artifact@v7.0.2
-        with:
-          name: ${{ needs.preflight.outputs.version }}.yml
-          path: .yarn/versions/*.yml
+        name: Copy version manifest
+        run: |
+          mkdir -p ./versions
+          yq .releases .yarn/versions/*.yml -o=json\
+          > ${{ needs.preflight.outputs.version-manifest }}
       - id: bump
-        name: Bump manifest version to ${{ needs.preflight.outputs.version }}
+        name: Bump packages
         run: yarn version apply --all --force
       - id: changeset-base-refs
         name: Update `changesetBaseRefs` in .yarnrc.yml
@@ -170,13 +186,48 @@ jobs:
           set -e
           yq '.changesetBaseRefs="${{ needs.preflight.outputs.version }}"' -i .yarnrc.yml
       - id: changelog
-        name: Add CHANGELOG entry for ${{ needs.preflight.outputs.version }}
+        name: Add CHANGELOG entries
         env:
           TZ: ${{ vars.TZ }}
         run: |
           set -e
-          echo "$(grease changelog)" >>$GITHUB_STEP_SUMMARY # add changelog entry to summary.
-          grease changelog -sw # write changelog entry.
+
+          echo Updating changelogs for packages in ${{ needs.preflight.outputs.version-manifest }}
+          echo ''
+          echo ---
+
+          while IFS=$'\t' read -r workspace release; do
+            directory=
+            package=${workspace#@*/}
+
+            echo "workspace: $workspace"
+
+            # get workspace directory.
+            if [[ $workspace != $package ]]; then
+              directory=packages/$package
+            else
+              echo "skipping root workspace."
+              continue
+            fi
+
+            # print package name and release type.
+            echo "package: $package"
+            echo "release: $release"
+            echo ''
+
+            # switch to package directory.
+            cd $directory
+
+            # print changelog entry.
+            echo "$(grease changelog)" >>$GITHUB_STEP_SUMMARY
+            echo ---
+
+            # write changelog entry.
+            grease changelog -sw
+
+            # go back to root directory.
+            cd ../..
+          done < <(jq -r '${{ env.VER_FILTER }}' ${{ needs.preflight.outputs.version-manifest }})
       - id: commit
         name: Commit and push release preparation
         uses: flex-development/gh-commit@1.0.0
@@ -209,18 +260,71 @@ jobs:
           persist-credentials: false
           ref: ${{ needs.preflight.outputs.branch }}
           token: ${{ steps.bot-token.outputs.token }}
+      - id: labels
+        name: Get `package:*` labels
+        run: |
+          set -e
+
+          result='--label=scope:release'
+
+          # aggregate labels into one string.
+          while IFS=$'\t' read -r workspace release; do
+            package=${workspace#@*/}
+
+            # add package labels.
+            if [[ $workspace != $package ]]; then
+              result=$(echo "$result --label=package:$package" | xargs)
+            else
+              continue
+            fi
+          done < <(jq -r '${{ env.VER_FILTER }}' ${{ needs.preflight.outputs.version-manifest }})
+
+          # output final set of labels.
+          echo "result=$result" >>$GITHUB_OUTPUT
+      - id: description
+        name: Generate description
+        run: |
+          set -e
+
+          result='- bumped `changesetBaseRefs` to `${{ needs.preflight.outputs.version }}`
+          - bumped manifest versions'
+
+          while IFS=$'\t' read -r workspace release; do
+            result="$result
+             - bumped \`$workspace\` to \`$release\`"
+          done < <(jq -r '${{ env.VER_FILTER }}' '${{ needs.preflight.outputs.version-manifest }}')
+
+          result="$result
+          - added \`CHANGELOG\` entries"
+
+          while IFS=$'\t' read -r workspace release; do
+            package=${workspace#@*/}
+
+            # skip the root workspace.
+            if [[ $workspace == $package ]]; then
+              continue
+            fi
+
+            result="$result
+             - \`$workspace\`"
+          done < <(jq -r '${{ env.VER_FILTER }}' '${{ needs.preflight.outputs.version-manifest }}')
+
+          # output pr description.
+          {
+            echo 'result<<EOF'
+            echo "$result"
+            echo EOF
+          } >>$GITHUB_OUTPUT
       - id: pr
         name: Create pull request
         env:
           GITHUB_TOKEN: ${{ steps.bot-token.outputs.token }}
         run: |
-          gh pr create --title='${{ needs.preflight.outputs.message }}' --label=scope:release --assignee=${{ github.actor }} --reviewer=${{ github.actor }} --body='## Description
+          gh pr create --title='${{ needs.preflight.outputs.message }}' ${{ steps.labels.outputs.result }} --assignee=${{ github.actor }} --reviewer=${{ github.actor }} --body='## Description
 
           <!-- A clear and concise description of your changes. -->
 
-          - bumped manifest version to `${{ needs.preflight.outputs.version }}`
-          - bumped `changesetBaseRefs` to `${{ needs.preflight.outputs.version }}`
-          - added `CHANGELOG` entry for `${{ needs.preflight.outputs.version }}`
+          ${{ steps.description.outputs.result }}
 
           ## Linked issues
 

@@ -5,13 +5,29 @@
  */
 
 import Notifier from '#tests/reporters/notifier'
+import listExamples from '#utils/list-examples'
+import listWorkspaces from '#utils/list-workspaces'
+import {
+  lookupPackageScope,
+  resolveModule,
+  toUrl
+} from '@flex-development/mlly'
 import pathe from '@flex-development/pathe'
+import { ok } from 'devlop'
 import ci from 'is-ci'
+import type { Dirent } from 'node:fs'
+import type { PluginContext, ResolveIdResult } from 'rolldown'
+import type { LabelColor } from 'vitest'
 import {
   defineConfig,
   type ConfigEnv,
+  type TestProjectInlineConfiguration,
   type ViteUserConfig
 } from 'vitest/config'
+import type {
+  BuiltinEnvironment,
+  ResolveSnapshotPathHandlerContext
+} from 'vitest/node'
 import pkg from './package.json' with { type: 'json' }
 import tsconfig from './tsconfig.json' with { type: 'json' }
 
@@ -31,18 +47,190 @@ export default defineConfig(config)
  *  The vitest configuration object
  */
 function config(this: void, env: ConfigEnv): ViteUserConfig {
+  /**
+   * The list of workspace directories.
+   *
+   * @const {ReadonlyArray<Dirent>} workspaces
+   */
+  const workspaces: readonly Dirent[] = [...listWorkspaces(), ...listExamples()]
+
   return {
-    resolve: {
-      conditions: tsconfig.compilerOptions.customConditions
-    },
+    plugins: [
+      {
+        enforce: 'pre',
+        name: 'resolve:docast',
+
+        /**
+         * Resolve the module id of a workspace package.
+         *
+         * @this {PluginContext}
+         *
+         * @param {string} id
+         *  The module id to resolve
+         * @param {string | undefined} parent
+         *  The path to the importing (parent) module
+         * @return {ResolveIdResult}
+         *  The resolution result
+         */
+        resolveId(
+          this: PluginContext,
+          id: string,
+          parent: string | undefined
+        ): ResolveIdResult {
+          if (parent && id.startsWith('@flex-development/docast')) {
+            /**
+             * The resolved module URL.
+             *
+             * @const {URL} url
+             */
+            const url: URL = resolveModule(id, toUrl(parent), {
+              // @ts-expect-error valid conditions (2322).
+              conditions: tsconfig.compilerOptions.customConditions
+            })
+
+            /**
+             * The URL of the package directory.
+             *
+             * @const {URL | null} scope
+             */
+            const scope: URL | null = lookupPackageScope(url)
+
+            if (scope) {
+              return {
+                external: false,
+                id: url.pathname,
+                packageJsonPath: scope.pathname + 'package.json'
+              }
+            }
+          }
+
+          return void id
+        }
+      }
+    ],
     test: {
-      include: ['src/**/__tests__/*.spec-d.mts'],
+      allowOnly: !ci,
+      chaiConfig: {
+        includeStack: true,
+        showDiff: true,
+        truncateThreshold: 0
+      },
+      clearMocks: true,
+      coverage: {
+        clean: true,
+        cleanOnRerun: true,
+        exclude: [
+          '**/*.d.mts',
+          '**/__fixtures__/',
+          '**/__mocks__/',
+          '**/__tests__/',
+          '**/interfaces/',
+          '**/types/',
+          'examples/',
+          'packages/docast/',
+          'packages/docast-compiler-types/'
+        ],
+        ignoreClassMethods: [],
+        include: ['packages/**/src/**/*.mts'],
+        provider: 'v8',
+        reportOnFailure: !ci,
+        reporter: env.mode === 'reports'
+          ? ['text']
+          : ['html', 'json-summary', 'lcov', 'text'],
+        reportsDirectory: './coverage',
+        skipFull: false,
+        thresholds: { 100: true, perFile: true }
+      },
+      fsModuleCache: true,
+      globalSetup: [],
+      include: ['**/__tests__/*.spec.mts'],
+      mockReset: true,
       outputFile: {
         blob: pathe.join('.vitest-reports', env.mode + '.blob.json'),
         json: pathe.join('__tests__', 'reports', env.mode + '.json'),
         junit: pathe.join('__tests__', 'reports', env.mode + '.junit.xml')
       },
       passWithNoTests: true,
+      projects: workspaces.flatMap((
+        workspace: Dirent,
+        groupOrder: number
+      ): TestProjectInlineConfiguration[] => {
+        const { customConditions } = tsconfig.compilerOptions
+
+        /**
+         * The list of environments to test in.
+         *
+         * @const {BuiltinEnvironment[]} environments
+         */
+        const environments: BuiltinEnvironment[] = [
+          'node',
+          'edge-runtime',
+          'happy-dom'
+        ]
+
+        return environments.map(environment => {
+          /**
+           * The list of conditions to apply.
+           *
+           * @const {string[]} conditions
+           */
+          const conditions: string[] = Object.assign([], customConditions)
+
+          /**
+           * The color of the project name label.
+           *
+           * @var {LabelColor} color
+           */
+          let color: LabelColor
+
+          switch (environment) {
+            case 'edge-runtime':
+              color = 'magenta'
+              break
+            case 'happy-dom':
+              // @ts-expect-error blueBright is a valid color (2322).
+              color = env.mode === 'typecheck' ? 'blueBright' : 'blue'
+              conditions.unshift('browser')
+              break
+            default:
+              color = 'blackBright' as LabelColor
+              break
+          }
+
+          return {
+            extends: true as const,
+            mode: env.mode === 'reports'
+              ? env.mode
+              : workspace.name === 'docast' || workspace.name.endsWith('-types')
+              ? 'typecheck'
+              : env.mode,
+            resolve: {
+              conditions,
+              preserveSymlinks: true,
+              tsconfigPaths: true
+            },
+            root: pathe.join(workspace.parentPath, workspace.name),
+            ssr: { resolve: { conditions } },
+            test: {
+              env: { VITEST_ENVIRONMENT: environment },
+              environment,
+              environmentOptions: {},
+              name: { color, label: workspace.name + ':' + environment },
+              sequence: { groupOrder },
+              setupFiles: [],
+              typecheck: {
+                allowJs: false,
+                checker: 'tsc',
+                enabled: env.mode === 'typecheck',
+                ignoreSourceErrors: false,
+                include: ['**/__tests__/*.spec-d.mts'],
+                only: true,
+                tsconfig: pathe.resolve('tsconfig.typecheck.json')
+              }
+            }
+          }
+        })
+      }),
       reporters: JSON.parse(process.env['VITEST_UI'] ?? '0')
         ? [new Notifier(), ['tree']]
         : env.mode === 'reports'
@@ -54,15 +242,57 @@ function config(this: void, env: ConfigEnv): ViteUserConfig {
           ['junit', { suiteName: pkg.name }],
           ['tree']
         ],
-      typecheck: {
-        allowJs: false,
-        checker: 'tsc',
-        enabled: env.mode === 'typecheck',
-        ignoreSourceErrors: false,
-        include: ['**/__tests__/*.spec-d.mts'],
-        only: true,
-        tsconfig: 'tsconfig.test.json'
-      }
+      /**
+       * Store snapshots next to the directory of `file`.
+       *
+       * @this {void}
+       *
+       * @param {string} file
+       *  The path to the test file
+       * @param {string} extension
+       *  The snapshot file extension
+       * @param {ResolveSnapshotPathHandlerContext} context
+       *  The snapshot path handler context
+       * @return {string}
+       *  The custom snapshot path
+       */
+      resolveSnapshotPath(
+        this: void,
+        file: string,
+        extension: string,
+        context: ResolveSnapshotPathHandlerContext
+      ): string {
+        const { VITEST_ENVIRONMENT: environment } = context.config.env
+
+        ok(typeof environment === 'string', 'expected `VITEST_ENVIRONMENT`')
+        ok(environment, 'expected `VITEST_ENVIRONMENT`')
+
+        return pathe.resolve(
+          pathe.dirname(pathe.dirname(file)),
+          pathe.join('__snapshots__', environment),
+          pathe.basename(file).replace(/\.spec.mts/, '') + extension
+        )
+      },
+      restoreMocks: true,
+      server: {
+        deps: { // required to apply custom conditions to external deps.
+          inline: [
+            '@flex-development/pathe',
+            '@flex-development/unist-util-inspect',
+            'devlop'
+          ]
+        }
+      },
+      setupFiles: [],
+      snapshotFormat: {
+        callToJSON: true,
+        min: false,
+        printBasicPrototype: false,
+        printFunctionName: true
+      },
+      snapshotSerializers: [],
+      unstubEnvs: true,
+      unstubGlobals: true
     }
   }
 }

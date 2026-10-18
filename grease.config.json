@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/flex-development/grease/main/grease.schema.json",
+  "$schema": "https://raw.githubusercontent.com/flex-development/grease/refs/tags/grease@3.0.0-alpha.9/grease.schema.json",
   "tag": {
     "message": "release: {tag}",
-    "prefix": "",
     "sign": true
-  }
+  },
+  "tagprefix": ""
 }

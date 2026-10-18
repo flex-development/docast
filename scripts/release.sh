@@ -7,17 +7,19 @@ set -e
 # References:
 #
 # - https://git-scm.com/docs/git-commit
+# - https://jqlang.org/manual
 
-VERSION_MANIFEST=.yarn/versions/*.yml
+ROOT_DIRECTORY=${PROJECT_CWD:-$PWD}
+VERSION_MANIFEST=$ROOT_DIRECTORY/.yarn/versions/*.yml
 
 if compgen -G $VERSION_MANIFEST >/dev/null; then
   echo "[READY] version manifest found"
 else
-  echo "[ERROR] missing version manifest"
+  echo "[ERROR] missing version manifest."
   exit 1
 fi
 
-RELEASE=$(yq .releases.$(jq -r .name ./package.json) $VERSION_MANIFEST)
+RELEASE=$(yq .releases.$(jq -r .name $ROOT_DIRECTORY/package.json) $VERSION_MANIFEST)
 echo "[READY] creating release chore commit for $RELEASE"
 
 git add $VERSION_MANIFEST

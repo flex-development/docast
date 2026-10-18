@@ -36,8 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       command: ${{ steps.command.outputs.result }}
-      package: ${{ steps.package.outputs.result }}
-      version: ${{ steps.version.outputs.manifest }}
+      package: ${{ steps.metadata.outputs.group1 }}
+      version: ${{ steps.metadata.outputs.group2 }}
+      workspace: ${{ format('@{0}/{1}', github.repository_owner, steps.metadata.outputs.group1) }}
     steps:
       - id: debug
         name: Print environment variables and event payload
@@ -48,31 +49,41 @@ jobs:
         with:
           persist-credentials: false
           ref: ${{ github.ref }}
-      - id: package
-        name: Get package name
-        uses: flex-development/jq-action@1.0.0
+      - id: metadata
+        name: Extract release metadata
+        uses: kaisugi/action-regex-match@v1.0.2
         with:
-          data: package.json
-          filter: .name
-      - id: version
-        name: Get release version
-        uses: flex-development/manver-action@1.1.0
+          flags: u
+          regex: ${{ vars.RELEASE_REGEX }}
+          text: ${{ format('release:{0}', github.event.release.name) }}
+      - id: fail-release-name
+        if: steps.metadata.outputs.match == ''
+        name: Fail on invalid release name
+        run: |
+          ERR='**Invalid release name**
+          ```sh
+          release:${{ github.event.release.name }}
+          ```
+          Formatted name must match [`${{ vars.RELEASE_REGEX }}`](https://regex101.com/r/3gxjZI)'
+          echo "$ERR" >>$GITHUB_STEP_SUMMARY
+          exit 1
+      - id: dist
+        name: Get dist tag
+        uses: flex-development/dist-tag-action@1.1.2
+        with:
+          target: ${{ steps.metadata.outputs.group2 }}
       - id: artifact
         name: Get release artifact download url
         uses: flex-development/gh-release-url-action@2.1.0
         with:
           artifact: |
-            ${{ format('@{0}-{1}-{2}.tgz', github.repository_owner, github.event.repository.name, steps.version.outputs.manifest) }}
-          version: ${{ steps.version.outputs.manifest }}
-      - id: dist
-        name: Get dist tag
-        uses: flex-development/dist-tag-action@1.1.2
-        with:
-          target: ${{ steps.version.outputs.manifest }}
+            ${{ format('@{0}-{1}-{2}.tgz', github.repository_owner, steps.metadata.outputs.group1, steps.metadata.outputs.group2) }}
+          tag-prefix: ${{ format('{0}@', steps.metadata.outputs.group1) }}
+          version: ${{ steps.metadata.outputs.group2 }}
       - id: command
         name: Get publish command
         run: |
-          echo "result=npm publish --provenance ${{ steps.artifact.outputs.artifact }} ${{ steps.dist.outputs.flag }}" >>$GITHUB_OUTPUT
+          echo "result=npm publish --provenance ${{ steps.dist.outputs.flag }} ${{ steps.artifact.outputs.artifact }}" >>$GITHUB_OUTPUT
   gpr:
     needs: preflight
     permissions:
@@ -89,6 +100,8 @@ jobs:
       - id: environment
         name: Get environment url
         uses: flex-development/ghr-url-action@1.1.0
+        with:
+          pkg: ${{ needs.preflight.outputs.package }}
       - id: checkout
         name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v7.0.1
@@ -111,7 +124,7 @@ jobs:
       - id: latest
         name: Set latest version
         run: |
-          release=${{ needs.preflight.outputs.package }}@${{ needs.preflight.outputs.version }}
+          release=${{ needs.preflight.outputs.workspace }}@${{ needs.preflight.outputs.version }}
           npm dist-tag add $release latest
   npm:
     needs: preflight
@@ -130,6 +143,7 @@ jobs:
         name: Get environment url
         uses: flex-development/npm-url-action@1.0.0
         with:
+          pkg: ${{ needs.preflight.outputs.package }}
           scope: ${{ github.repository_owner }}
           version: ${{ needs.preflight.outputs.version }}
       - id: checkout
@@ -154,5 +168,5 @@ jobs:
       - id: latest
         name: Set latest version
         run: |
-          release=${{ needs.preflight.outputs.package }}@${{ needs.preflight.outputs.version }}
+          release=${{ needs.preflight.outputs.workspace }}@${{ needs.preflight.outputs.version }}
           npm dist-tag add $release latest

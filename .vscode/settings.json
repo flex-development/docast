@@ -1,4 +1,14 @@
 {
+  "[abnf]": {
+    "editor.rulers": [
+      {
+        "color": "var(--vscode-editorRuler-foreground)",
+        "column": 130
+      }
+    ],
+    "editor.wordWrapColumn": 130,
+    "rewrap.wrappingColumn": 130
+  },
   "[github-actions-workflow]": {
     "editor.rulers": [
       {
@@ -145,6 +155,16 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**/dist/**": true,
+    "**/node_modules/**": true,
+    "*/.git/objects/**": true,
+    "*/.git/subtree-cache/**": true,
+    "*/.hg/store/**": true,
+    ".git/objects/**": true,
+    ".git/subtree-cache/**": true,
+    ".hg/store/**": true
+  },
   "git.autofetch": true,
   "git.enableSmartCommit": true,
   "githubPullRequests.pullBranch": "never",
@@ -163,6 +183,10 @@
   "js/ts.suggest.jsdoc.generateReturns": true,
   "js/ts.suggest.paths": true,
   "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+  "js/ts.tsserver.log": "verbose",
+  "js/ts.tsserver.maxMemory": 8192,
   "js/ts.updateImportsOnFileMove.enabled": "always",
   "markdown.extension.toc.slugifyMode": "github",
   "markdown.extension.toc.updateOnSave": false,
