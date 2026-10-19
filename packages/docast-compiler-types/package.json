@@ -46,14 +46,27 @@
       "docast": "./src/index.mts",
       "default": "./dist/index.d.mts"
     },
+    "./mark/*": {
+      "docast": "./typings/mark/*/index.d.mts",
+      "default": "./dist/typings/mark/*/index.d.mts"
+    },
+    "./mdast": {
+      "docast": "./typings/mdast/index.d.mts",
+      "default": "./dist/typings/mdast/index.d.mts"
+    },
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.mts",
+  "scripts": {
+    "post:build": "cp -r typings dist"
+  },
   "dependencies": {
-    "@flex-development/docast": "workspace:1.0.0-beta.6"
+    "@flex-development/docast": "workspace:1.0.0-beta.6",
+    "@flex-development/docmark-util-types": "1.0.0-alpha.20"
   },
   "devDependencies": {
-    "@flex-development/mark": "1.0.0-alpha.12"
+    "@flex-development/mark": "1.0.0-alpha.12",
+    "@flex-development/mdast-util-from-markdown": "2.0.0"
   },
   "sideEffects": false
 }

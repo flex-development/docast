@@ -31,6 +31,15 @@ const config = [
     rules: {
       '@typescript-eslint/no-redundant-type-constituents': 0
     }
+  },
+  {
+    files: [
+      'packages/docast-compiler-types/src/handle.mts',
+      'packages/docast-compiler-types/src/transform.mts'
+    ],
+    rules: {
+      '@typescript-eslint/no-invalid-void-type': 0
+    }
   }
 ]
 
