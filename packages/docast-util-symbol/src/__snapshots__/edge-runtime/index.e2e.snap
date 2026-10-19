@@ -1,3 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`e2e:docast-util-symbol > should expose public api 1`] = `[]`;
+exports[`e2e:docast-util-symbol > should expose public api 1`] = `
+[
+  "nodes",
+  "nt",
+]
+`;

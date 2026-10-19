@@ -50,14 +50,14 @@ yarn add @flex-development/docast-util-symbol
 In Deno with [`esm.sh`][esmsh]:
 
 ```ts
-import { } from 'https://esm.sh/@flex-development/docast-util-symbol'
+import { nt } from 'https://esm.sh/@flex-development/docast-util-symbol'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import { } from 'https://esm.sh/@flex-development/docast-util-symbol'
+  import { nt } from 'https://esm.sh/@flex-development/docast-util-symbol'
 </script>
 ```
 
@@ -67,7 +67,7 @@ In browsers with [`esm.sh`][esmsh]:
 
 ## API
 
-This package exports the identifiers `nodes` and `nt`.\
+This package exports the identifier `nt` (also exported as `nodes`).\
 There is no default export.
 
 Each identifier is an object mapping strings to values.\

@@ -8,7 +8,8 @@ import type { Node } from 'unist'
 /**
  * Create an object mapping a node type to a node.
  *
- * @template {Node} T - Node to map
+ * @template {Node} T
+ *  The node to map
  */
 type NodeObject<T extends Node> = { [K in T['type']]: T }
 
