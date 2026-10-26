@@ -56,7 +56,7 @@
   },
   "types": "./dist/index.d.mts",
   "dependencies": {
-    "@flex-development/docmark-util-types": "1.0.0-alpha.21",
+    "@flex-development/docmark-util-types": "1.0.0-alpha.22",
     "@flex-development/unist-util-types": "1.6.1",
     "@types/mdast": "4.0.4",
     "@types/unist": "3.0.3"
