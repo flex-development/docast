@@ -52,7 +52,7 @@
     "@flex-development/docast": "workspace:1.0.0-beta.6",
     "@flex-development/docast-compiler-types": "workspace:0.0.0",
     "@flex-development/docast-util-symbol": "workspace:0.0.0",
-    "@flex-development/docmark": "1.0.0-alpha.23",
+    "@flex-development/docmark": "1.0.0-alpha.24",
     "@flex-development/docmark-util-symbol": "1.0.0-alpha.13",
     "@flex-development/docmark-util-types": "1.0.0-alpha.22",
     "@flex-development/mark": "1.0.0-alpha.12",
