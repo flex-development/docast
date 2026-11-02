@@ -107,7 +107,7 @@
     "happy-dom": "21.0.4",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
-    "node-notifier": "11.0.0",
+    "node-notifier": "12.0.0",
     "pkg-size": "2.4.0",
     "remark": "15.0.1",
     "remark-cli": "12.0.1",
