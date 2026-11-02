@@ -1734,7 +1734,7 @@ __metadata:
   dependencies:
     "@flex-development/docast": "workspace:1.0.0-beta.6"
     "@flex-development/docmark-util-types": "npm:1.0.0-alpha.22"
-    "@flex-development/mark": "npm:1.0.0-alpha.12"
+    "@flex-development/mark": "npm:1.0.0-alpha.13"
     "@flex-development/mdast-util-from-markdown": "npm:2.0.0"
   languageName: unknown
   linkType: soft
@@ -1749,8 +1749,8 @@ __metadata:
     "@flex-development/docmark": "npm:1.0.0-alpha.24"
     "@flex-development/docmark-util-symbol": "npm:1.0.0-alpha.13"
     "@flex-development/docmark-util-types": "npm:1.0.0-alpha.22"
-    "@flex-development/mark": "npm:1.0.0-alpha.12"
-    "@flex-development/mark-compiler": "npm:1.0.0-alpha.10"
+    "@flex-development/mark": "npm:1.0.0-alpha.13"
+    "@flex-development/mark-compiler": "npm:1.0.0-alpha.11"
     "@flex-development/mdast-util-from-markdown": "npm:2.0.0"
     "@flex-development/unist-util-builder": "npm:2.0.0"
     "@flex-development/unist-util-inspect": "npm:1.1.0"
@@ -2075,6 +2075,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/mark-compiler@npm:1.0.0-alpha.11":
+  version: 1.0.0-alpha.11
+  resolution: "@flex-development/mark-compiler@npm:1.0.0-alpha.11"
+  dependencies:
+    "@flex-development/mark": "npm:1.0.0-alpha.13"
+    "@flex-development/mark-util-symbol": "npm:1.0.0-alpha.13"
+    "@flex-development/unist-util-builder": "npm:2.0.0"
+    "@flex-development/unist-util-stringify-position": "npm:1.0.1"
+    devlop: "npm:1.1.0"
+  checksum: 10/c36b8b115576e7071979b1161e0c1157b1cfcef6ead0e89d82eb15b1f539a02d44d21d31f32eac0e3cd2d24579167d85e9e21c1a6cf9cb3c235ff677d2d2be05
+  languageName: node
+  linkType: hard
+
 "@flex-development/mark-parser@npm:1.0.0-alpha.20":
   version: 1.0.0-alpha.20
   resolution: "@flex-development/mark-parser@npm:1.0.0-alpha.20"
@@ -2110,6 +2123,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@flex-development/mark-util-symbol@npm:1.0.0-alpha.13":
+  version: 1.0.0-alpha.13
+  resolution: "@flex-development/mark-util-symbol@npm:1.0.0-alpha.13"
+  checksum: 10/344db6bfee324a0d70e51c7c835591277aa46dd043c775c4bc1d443aac7d51c67e86e94e8e6470b917e1d628f4fbd74bde738db2eb2261496c9b9e0ee42c54db
+  languageName: node
+  linkType: hard
+
 "@flex-development/mark-util-symbol@npm:3.0.0":
   version: 3.0.0
   resolution: "@flex-development/mark-util-symbol@npm:3.0.0"
@@ -2141,6 +2161,16 @@ __metadata:
     "@flex-development/unist-util-types": "npm:1.6.1"
     "@types/unist": "npm:3.0.3"
   checksum: 10/c96a84760f6171e29660485b4f719f85add4918c565538c9fc6fe175876469169ebab349f4f7f0dd03649facdb42287c66b8585c0c74fdf53d505688da10402f
+  languageName: node
+  linkType: hard
+
+"@flex-development/mark@npm:1.0.0-alpha.13":
+  version: 1.0.0-alpha.13
+  resolution: "@flex-development/mark@npm:1.0.0-alpha.13"
+  dependencies:
+    "@flex-development/unist-util-types": "npm:1.6.1"
+    "@types/unist": "npm:3.0.3"
+  checksum: 10/e77a1039d16354e122f3f35b02216794c22b1a035c45ea1ceca16dc574f8006feff95e7ecb50c1791161c8273db1250eda78673155db73f1a860a277e85ef71c
   languageName: node
   linkType: hard
 

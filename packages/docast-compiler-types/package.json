@@ -65,7 +65,7 @@
     "@flex-development/docmark-util-types": "1.0.0-alpha.22"
   },
   "devDependencies": {
-    "@flex-development/mark": "1.0.0-alpha.12",
+    "@flex-development/mark": "1.0.0-alpha.13",
     "@flex-development/mdast-util-from-markdown": "2.0.0"
   },
   "sideEffects": false
